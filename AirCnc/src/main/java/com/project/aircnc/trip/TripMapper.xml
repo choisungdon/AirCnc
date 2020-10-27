@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.aircnc.trip.TripMapper">
+	<select id="selReser" parameterType="TUserVO" resultType="TripVO">
+		SELECT a.I_RESER, a.i_host, a.i_user, a.check_in AS chin, a.check_out AS chout,
+				a.GEST_QTY AS qty, a.total_FEE, 
+				b.ROOM_TITLE, b.ADDR, c.CHECKIN_T, c.FINICH_T, d.IMG_URL, a.reser_state
+		FROM user_reser a
+		INNER JOIN host_user b
+		ON a.i_host = b.i_host
+		INNER JOIN check_inout c
+		ON a.I_HOST = c.I_HOST 
+		INNER JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) d 
+		ON a.i_host = d.i_host
+		WHERE a.i_user = #{i_user}
+		AND a.check_out >= DATE_FORMAT(NOW(),'%Y-%m-%d')
+		ORDER BY a.R_DT ASC
+	</select>
+	
+	<select id="selBfReser" parameterType="TUserVO" resultType="TripVO">
+		SELECT a.I_RESER, a.i_host, a.i_user, a.check_in AS chin, a.check_out AS chout,
+		a.GEST_QTY AS qty, a.total_FEE, 
+		b.ROOM_TITLE, b.ADDR, c.CHECKIN_T, c.FINICH_T, d.IMG_URL, IFNULL(e.I_CONTENTS,0) as review_state
+		FROM user_reser a
+		INNER JOIN host_user b
+		ON a.i_host = b.i_host
+		INNER JOIN check_inout c
+		ON a.I_HOST = c.I_HOST 
+		INNER JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) d 
+		ON a.i_host = d.i_host
+		LEFT JOIN host_review e
+		ON a.I_RESER = e.i_reser
+		AND a.I_HOST = e.I_HOST
+		AND a.I_USER = e.I_USER
+		WHERE a.i_user = #{i_user}
+		<![CDATA[
+		AND a.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+		]]>
+		ORDER BY a.R_DT ASC
+	</select>
+</mapper>

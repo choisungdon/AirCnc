@@ -1,0 +1,365 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+
+}
+
+#container #join {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 900;
+    background-color: rgba(150, 150, 150, 0.5);
+    display: none;
+}
+#container #join .flex {
+   height: 100%;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+    align-items: center;
+}
+#container .popup {
+    background-color: white;
+    opacity: 100%;
+    width: 600px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+#container .popup .joinTitle {
+    border-bottom: 1px solid lightgrey;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70px;
+    position: relative;
+    font-weight: bold;
+    font-size: 17px;
+}
+#container .popup .joinTitle .joinClose {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    font-size: 17px;
+    text-align: center;
+    line-height: 30px;
+    vertical-align: middle;
+}
+#container .popup .joinCore {
+    padding: 28px 28px;
+}
+#container .popup .joinCore .line {
+    color: lightgrey;
+    text-align: center;
+    margin: 10px 0px;
+}
+#container .popup .joinCore .mailJoin {
+    width: 550px;
+    height: 50px;
+    background-color: #FB607F;
+    color: white;
+    text-align: center;
+    line-height: 50px;
+    vertical-align: middle;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top : 20px;
+    margin-bottom: 20px;
+}
+#container #join .popup #showJoin {
+    display: block;
+}
+#container #join .popup #joinSubmit {
+   display: none;
+}
+#container #join .popup .joinCore .joinFooter {
+    font-size: 15px;
+}
+#container .popup .joinCore .jToL {
+    color: teal;
+    font-weight: bold;
+}
+#container #join .popup .joinCore .joinBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#container .popup .joinCore input {
+    box-sizing: border-box;
+    width: 550px;
+    height: 48px;
+    padding: 0px 10px;
+    margin: 8px 0px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    font-size: 16px;
+}
+#container #join .popup .joinCore #JST {
+    text-align: center;
+}
+#container #join .popup .joinCore #birthTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 5px;
+}
+#container #join .popup .joinCore .birthCtnt {
+    font-size: 14px;
+    margin: 10px 5px;
+    color: grey;
+}
+#container #join .popup .joinCore .birthCtnt input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    top: 2px;
+    margin: 20px 0px;
+}
+
+#container #login {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(150, 150, 150, 0.5);
+    z-index: 900;
+    display: none;
+}
+#container #login .flex {
+    height: 100%;
+   display: flex;
+   flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+header {
+    height: 60px;
+    line-height : 60px;
+    vertical-align: middle;
+    text-align: center;
+    background-color: white;
+    text-decoration: underline;
+}
+#core {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    flex-grow: 1;
+    background-image: url('/resources/img/index.webp');
+    background-repeat: no-repeat;
+    background-size: cover; 
+    background-position-x: center;
+    background-position-y: bottom;
+}
+#core #logo{
+    position: absolute;
+    height: 30px;
+    top: 20px;
+    left: 70px;
+}
+#core #menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 80px;
+    list-style: none;
+    color: white;
+    font-weight: bold;
+}
+#core #menu .menuli {
+    float:left;
+    line-height: 80px;
+    vertical-align: middle;
+    text-align: center;
+    margin: 0px 20px;
+}
+
+#core #menubutton {
+    background-color: white;
+    height: 43px;
+    width: 80px;
+    border-radius: 20px;
+    position: absolute;
+    top: 20px;
+    right: 70px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#core #menubutton #ham {
+    height: 15px;
+    position: relative;
+    top: 2px;
+    left: 5px;
+}
+
+#core #menubutton #profile {
+    width: 34px;
+    height: 34px;
+    border-radius: 70%;
+    overflow: hidden;
+    background-color: salmon;
+    border: solid 1px #DDDDDD;
+    
+}
+#core #menubutton #profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+ /*js myMenu()함수에서  display = 'block' 으로 바뀜*/
+#core #menuctnt {
+   display: none;
+    background-color: white;
+    border-radius: 13px;
+    margin: 0px;
+    padding: 8px 0px;
+    overflow: hidden;
+    position: absolute;
+    top: 75px;
+    right: 70px;
+    
+}
+
+#core #menuctnt li {
+    list-style: none;
+    padding: 10px 15px;
+}
+#core #menuctnt .b {
+   font-weight: bold;
+}
+#core #menuctnt .line {
+    color: #e5e5e5;
+}
+
+#core #search {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 850px;
+    border-radius: 40px;
+    list-style: none;
+    background-color: white;
+    padding: 12px;
+}
+#core #search .sli {
+    flex-grow: 1;
+    float: left;
+    padding-left: 35px;
+    border-right: lightgray solid 1px;
+}
+#core #search .sli:nth-child(4) {
+    border-right: none;
+}
+#core #search .sli:last-child{
+    border-right: none;
+}
+#core #search .sli .searchin {
+    border: none;
+    background: none;
+}
+
+#autoComplete {
+    background-color: yellow;
+}
+
+#core #search #sbutton {
+    width: 47px;
+    height: 47px;
+    border-radius: 70%;
+    background-color: rgb(255, 56, 92);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#core #search #sbutton:hover {
+    box-shadow: 0 5px 10px #e993a4;
+}
+#core #search #sbutton i {
+    font-size: 15px;
+    color: white;
+}
+#core #search .sli #mannum {
+    width: 100px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}      
+button {
+    height: 25px;
+    width: 25px;
+    border-radius: 40px;
+    border: none;
+    cursor: pointer;
+}
+button:focus {
+    outline: none;
+}
+input[type=number]{
+    width: 20px;
+    border: none;
+}
+input:focus {
+    outline: none;
+}
+
+.popup .joinTitle .joinClose:hover {
+    background-color: #e5e5e5;
+    cursor: pointer;
+}
+.popup .joinCore .mailJoin:hover {
+    cursor: pointer;
+}
+.popup .jToL:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+#core #logo:hover {
+    cursor: pointer;
+}
+#core #menu:hover {
+    cursor: pointer;
+}
+#core #menubutton:hover {
+    cursor: pointer;
+}
+#core #menuctnt li:hover {
+    cursor: pointer;
+    background-color: #e5e5e5;
+}
+#core #search:hover {
+    cursor: pointer;
+}
+#core #search label:hover {
+    cursor: pointer;
+}
+
+.erro{
+	font-size: 14px;
+	font-weight: 600;
+	color: rgb(217, 57, 0);
+}
+
+.erro1{
+	font-size: 14px;
+	font-weight: 600;
+	color: rgb(217, 57, 0);
+}

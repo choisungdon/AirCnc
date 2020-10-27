@@ -1,0 +1,1123 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width:100%; 
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.container1{
+    flex-grow: 4;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.container2{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 4;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+footer{
+    flex-grow: 1;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 15px;
+    margin-right: 15px;
+    background-color: rgb(112, 112, 112);
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+
+header{
+    flex-grow: 1;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+
+}
+
+/***********************sub_header**********************/
+header > .sub_header{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub_header > .logo{
+    margin-top: 10px;
+}
+
+.sub_header > .top_menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #DDDDDD !important;
+    padding: 5px 5px 5px 12px !important;
+    border-radius: 2em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.sub_header > .top_menu:hover{
+    box-shadow: 2px 2px 2px 2px rgba(109, 108, 108, 0.2);
+}
+.top_menu > .my_profile {
+    margin-left: 10px;
+}
+.top_menu > .my_profile{
+    border-radius: 50% !important;
+}
+.top_menu > .drop_menu{
+    position: absolute;
+    right: 130px;
+    top: 50px;
+    width: 256px;
+    height: 309px;
+    border: 1px solid #DDDDDD !important;
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display: none;
+    background-color: white;
+    z-index: 3;
+
+    
+}
+
+.drop_menu > .main_menu{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.main_menu > .menu_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    border-bottom:  1px solid #DDDDDD !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.menu_item > div{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu_item > div:hover{
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    background-color: #e5e5e5;
+}
+
+
+header > .searchItem{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.searchItem > .sch_items {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border : solid 1px  rgb(221, 221, 221);
+    border-radius: 2em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+
+}
+
+.sch_items > span {
+    border-left: solid 1px rgb(221, 221, 221);
+}
+
+.sch_items > span > div,input{
+    margin-left: 10px;
+}
+
+.sch_items > .local{
+    border: none;
+}
+
+.sch_items > span > input{
+    border:none;
+}
+
+.sch_items > span > input:focus 
+{
+    outline:none;
+}
+
+.sch_font{
+    font-weight: 800;
+    font-size: 12px;
+}
+
+.sch_input_num > input{
+    border: none;
+    margin-left: 0px;
+}
+
+.sch_input_num > input:focus{
+    outline:none;
+}
+
+.sch_input_num > button{
+    border: solid 1px  rgb(221, 221, 221);
+    border-radius: 70%;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.sch_input_num > button:focus{
+    outline:none;
+}
+
+.sch_input_num > button:hover{
+    border: solid 1px  rgb(122, 122, 122);
+}
+
+.m_sh_button{
+    display: flex;
+    flex-direction: row;
+}
+
+.m_sh_button > span{
+    margin-left: 10px;
+}
+
+.m_sh_button > span > input{
+    border:none;
+}
+
+.m_sh_button > span > input:focus 
+{
+    outline:none;
+}
+
+.m_sh_button > .button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 47px;
+    border-radius: 70%;
+    background-color: rgb(255, 56, 92);
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.m_sh_button > .button:hover{
+    box-shadow: 0 5px 10px #e993a4;
+}
+
+.m_sh_button > .button >.fa-search{
+    color: white;
+}
+
+
+/*********************************************************/
+
+/**************************container1*******************************/
+.ctnt_sub1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.ctnt_sub1 > .like_teg{
+    cursor: pointer;
+}
+
+.ctnt_sub1 > .like_teg:hover{
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    background-color: rgb(221, 221, 221);
+}
+.fa-heart {
+    color: grey;
+}
+
+
+
+.ctnt_sub2{
+    border : solid 1px  rgb(221, 221, 221);
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    position: relative;
+    margin: auto;
+}
+
+.ctnt_sub2 > .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+
+  /* Position the "next button" to the right */
+  .ctnt_sub2 > .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .ctnt_sub2 >.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+.mySlides  > img{
+    height: 500px;
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4} 
+    to {opacity: 1}
+  }
+  
+  /* On smaller screens, decrease text size */
+  @media only screen and (max-width: 300px) {
+    .prev, .next,.text {font-size: 11px}
+  }
+
+
+.ctnt_sub_dt1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.ctnt_detail{
+    flex-grow: 6;
+    margin-right: 40px;
+}
+
+.ctnt_detail > .hostUser {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.hostUser > .host_user_box{
+    width: 100px;
+}
+
+.host_user_box > img{
+    height: auto;
+    border-radius: 70%;
+}
+
+.build_type{
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+.build_type > .hoouse{
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.build_type > .self_ch{
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.house_info{
+    margin-top: 24px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.room_info{
+    margin-bottom: 24px;
+}
+
+.bed_info{
+    display: flex;
+    flex-direction: column;
+    border-bottom: solid 1px rgb(221, 221, 221);
+
+}
+
+.bed_info > .bed{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 18%;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    margin-bottom: 24px;
+}
+
+.bed > div{
+	margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.conven {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    border-bottom: solid 1px  rgb(221, 221, 221);
+    
+}
+.conven > .conven_item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+
+.conven > .conven_button{
+    margin-bottom: 24px;
+
+}
+
+.conven > .conven_button > span{
+    border: 1px solid ;
+    width: 20%;
+    height: 50px;
+    font-size: 20px;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+
+}
+
+.conven > .conven_button > span:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    background-color: rgb(221, 221, 221);
+}
+
+
+.payment{
+    flex-grow: 4;
+    display: flex;
+    flex-direction: column;
+    width: 10%;
+}
+
+
+.payment_main{
+    position: absolute;
+    right: 100px;
+    width: 18%;
+    border: 1px solid rgb(221, 221, 221); 
+    border-radius: 12px; 
+    padding: 24px; 
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+    z-index: 999;
+}
+
+.payment_dt1{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.payment_dt1 > h3{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.payment_dt2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment_dt2 > .payment_date{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.chin,.chout{
+	flex-grow: 1;
+	display:flex;
+	flex-direction:row;
+	
+   
+    border:1px solid rgb(221, 221, 221);
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.qty{
+    border-left: 1px solid rgb(221, 221, 221);
+    border-right: 1px solid rgb(221, 221, 221);
+    border-bottom: 1px solid rgb(221, 221, 221);
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    margin-bottom: 10px;
+}
+
+.qty > button{
+    border: solid 1px  rgb(221, 221, 221);
+    border-radius: 70%;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.qty > button:focus{
+    outline:none;
+}
+
+.qty > button:hover{
+    border: solid 1px  rgb(122, 122, 122);
+}
+
+.sub_button{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.erro {
+	text-align: center;
+	padding-bottom: 10px;
+	color: rgb(217, 57, 0);
+}
+
+input[type=submit]{
+    height: 50px;
+    width: 100%;
+    background-color: #FF467E;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+    margin-left: 0px;
+}
+
+input[type=submit]:hover{
+    box-shadow: 0 4px 8px 0 rgba(221, 25, 25, 0.2), 0 6px 20px 0 rgba(204, 4, 4, 0.19);
+}
+
+.payment_fee{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.payment_total{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/*********************************************************/
+
+/*************************container2********************************/
+
+.container2 > .ctnt_comment{
+    flex-grow: 1;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.ctnt_comment > .comment_itmes{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.comment_itmes > .user_comment{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.user_comment > .user_com_item{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user_com_item > span{
+    margin-left: 20px;
+    
+}
+
+.user_com_item > span > .user_nm{
+   font-weight: bold;
+}
+
+.user_com_item > span > .date{
+    font-size: 13px;
+    color: rgb(125, 131, 131);
+ }
+
+ .comment_button{
+     margin-bottom: 24px;
+ }
+ 
+.comment_button > span{
+    border: 1px solid ;
+    width: 20%;
+    height: 50px;
+    font-size: 20px;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+
+.comment_button > span:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    background-color: rgb(221, 221, 221);
+}
+
+
+.container2 > .location{
+    flex-grow: 1;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    margin-bottom: 24px;
+}
+
+.location > .map{
+    height: 500px;
+    width: 100%;
+    background-color: rgb(85, 83, 83);
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+.location > .local_items{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.container2 > .host_info{
+    flex-grow: 1;
+    border-bottom: 1px solid rgb(221, 221, 221);
+    display: flex;
+    flex-direction: row;
+}
+
+.host_info > span{
+    margin-bottom: 24px;
+}
+
+.host_info > span > .my_profile{
+	height:64px;
+	width:64px;
+	border-radius: 50% !important;
+}
+
+.container2 > .rule{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.rule > .rule_items{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    margin-bottom: 24px;
+}
+
+.rule_items  > div{ 
+	flex-grow: 1;
+   	display: flex;
+   	flex-direction: column;
+}
+
+ .rule_dt_itmes {
+	display: flex;
+   	flex-direction: row;
+   	justify-content: space-between;
+   	flex-grow: 1 ;
+   	margin-bottom: 20px;
+}
+
+.rule_items  > div > .rule_dt_itmes > i{
+	flex-grow: 1;
+}
+
+.rule_items  > div > .rule_dt_itmes > span{
+	flex-grow: 9;
+}
+
+
+
+
+.rule_items > div > .rule_button{
+	margin-top:10px;
+    border: 1px solid ;
+    display:flex;
+    flex-direction:row;
+   	justify-content:center;
+   	width:40%;
+    font-size: 20px;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+    border-bottom-right-radius: 0.5em;
+}
+
+
+.rule_button:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    background-color: rgb(221, 221, 221);
+}
+/*********************************************************/
+
+
+/*************************편의 시설 팝업********************************/
+body > .conven_popup{
+    display: none; 
+    background-color: rgba(0, 0, 0, 0.2) ;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+}
+.close-modal{
+    cursor: pointer;
+}
+
+.close-modal > span{
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.close-modal > span:hover{
+    background-color: rgb(211, 210, 210);
+    border-radius: 1em;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+   
+}
+
+.conven_popup > .main {
+    overflow: auto;
+    background-color: #fff;
+    width: 60%;
+    height: 70%;
+    padding: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 1em;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+
+
+.conven_popup > .main > .nomal{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.nomal > div{
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.nomal > div > div{
+    padding-bottom: 10px;
+}
+
+.plus_font {
+    color: rgb(121, 120, 120);
+}
+
+.conven_popup > .main > .plant{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.main > .plant > div{
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.plant > div > div{
+    padding-bottom: 10px;
+}
+
+
+
+.conven_popup > .main > .bed{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.main > .bed > div{
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.bed > div > div{
+    padding-bottom: 10px;
+}
+
+.conven_popup > .main > .lack{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.main > .lack > div{
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+.lack > div > div{
+    padding-bottom: 10px;
+}
+
+/**************************comment_popup*********************************/
+body > .comment_popup{
+    display: none;
+    background-color: rgba(0, 0, 0, 0.2) ;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+}
+
+.comment_popup > div{
+    background-color: #fff;
+    width: 60%;
+    height: 70%;
+    padding: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 1em;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    flex-grow: 1;
+}
+
+.comment_popup > div > .close-modal {
+    flex-grow: 0.5;
+} 
+.comment_popup > div > .ctnt_pop_main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 9.5;
+}
+
+.ctnt_pop_main > .pop_score{
+    flex-grow: 0.5;
+    display: flex;
+    flex-direction: row;
+}
+
+ .fa-star{
+    color: #ff385c;
+    padding-top: 8px;
+    padding-right: 10px;
+}
+
+.pop_score > h2{
+    margin: 0px;
+}
+
+.ctnt_pop_main > .comment{
+    height: 70%;
+    width: 50%;
+    overflow:auto;
+    flex-grow: 2.5;
+}
+
+.comment > .user_comment{
+    margin-bottom: 10px;
+}
+
+.user_plofile{
+    border-radius: 70%;
+    border: 1px solid rgb(221, 221, 221);
+    width: 50px;
+    height: 50px;
+}
+
+body > .rule_popup{
+    display: none;
+    background-color: rgba(0, 0, 0, 0.2) ;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+}
+
+.rule_popup > div{
+    background-color: #fff;
+    width: 60%;
+    height: auto;
+    padding: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 1em;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    flex-grow: 1;
+}
+.rule_ctnt{
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.rule_ctnt > .rule_ctnts{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	flex-grow: 1;
+}
+
+.rule_ctnt > .rule_ctnts > i{
+	flex-grow: 1;
+}
+
+.rule_ctnt > .rule_ctnts > span{
+	flex-grow: 8;
+}
+
+.room_dt_rule> div{
+	margin-bottom: 10px;
+}
+
+.dtRule {
+	margin-bottom: 10px;
+}
+
+
+.popup1{
+    background-color: rgba(0, 0, 0, 0.2) ;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+.likeLisPopup{
+    background-color: #fff;
+    width: 350px;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+}
+.popup2{
+    background-color: rgba(0, 0, 0, 0.2) ;
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+.likePopup{
+    background-color: #fff;
+    width: 350px;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+}
+.close-modal{
+    float: right;
+    cursor: pointer;
+}
+
+
+.like_list{
+    text-align:left;
+    cursor: pointer;
+}
+
+.like_list:hover {
+	 background-color: #ecf0f1;
+}
+
+
+/*********************************************************/
+
+
+
+/***********************************짜투리*****************************/
+img{
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+/********************************************************************/

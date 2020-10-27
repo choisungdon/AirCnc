@@ -1,0 +1,191 @@
+
+html, body {
+    margin: 0;
+    padding: 0;
+    width:100%; 
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+/*-***********header**************/
+header {
+    flex-grow: 0.5;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+header > .sub_header{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub_header > .logo{
+    margin-top: 10px;
+}
+
+.sub_header > .top_menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #DDDDDD !important;
+    padding: 5px 5px 5px 12px !important;
+    border-radius: 2em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.sub_header > .top_menu:hover{
+    box-shadow: 2px 2px 2px 2px rgba(109, 108, 108, 0.2);
+}
+.top_menu > .my_profile {
+    margin-left: 10px;
+}
+.top_menu > .my_profile{
+    border-radius: 50% !important;
+}
+.top_menu > .drop_menu{
+    position: absolute;
+    right: 130px;
+    top: 70px;
+    width: 256px;
+    height: 309px;
+    border: 1px solid #DDDDDD !important;
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display: none;
+    background-color: white;
+    z-index: 3;
+
+    
+}
+
+.drop_menu > .main_menu{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.main_menu > .menu_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    border-bottom:  1px solid #DDDDDD !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.menu_item > div{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu_item > div:hover{
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    background-color: #e5e5e5;
+}
+/*********************container*****************************/
+.container{
+    flex-grow: 9;
+    margin-top: 36px;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-bottom: 65px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.title{
+    flex-grow: 1;
+}
+
+.step1_emoge > i{
+   color: skyblue;
+}
+
+.step1{
+    flex-grow:  4;
+    border-left: solid 3px skyblue;
+}
+
+.step2_emoge > i{
+    color: yellow;
+}
+
+.step2{
+    flex-grow:  4;
+    border-left: solid 3px yellow;
+}
+
+.step3_emoge > i{
+    color: hotpink;
+}
+
+.ctnt_btn{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ctnt_btn > .btn{
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    background-image: radial-gradient(circle at center center, rgb(255, 56, 92) 0%, rgb(230, 30, 77) 27.5%, rgb(227, 28, 95) 40%, rgb(215, 4, 102) 57.5%, rgb(189, 30, 89) 75%, rgb(189, 30, 89) 100%) !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 10%;
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    cursor: pointer;
+}
+
+.ctnt_btn > .btn:hover{
+    box-shadow: 2px 2px 2px 2px rgba(109, 108, 108, 0.2);
+}
+
+
+/*************************footer*******************************/
+footer{
+    flex-grow: 0.5;
+  
+}
+
+/*********************************/
+img{
+    object-fit: cover;
+}

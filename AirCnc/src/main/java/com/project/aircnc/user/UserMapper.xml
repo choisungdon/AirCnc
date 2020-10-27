@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.aircnc.user.UserMapper">
+	
+	<select id="checkEmail" parameterType="TUserVO" resultType="int">
+		SELECT EXISTS(
+			SELECT *
+			FROM t_user
+			WHERE e_mail = #{e_mail}
+		)
+	</select>
+	
+	<insert id="join" parameterType="TUserVO">
+		INSERT INTO t_user
+		(e_mail, nm, c_pw, salt, bir_day)
+		VALUES
+		(#{e_mail}, #{nm}, #{c_pw}, #{salt}, #{bir_day})
+	</insert>
+	
+	
+	<insert id="insLikeList" parameterType="UserLListVO">
+		INSERT INTO user_l_list
+		(i_user,list_title)
+		VALUES(#{i_user},#{list_title})
+		
+		 <selectKey resultType="integer" keyProperty="i_list" order="AFTER" >
+        	SELECT LAST_INSERT_ID()
+  		 </selectKey>       
+	</insert>
+	
+	<insert id="insLikeUser" parameterType="UserLikeVO">
+		INSERT INTO user_like
+		(i_host, i_user, i_list)
+		VALUES(#{i_host},#{i_user},#{i_list})    
+	</insert>
+	
+	<select id="login" parameterType="TUserVO" resultType="TUserVO">
+		SELECT i_user,nm,bir_day,pro_img,ph,e_mail, c_pw, salt 
+		FROM t_user
+		WHERE e_mail = #{e_mail}
+	</select>
+	
+	<select id="selTUserVO" parameterType="TUserVO" resultType="TUserVO">
+		SELECT i_user,nm,bir_day,pro_img,ph,e_mail, c_pw, salt 
+		FROM t_user
+		WHERE 	e_mail	= #{e_mail}
+		AND 	C_PW	= #{c_pw}
+	</select>
+	
+	<update id="upUserPro" parameterType="TUserVO">
+		UPDATE t_user
+		SET PRO_IMG = #{pro_img, jdbcType=VARCHAR},
+		M_DT = NOW()
+		WHERE I_USER = #{i_user}
+	</update>
+	
+	<update id="upUserVO" parameterType="TUserVO">
+		UPDATE t_user
+		SET NM = #{nm},
+		PH	= #{ph},
+		BIR_DAY = #{bir_day},
+		M_DT = NOW()
+		WHERE I_USER = #{i_user}
+	</update>
+	
+	<update id="upUserPW" parameterType="TUserVO">
+		UPDATE t_user
+		SET	C_PW = #{c_pw},
+			SALT = #{salt},
+			m_dt = NOW()
+		WHERE I_USER = #{i_user}
+	</update>
+	
+	<delete id="delLikeUser" parameterType="UserLikeVO">
+		DELETE 
+		FROM user_like
+		WHERE I_USER = #{i_user}
+		AND I_HOST = #{i_host}
+	</delete>
+	
+</mapper>

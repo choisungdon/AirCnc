@@ -1,0 +1,217 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width:100%; 
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+/*-*********header****************/
+header {
+    flex-grow: 0.5;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+header > .sub_header{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sub_header > .logo{
+    margin-top: 10px;
+}
+
+.sub_header > .top_menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #DDDDDD !important;
+    padding: 5px 5px 5px 12px !important;
+    border-radius: 2em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.sub_header > .top_menu:hover{
+    box-shadow: 2px 2px 2px 2px rgba(109, 108, 108, 0.2);
+}
+.top_menu > .my_profile {
+    margin-left: 10px;
+}
+.top_menu > .my_profile{
+    border-radius: 50% !important;
+}
+.top_menu > .drop_menu{
+    position: absolute;
+    right: 130px;
+    top: 80px;
+    width: 256px;
+    height: 309px;
+    border: 1px solid #DDDDDD !important;
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display: none;
+    background-color: white;
+    z-index: 3;
+
+    
+}
+
+.drop_menu > .main_menu{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.main_menu > .menu_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    border-bottom:  1px solid #DDDDDD !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.menu_item > div{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu_item > div:hover{
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    background-color: #e5e5e5;
+}
+/********************container***********************/
+.container{
+    flex-grow: 9;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.ctnt_main > .date{
+    margin-bottom: 24px;
+}
+
+.ctnt_main > .main_item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.main_item > .change{
+    flex-grow: 5;
+    border: solid 1px rgb(211, 211, 211);
+    margin-right: 20px;
+    padding: 20px;
+    width: 50%;
+}
+
+
+
+.main_item > .cancel{
+    flex-grow: 5;
+    border: solid 1px rgb(211, 211, 211);
+    margin-left: 20px;
+    padding: 20px;
+    width: 50%;
+}
+
+
+.imoge{
+    padding-bottom: 20px;
+}
+
+.item_title{
+    padding-bottom: 20px;
+}
+
+.text{
+    padding-bottom: 20px;
+}
+
+.text{
+    flex-grow: 1;
+    font-size: 15px;
+    color: rgb(124, 124, 124);
+    padding-bottom: 50px;
+    
+}
+
+.btn{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.btn > span{
+    font-weight: 600;
+    border: solid 1px #018d01b6;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    color:#018d01b6;
+    border-radius: 0.5em;
+    border-top-left-radius:  0.5em;
+    border-top-right-radius:  0.5em;
+    border-bottom-left-radius:  0.5em;
+    border-bottom-right-radius:  0.5em;
+}
+
+.btn > span:hover{
+    box-shadow: 2px 2px 2px 2px rgba(109, 108, 108, 0.2);
+}
+
+
+
+/*********footer**************/
+footer{
+    flex-grow: 0.5;
+}
+
+/***************이모지*****************/
+
+.fa-home{
+    color: #02aa02b6;
+}
+
+.fa-ban{
+    color: #02aa02b6;
+}
+/**************기타 ************/
+img{
+    object-fit: cover;
+}

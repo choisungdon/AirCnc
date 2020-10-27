@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.aircnc.search.detail.DetaileMapper">
+
+<select id="selDetaile" parameterType="SearchVO" resultType="SearchDetaileVO">
+		SELECT a.I_HOST, ifnull(e.I_USER,0) AS like_user, a.COUNTRY, a.C_LAT,a.C_LNG,
+		a.ADDR, a.S_LAT, a.S_LNG,
+		a.b_room, a.BED_TYPE, a.BED_QTY, a.BTH_ROOM, a.r_vastion, a.ROOM_TITLE,
+		b.i_user as host_i_user,b.E_MAIL, b.NM, b.PRO_IMG, b.PH, b.r_dt,
+		c.typ, c.live_type,
+		d.requier, d.aircon, d.sampoo, d.hiter, d.in_hiter, 
+		d.wifi, d.breakfast, d.hanger, d.iron, d.hiar_dry, 
+		d.place_lattop, d.tv, d.baby_bad, d.baby_chairs, d.self_checkin,
+		d.self_bth_room, d.piano, d.door,
+		f.fire_emble, f.carbon_alarm, f.madic_kit, f.fire_exting, f.bad_lock,
+		g.liviroom, g.cooking, g.waching, g.drying, g.paking,
+		g.gym, g.swim_pool, g.jacuzzi,
+		h.EXPA, h.room_info, h.loca_info, h.traf_info,
+		i.child_ok, i.y_ch_ok, i.smoking, i.animal_ok, i.party,
+		j.stairs, j.noise, j.animal, j.in_pking, j.public_space,
+		j.plant, j.cctv, j.weapon, j.denger_dog, 
+		k.checkin_t, k.finich_t, k.ieast_day, k.max_day, k.reser_date, 
+		k.reser_end_t, 
+		l.FEE, l.Sale, l.W_SALE, l.M_SALE,
+		m.cmtCount, m.comtAvg
+		FROM host_user a 
+		INNER JOIN t_user b
+		ON a.i_user = b.i_user
+		INNER JOIN Build_type c
+		ON a.i_host = c.I_HOST
+		INNER JOIN FACILITE d
+		ON a.i_host = d.I_HOST
+		left JOIN user_like e
+		ON a.I_HOST = e.I_HOST
+		AND e.i_user = #{i_user}
+		INNER JOIN 	SAFE_PLANT f
+		ON a.I_HOST = f.i_host
+		INNER JOIN	GEST_SPACE g
+		ON a.i_host = g.I_HOST
+		INNER JOIN	SPACE_INFO h
+		ON a.i_host = h.i_host
+		INNER JOIN room_rule i
+		ON a.i_host = i.i_host
+		INNER JOIN room_dt_rule j
+		ON a.i_host = j.i_host
+		INNER JOIN check_inout k
+		ON a.i_host = k.i_host
+		INNER JOIN room_fee l
+		ON a.i_host = l.I_HOST
+		left JOIN (
+		SELECT COUNT(i_contents) AS cmtCount, i_host, round(avg(ifnull(evaluate_val,0)),2) AS comtAvg
+		FROM host_review
+		GROUP BY i_host
+		) m
+		ON a.i_host = m.i_host
+		WHERE a.i_host = #{i_host};
+</select>
+
+<select id="selRoomImg" parameterType="SearchVO" resultType="RoomIMGVO">
+	SELECT *
+	FROM rooms_img
+	WHERE i_host = #{i_host}
+</select>
+
+<select id="selDtRule" parameterType="SearchVO" resultType="DTLRuleVO">
+	SELECT *
+	FROM dtl_rule
+	WHERE i_host = #{i_host}
+</select>
+
+<select id="selHostReview" parameterType="SearchVO" resultType="HostReviewVO">
+	SELECT a.I_CONTENTS,a.i_host, a.I_USER, a.R_DT,
+	a.contents,
+	b.nm, b.PRO_IMG
+	FROM host_review a
+	INNER JOIN t_user b
+	ON a.i_user = b.i_user
+	WHERE i_host = #{i_host};
+</select>
+
+<select id="selLikeList" parameterType="TUserVO" resultType="UserLListVO">
+	SELECT *
+	FROM user_l_list
+	WHERE I_USER = #{i_user}
+</select>
+
+<!-- 예약 가능 여부 확인 쿼리  -->
+<select id="existInOut" parameterType="SearchVO" resultType="int">
+	SELECT EXISTS(
+	SELECT *
+	FROM check_inout
+	WHERE i_host = #{i_host}
+	AND DATE(#{chin}) BETWEEN reser_date AND reser_end_t
+	AND DATE(#{chout}) BETWEEN reser_date AND reser_end_t
+	)
+</select>
+
+<select id="existInOutDate" parameterType="SearchVO" resultType="int">
+	SELECT EXISTS(
+	SELECT *
+	FROM check_inout
+	WHERE i_host = #{i_host}
+	<![CDATA[
+	and Ieast_DAY <= #{date} AND max_DAY >= #{date}
+	]]>
+	)
+</select>
+
+<select id="existRvation" parameterType="SearchVO" resultType="int">
+	SELECT EXISTS(
+	SELECT *
+	FROM host_user
+	WHERE i_host = #{i_host}
+	AND (R_VASTION - RV_STATE) >= #{qty}
+	)
+</select>
+
+</mapper>

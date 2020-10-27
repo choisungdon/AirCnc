@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.aircnc.hostmanage.HostManageMapper">
+	
+	<select id="selUserReserCc" parameterType="TUserVO" resultType="int">
+		SELECT COUNT(i_reser) 
+		FROM user_reser
+		WHERE i_host IN(
+			SELECT i_host
+			FROM host_user
+			WHERE i_user = #{i_user}
+		)
+		AND reser_state IN('ch','cc')
+	</select>
+	
+	<select id="selUserReser" parameterType="TUserVO" resultType="int">
+		
+		SELECT COUNT(i_reser) 
+		FROM user_reser
+		WHERE i_host IN(
+			SELECT i_host
+			FROM host_user
+			WHERE i_user = #{i_user}
+		)
+		AND ISNULL(reser_state) 
+	</select>
+
+</mapper>

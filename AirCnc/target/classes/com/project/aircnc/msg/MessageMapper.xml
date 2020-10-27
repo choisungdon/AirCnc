@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.aircnc.msg.MessageMapper">
+
+	<select id="selMsg" parameterType="TUserVO" resultType="MsgRoomVO">
+			SELECT a.i_mlist,a.i_reser,b.i_user,a.ms_title,DATE_FORMAT(a.r_dt,'%Y-%m-%d') AS r_dt,
+			b.I_HOST,c.IMG_URL
+			FROM aircnc_msglist a
+			INNER JOIN aircnc_msgUsers b
+			on a.i_mlist = b.i_mlist
+			INNER JOIN 
+			(	SELECT i_host, img_url
+				FROM rooms_img 
+				GROUP BY i_host
+			) c
+			ON a.I_HOST = c.I_HOST
+			WHERE b.i_user = #{i_user};
+	</select>
+	
+	<select id="selMsgList" parameterType="int" resultType="AircncMsg">
+		SELECT i_msg, i_mlist, i_reser, i_host, i_user, cmt, DATE_FORMAT(r_dt,'%Y-%m-%d') AS r_dt, state
+		FROM aircnc_msg
+		WHERE I_MLIST = #{i_mlist}
+		ORDER BY R_DT asc;
+	</select>
+	
+	<select id="selMsgUsers" parameterType="AircncMsgUsers" resultType="AircncMsgUsers">
+		SELECT *
+		FROM aircnc_msgUsers
+		WHERE I_USER != #{i_user}
+		and i_mlist = #{i_mlist}
+	</select>
+		
+	<insert id="insMsg" parameterType="AircncMsg" >
+		INSERT INTO aircnc_msg(
+		i_mlist,i_reser,i_host,i_user,cmt
+		)
+		SELECT #{i_mlist},i_reser,i_host,#{i_user},#{cmt}
+		FROM aircnc_msglist
+		WHERE i_mlist = #{i_mlist}
+	</insert>
+	
+	<delete id="delMsg" parameterType="AircncMsglist">
+		DELETE FROM aircnc_msg
+		WHERE I_USER = #{i_user}
+		AND I_MLIST = #{i_mlist};
+		
+		DELETE FROM aircnc_msgUsers
+		WHERE I_USER = #{i_user}
+		AND I_MLIST = #{i_mlist};
+		
+
+	</delete>
+	
+</mapper>

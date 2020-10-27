@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.aircnc.search.SearchMapper">
+	<select id="searchList" parameterType="String" resultType="AddSchVO">
+		SELECT addr
+		FROM host_user
+		WHERE ADDR LIKE '%${s_addr}%'; 
+	</select>
+	
+	 <select id="hostList" parameterType="SearchVO" resultType="HostListVO">
+		SELECT a.I_HOST,a.ADDR,a.C_LAT,a.C_LNG,a.S_LAT,a.S_LNG, 
+		 a.ROOM_TITLE, a.b_room, a.BED_QTY, a.BTH_ROOM, c.FEE, (c.FEE *2) AS h_fee, ((c.FEE *2) * 4) AS tt_fee,
+		IFNULL(d.I_USER,0) as like_user, a.i_user
+		FROM host_user a 
+		inner JOIN check_inout b
+		ON a.i_host = b.I_HOST
+		INNER JOIN room_fee c
+		ON a.i_host = c.I_HOST
+		LEFT JOIN user_like d
+		ON a.I_HOST = d.I_HOST
+		AND d.i_user = #{i_user}
+		INNER JOIN 	build_type e
+		ON a.I_HOST = e.i_host
+		INNER JOIN	facilite f
+		ON a.i_host = f.I_HOST
+		INNER JOIN	safe_plant g
+		ON a.i_host = g.i_host
+		INNER JOIN gest_space h
+		ON a.i_host = h.i_host
+		INNER JOIN room_rule i
+		ON a.i_host = i.i_host
+		WHERE a.ADDR LIKE '%${addr}%'
+		AND (a.R_VASTION - a.RV_STATE) >= #{qty}
+		<![CDATA[
+		AND DATE(#{chin}) BETWEEN b.reser_DATE AND b.reser_END_T
+		AND DATE(#{chout}) BETWEEN b.reser_DATE AND b.reser_END_T
+		AND b.Ieast_DAY <= #{date} AND b.max_DAY >= #{date}
+		AND A.BED_QTY	>= #{bed_qty}
+		AND A.B_ROOM 	>= #{b_room}
+		AND A.BTH_ROOM 	>= #{bth_room}
+		]]>
+		<if test='fee == 0'>
+			AND c.FEE BETWEEN #{min_fee} AND #{max_fee}
+		</if>
+		<if test='fee != 0'>
+			AND c.FEE BETWEEN #{min_fee} AND #{fee}
+		</if>
+		<if test="apt != null or outbuild != null ">
+		    AND e.typ IN ('${apt}', '${outbuild}')
+		</if>
+		<if test="all != null or single != null or share != null">
+		    AND e.live_type IN ('${all}', '${single}', '${share}')
+		</if>
+         <if test='sampoo != null'>
+         	AND f.sampoo = '${sampoo}'
+         </if>
+         <if test='hiter != null'>
+         	AND f.hiter = '${hiter}'
+         </if>
+         <if test='in_hiter != null'>
+         	AND f.in_hiter = '${in_hiter}'
+         </if>
+         <if test='wifi != null'>
+         	AND f.wifi = '${wifi}'
+         </if>
+         <if test='breakfast != null'>
+         	AND f.breakfast = '${breakfast}'
+         </if>
+         <if test='hanger != null'>
+         	AND f.hanger = '${hanger}'
+         </if>
+         <if test='hiar_dry != null'>
+         	AND f.hiar_dry = '${hiar_dry}'
+         </if>
+         <if test='place_lattop != null'>
+         	AND f.place_lattop = '${place_lattop}'
+         </if>
+         <if test='tv != null'>
+         	AND f.tv = '${tv}'
+         </if>
+         <if test='baby_bad != null'>
+         	AND f.baby_bad = '${baby_bad}'
+         </if>
+         <if test='baby_chairs != null'>
+         	AND f.baby_chairs = '${baby_chairs}'
+         </if>
+         <if test='self_checkin != null'>
+         	AND f.self_checkin = '${self_checkin}'
+         </if>
+         <if test='self_bth_room != null'>
+         	AND f.self_bth_room = '${self_bth_room}'
+         </if>
+         <if test='fire_emble != null'>
+         	AND g.fire_emble = '${fire_emble}'
+         </if>
+         <if test='carbon_alarm != null'>
+         	AND g.carbon_alarm = '${carbon_alarm}'
+         </if>
+         <if test='madic_kit != null'>
+         	AND g.madic_kit = '${madic_kit}'
+         </if>
+         <if test='fire_exting != null'>
+         	AND g.fire_exting = '${fire_exting}'
+         </if>
+         <if test='bad_lock != null'>
+         	AND g.bad_lock = '${bad_lock}'
+         </if>
+         <if test='bad_lock != null'>
+         	AND g.bad_lock = '${bad_lock}'
+         </if>
+         <if test='liviroom != null'>
+         	AND h.liviroom = '${liviroom}'
+         </if>
+         <if test='cooking != null'>
+         	AND h.cooking = '${cooking}'
+         </if>
+         <if test='drying != null'>
+         	AND h.drying = '${drying}'
+         </if>
+         <if test='gym != null'>
+         	AND h.gym = '${gym}'
+         </if>
+         <if test='swim_pool != null'>
+         	AND h.swim_pool = '${swim_pool}'
+         </if>
+         <if test='jacuzzi != null'>
+         	AND h.jacuzzi = '${jacuzzi}'
+         </if>
+         <if test='child_ok != null'>
+         	AND i.child_ok = '${child_ok}'
+         </if>
+         <if test='y_ch_ok != null'>
+         	AND i.y_ch_ok = '${y_ch_ok}'
+         </if>
+         <if test='smoking != null'>
+         	AND i.smoking = '${smoking}'
+         </if>
+         <if test='party != null'>
+         	AND i.party = '${party}'
+         </if>
+      ORDER BY c.fee ASC
+	</select>
+	
+	<select id="avgFee" parameterType="SearchVO" resultType="SearchVO">
+		SELECT IFNULL(max(c.FEE),0) AS max_fee , IFNULL(MIN(c.FEE),0) AS min_fee 
+		FROM host_user a 
+		inner JOIN check_inout b
+		ON a.i_host = b.I_HOST
+		INNER JOIN room_fee c
+		ON a.i_host = c.I_HOST
+		left JOIN user_like d
+		ON a.I_HOST = d.I_HOST
+		AND d.i_user = #{i_user}
+		INNER JOIN 	build_type e
+		ON a.I_HOST = e.i_host
+		INNER JOIN	facilite f
+		ON a.i_host = f.I_HOST
+		INNER JOIN	safe_plant g
+		ON a.i_host = g.i_host
+		INNER JOIN gest_space h
+		ON a.i_host = h.i_host
+		INNER JOIN room_rule i
+		ON a.i_host = i.i_host
+		WHERE a.ADDR LIKE '%${addr}%'
+		AND (a.R_VASTION - a.RV_STATE) >= #{qty}
+		<![CDATA[
+		AND DATE(#{chin}) BETWEEN b.reser_DATE AND b.reser_END_T
+		AND DATE(#{chout}) BETWEEN b.reser_DATE AND b.reser_END_T
+		AND b.Ieast_DAY <= #{date} AND b.max_DAY >= #{date}
+		AND A.BED_QTY	>= #{bed_qty}
+		AND A.B_ROOM 	>= #{b_room}
+		AND A.BTH_ROOM 	>= #{bth_room}
+		]]>
+		<if test="apt != null or outbuild != null ">
+		    AND e.TYP IN ('${apt}', '${outbuild}')
+		</if>
+		<if test="all != null or single != null or share != null">
+		    AND e.live_type IN ('${all}', '${single}', '${share}')
+		</if>
+         <if test='sampoo != null'>
+         	AND f.sampoo = '${sampoo}'
+         </if>
+         <if test='hiter != null'>
+         	AND f.hiter = '${hiter}'
+         </if>
+         <if test='in_hiter != null'>
+         	AND f.in_hiter = '${in_hiter}'
+         </if>
+         <if test='wifi != null'>
+         	AND f.wifi = '${wifi}'
+         </if>
+         <if test='breakfast != null'>
+         	AND f.breakfast = '${breakfast}'
+         </if>
+         <if test='hanger != null'>
+         	AND f.hanger = '${hanger}'
+         </if>
+         <if test='hiar_dry != null'>
+         	AND f.hiar_dry = '${hiar_dry}'
+         </if>
+         <if test='place_lattop != null'>
+         	AND f.place_lattop = '${place_lattop}'
+         </if>
+         <if test='tv != null'>
+         	AND f.tv = '${tv}'
+         </if>
+         <if test='baby_bad != null'>
+         	AND f.baby_bad = '${baby_bad}'
+         </if>
+         <if test='baby_chairs != null'>
+         	AND f.baby_chairs = '${baby_chairs}'
+         </if>
+         <if test='self_checkin != null'>
+         	AND f.self_checkin = '${self_checkin}'
+         </if>
+         <if test='self_bth_room != null'>
+         	AND f.self_bth_room = '${self_bth_room}'
+         </if>
+         <if test='fire_emble != null'>
+         	AND g.fire_emble = '${fire_emble}'
+         </if>
+         <if test='carbon_alarm != null'>
+         	AND g.carbon_alarm = '${carbon_alarm}'
+         </if>
+         <if test='madic_kit != null'>
+         	AND g.madic_kit = '${madic_kit}'
+         </if>
+         <if test='fire_exting != null'>
+         	AND g.fire_exting = '${fire_exting}'
+         </if>
+         <if test='bad_lock != null'>
+         	AND g.bad_lock = '${bad_lock}'
+         </if>
+         <if test='bad_lock != null'>
+         	AND g.bad_lock = '${bad_lock}'
+         </if>
+         <if test='liviroom != null'>
+         	AND h.liviroom = '${liviroom}'
+         </if>
+         <if test='cooking != null'>
+         	AND h.cooking = '${cooking}'
+         </if>
+         <if test='drying != null'>
+         	AND h.drying = '${drying}'
+         </if>
+         <if test='gym != null'>
+         	AND h.gym = '${gym}'
+         </if>
+         <if test='swim_pool != null'>
+         	AND h.swim_pool = '${swim_pool}'
+         </if>
+         <if test='jacuzzi != null'>
+         	AND h.jacuzzi = '${jacuzzi}'
+         </if>
+         <if test='child_ok != null'>
+         	AND i.child_ok = '${child_ok}'
+         </if>
+         <if test='y_ch_ok != null'>
+         	AND i.y_ch_ok = '${y_ch_ok}'
+         </if>
+         <if test='smoking != null'>
+         	AND i.smoking = '${smoking}'
+         </if>
+         <if test='party != null'>
+         	AND i.party = '${party}'
+         </if>
+      ORDER BY c.fee ASC
+	</select>
+	
+	<select id="room_img_list" parameterType="HostListVO" resultType="RoomIMGVO">
+		SELECT *
+		FROM rooms_img
+		WHERE I_HOST = #{i_host};
+	</select>
+	
+	<select id="selLikeList" parameterType="TUserVO" resultType="UserLListVO">
+		SELECT *
+		FROM  user_l_list
+		WHERE I_USER = #{i_user}
+	</select>
+	
+	
+</mapper>

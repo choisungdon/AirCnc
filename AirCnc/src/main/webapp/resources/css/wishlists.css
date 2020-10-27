@@ -1,0 +1,289 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: white;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+      
+}
+header {
+    height: 80px;
+    border-bottom: 1px solid lightgrey;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+header #logo {
+    height: 40px;
+    position: relative;
+    left: 70px;
+}
+header #menubutton {
+    height: 43px;
+    width: 80px;
+    border-radius: 20px;
+    border: 1px solid lightgrey;
+    position: relative;
+    right: 80px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+header #menubutton #ham {
+    height: 15px;
+    position: relative;
+    top: 2px;
+    left: 5px;
+}
+header #menubutton #profile {
+    width: 34px;
+    height: 34px;
+    border-radius: 70%;
+    overflow: hidden;
+    background-color: salmon;   
+}
+header #menubutton #profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+header #menuctnt {
+	display: none;
+    background-color: white;
+    border-radius: 13px;
+    margin: 0px;
+    padding: 8px 0px;
+    overflow: hidden;
+    position: absolute;
+    top: 75px;
+    right: 70px;
+    border: 1px solid lightgrey;
+    z-index: 10;
+}
+header #menuctnt li {
+    list-style: none;
+    padding: 10px 15px;
+}
+header #menuctnt .b {
+	font-weight: bold;
+}
+header #menuctnt .line {
+    color: #e5e5e5;
+}
+
+#head2 {
+    height: 115px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+#head2 #title {
+    font-weight: bold;
+    font-size: 30px;
+    position: relative;
+    left:80px;
+}
+#head2 #button {
+    height:48px;
+    width: 130px;
+    border-radius: 10px;
+    border: 1px solid black;
+    line-height: 48px;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    right: 80px;
+}
+#body #creater {
+    background-color: white;
+    border-radius: 10px;
+    border: 1px solid lightgrey;
+    position: absolute;
+    right: 80px;
+    top: 180px;
+    display: none;
+    z-index: 8;
+}
+#body #creater .line {
+    color: #e5e5e5;
+}
+#body #creater #box1 {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    position: relative
+}
+#body #creater #box1 #boxExit {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-30%);
+    left: 10px;
+}
+#body #creater #box1 #boxExit img {
+    height: 18px;
+}
+#body #creater #box1 #boxtitle {
+    font-weight: bold;
+    font-size: 17px;
+    line-height: 50px;
+    vertical-align: middle;
+}
+#body #creater #box2 {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 25px;
+}
+#body #creater #box2 #b2textbox {
+    height: 50px;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 10px;
+}
+#body #creater #box2 #b2textbox #b2label {
+    color: slategrey;
+    font-size: 13px;
+}
+#body #creater #box2 #b2textbox input {
+    font-size: 16px;
+    border: none;
+}
+#body #creater #box3 {
+    height: 60px;
+    padding: 0px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#body #creater #box3 #boxClose {
+    height: 40px;
+    width: 50px;
+    border-radius: 7px;
+    text-align: center;
+    line-height: 35px;
+    vertical-align: middle;
+    font-weight: bold;
+    text-decoration: underline;
+}
+#body #creater #box3 #insLList {
+    height: 45px;
+    width: 65px;
+    border-radius: 7px;
+    border: none;
+    text-align: center;
+    line-height: 45px;
+    vertical-align: middle;
+    color: white;
+    font-weight: bold;
+    background-color: #242424;
+    position: relative;
+    right: 10px;
+}
+
+#body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0px 80px;
+}
+#body .listbox {
+    width: 390px;
+    height: 290px;
+    min-width: 250px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    border: 1px solid lightgrey;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+#body .listbox .limg {
+    height: 180px;
+    overflow: hidden;
+}
+#body .listbox .limg img {
+    margin-right: 5px;
+    margin-bottom: 5px;
+    object-fit: cover;
+    width: 110%;
+    height: 110%;
+}
+#body .listbox .ltext {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#body .listbox .ltext {
+    position: relative;
+    top: 15px;
+}
+#body .listbox .ltext .date {
+    font-size: 14px;
+    color: #ababab;
+    position: relative;
+    left: 20px;
+}
+#body .listbox .ltext .title {
+    font-weight: bold;
+    font-size: 21px;
+    position: relative;
+    left: 25px;
+    margin: 5px;
+}
+#body .listbox .ltext .cnt {
+    font-size: 15px;
+    position: relative;
+    left: 20px;
+}
+
+input:focus {
+    outline: none;
+}
+header #logo:hover {
+    cursor: pointer;
+}
+header #menubutton:hover {
+    cursor: pointer;
+}
+header #menuctnt li:hover {
+    cursor: pointer;
+    background-color: #e5e5e5;
+}
+#head2 #button:hover {
+    cursor: pointer;
+}
+#body #creater #box1 #boxExit:hover {
+    cursor: pointer;
+    background-color: #e5e5e5;
+}
+#body #creater #box3 #boxClose:hover {
+    cursor: pointer;
+    background-color: #e5e5e5;
+}
+#body #creater #box3 #insLList:hover {
+    cursor: pointer;
+    background-color: black;
+}
+#body .listbox {
+    cursor: pointer;
+}

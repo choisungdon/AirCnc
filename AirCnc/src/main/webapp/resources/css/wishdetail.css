@@ -1,0 +1,322 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+#container {
+    height: 100%;
+    overflow: hidden;
+}
+#container header {
+    height: 90px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-bottom: 1px solid lightgrey;
+    padding: 0px 20px;
+}
+header #logo {
+    height: 40px;
+    cursor: pointer;
+}
+
+header #menubutton {
+    height: 43px;
+    width: 80px;
+    border-radius: 20px;
+    border: 1px solid lightgrey;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+header #menubutton #ham {
+    height: 15px;
+    position: relative;
+    top: 2px;
+    left: 5px;
+}
+header #menubutton #profile {
+    width: 34px;
+    height: 34px;
+    border-radius: 70%;
+    overflow: hidden;
+    background-color: salmon;   
+}
+header #menubutton #profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+header #menuctnt {
+    display: none;
+    background-color: white;
+    border-radius: 13px;
+    margin: 0px;
+    padding: 8px 0px;
+    overflow: hidden;
+    position: absolute;
+    top: 75px;
+    right: 20px;
+    border: 1px solid lightgrey;
+    z-index: 10;
+    cursor: pointer;
+}
+header #menuctnt li {
+    list-style: none;
+    padding: 10px 15px;
+}
+header #menuctnt .b {
+	font-weight: bold;
+}
+header #menuctnt .line {
+    color: #e5e5e5;
+}
+header #menuctnt li:hover {
+    cursor: pointer;
+    background-color: #e5e5e5;
+}
+#container #core {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#container #core #list {
+    width: 630px;
+    height: 100%;
+    background-color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+#container #core #list #headicon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0px 20px;
+}
+#container #core #list #headicon .hicon {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    line-height: 45px;
+    vertical-align: middle;
+}
+#container #core #list #headicon i {
+    font-size: 20px;
+}
+#container #core #list #tbox {
+    height: 150px;
+    padding: 0px 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+#container #core #list #tbox #tbox1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+#container #core #list #tbox #tbox2 {
+    display: flex;
+    flex-direction: row;
+}
+#container #core #list #tbox #tbox2 .liInfo {
+    height: 32px;
+    background-color: #e5e5e5;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 0px 20px;
+    margin-right: 10px;
+    line-height: 32px;
+    text-align: center;
+    vertical-align: middle;
+}
+#container #core #list .line {
+    color: lightgrey;
+}
+#container #core #list #ctntTitle {
+    font-weight: bold;
+    font-size: 17px;
+    margin: 25px 0px 0px 50px;
+}
+#container #core #list .repeat {
+    padding: 20px 0px 30px 0px;
+    border-bottom: 1px solid lightgrey;
+}
+#container #core #list .repeat .flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#container #core #list .flex .imgbox {
+    height: 360px;
+    width: 540px;
+    border-radius: 5px;
+    background-color: lightgrey;
+    overflow: hidden;
+    position: relative;
+}
+#container #core #list .flex .imgbox button {
+    width: 40px;
+    height: 40px;
+    font-size: 35px;
+    color: white;
+    background-color: transparent;
+    border: none;
+
+}
+#container #core #list .flex .imgbox .fa-heart {
+    font-size: 30px;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    color: #F45032;
+}
+
+
+#container #core #list .flex .imgbox .left {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 5px;
+}
+#container #core #list .flex .imgbox .right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 5px;
+}
+#container #core #list .flex .imgbox .slideContents {
+    width: 100%;
+    height: 100%;
+}
+
+#container #core #list .flex .imgbox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#container #core #list .repeat li {
+    margin-left: 50px;
+    list-style: none;
+}
+#container #core #list .repeat .htype {
+    font-size: 13px;
+    height: 30px;
+    line-height: 36px;
+    vertical-align: middle;
+}
+#container #core #list .repeat .room_title {
+    font-size: 19px;
+    font-weight: bold;
+}
+#container #core #list .repeat .fee {
+    font-size: 13px;
+    height: 30px;
+    line-height: 36px;
+    vertical-align: middle;
+}
+#container #core #list .repeat .eval {
+    font-size: 13px;
+}
+#container #core #list .repeat .reser {
+    font-size: 17px;
+    font-weight: bold;
+    color: white;
+    height: 40px;
+    width: 95px;
+    margin-top: 30px;
+    background-color: teal;
+    border-radius: 10px;
+    line-height: 40px;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+    left: 430px;
+}
+#container #core #map {
+    flex-grow: 1;
+    height: 100%;
+}
+
+#container #core #list #headicon .hicon:hover {
+    cursor: pointer;
+    background-color: #e5e5e5;
+}
+#container #core #list .flex .imgbox {
+    cursor: pointer;
+}
+#container #core #list .flex .imgbox button:hover {
+    cursor: pointer;
+}
+#container #core #list .repeat li:hover {
+    cursor: pointer;
+}
+
+.popup1{
+    background-color: rgba(0, 0, 0, 0.2) ;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+.likeLisPopup{
+    background-color: #fff;
+    width: 350px;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+    border-radius: 1em;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+}
+.popup2{
+    background-color: rgba(0, 0, 0, 0.2) ;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+}
+.likePopup{
+    background-color: #fff;
+    width: 350px;
+    padding: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align:center;
+    border-radius: 1em;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+	border-bottom-right-radius: 1em;
+}
+.close-modal{
+    float: right;
+    cursor: pointer;
+}
+
+.like_list{
+    text-align:left;
+    cursor: pointer;
+}
+
+.like_list:hover {
+	 background-color: #ecf0f1;
+}

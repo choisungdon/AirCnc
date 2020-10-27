@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.aircnc.host.HostMapper">
+	<select id="selHosting" parameterType="CheckHostingVO" resultType="CheckHostingVO">
+		SELECT DISTINCT a.i_host AS host_user, a.ROOM_TITLE,  b.i_host AS build_type, c.i_host AS facilite,d.i_host AS safe_plant,e.i_host AS gest_space,
+		f.i_host AS space_info,g.i_host AS room_rule,h.i_host AS room_dt_rule,i.i_host AS check_inout,j.i_host AS room_fee,
+		k.i_host AS workplace_ph,l.i_host AS dtl_rule,m.i_host AS rooms_img
+		FROM HOST_USER a 
+		left JOIN Build_type b
+		ON a.i_host = b.I_HOST
+		left JOIN	FACILITE c
+		ON a.i_host	= c.I_HOST
+		left JOIN 	SAFE_PLANT d
+		ON a.I_HOST = d.i_host
+		left JOIN	GEST_SPACE e
+		ON a.i_host = e.I_HOST
+		left JOIN	SPACE_INFO f
+		ON a.i_host = f.i_host
+		left JOIN 	room_rule g
+		ON a.i_host = g.i_host
+		left JOIN 	room_dt_rule h
+		ON a.i_host = h.i_host
+		left JOIN 	CHECK_INOUT i
+		ON a.i_host = i.i_host
+		left JOIN 	ROOM_FEE j
+		ON a.i_host = j.i_host
+		left JOIN 	Workplace_ph k
+		ON a.i_host = k.i_host
+		left JOIN 	DTL_RULE l
+		ON a.i_host = l.i_host
+		left JOIN 	ROOMS_IMG m
+		ON a.i_host = m.i_host
+		WHERE a.i_user = #{i_user}
+		AND a.i_host NOT IN (
+		SELECT  hs.i_host 
+		FROM HOST_USER hs 
+		inner JOIN Build_type bt
+		ON hs.i_host = bt.I_HOST
+		inner JOIN	facilite fc
+		ON hs.i_host	= fc.I_HOST
+		inner JOIN 	SAFE_PLANT sp
+		ON hs.I_HOST = sp.i_host
+		inner JOIN	GEST_SPACE gs
+		ON hs.i_host = gs.I_HOST
+		inner JOIN	SPACE_INFO si
+		ON hs.i_host = si.i_host
+		inner JOIN 	room_rule rr
+		ON hs.i_host = rr.i_host
+		inner JOIN 	room_dt_rule rdr
+		ON hs.i_host = rdr.i_host
+		inner JOIN 	CHECK_INOUT ci
+		ON hs.i_host = ci.i_host
+		inner JOIN 	ROOM_FEE rf
+		ON hs.i_host = rf.i_host
+		inner JOIN 	Workplace_ph wp
+		ON hs.i_host = wp.i_host
+		inner JOIN 	DTL_RULE dr
+		ON hs.i_host = dr.i_host
+		inner JOIN 	ROOMS_IMG ri
+		ON hs.i_host = ri.i_host
+		WHERE hs.i_user = #{i_user}
+		); 
+	</select>
+	
+	<select id="selComplHosting" parameterType="CheckHostingVO" resultType="CheckHostingVO">
+		SELECT DISTINCT a.i_host AS host_user, a.ROOM_TITLE,  b.i_host AS build_type, c.i_host AS facilite,d.i_host AS safe_plant,e.i_host AS gest_space,
+		f.i_host AS space_info,g.i_host AS room_rule,h.i_host AS room_dt_rule,i.i_host AS check_inout,j.i_host AS room_fee,
+		k.i_host AS workplace_ph,l.i_host AS dtl_rule,m.i_host AS rooms_img
+		FROM HOST_USER a 
+		inner JOIN Build_type b
+		ON a.i_host = b.I_HOST
+		inner JOIN	FACILITE c
+		ON a.i_host	= c.I_HOST
+		inner JOIN 	SAFE_PLANT d
+		ON a.I_HOST = d.i_host
+		inner JOIN	GEST_SPACE e
+		ON a.i_host = e.I_HOST
+		inner JOIN	SPACE_INFO f
+		ON a.i_host = f.i_host
+		inner JOIN 	room_rule g
+		ON a.i_host = g.i_host
+		inner JOIN 	room_dt_rule h
+		ON a.i_host = h.i_host
+		inner JOIN 	CHECK_INOUT i
+		ON a.i_host = i.i_host
+		inner JOIN 	ROOM_FEE j
+		ON a.i_host = j.i_host
+		inner JOIN 	Workplace_ph k
+		ON a.i_host = k.i_host
+		inner JOIN 	DTL_RULE l
+		ON a.i_host = l.i_host
+		inner JOIN 	ROOMS_IMG m
+		ON a.i_host = m.i_host
+		WHERE a.i_user = #{i_user};
+	</select>
+	
+	<select id="getDuplicate" parameterType="HostingPkVO" resultType="HostingPkVO">
+		SELECT a.i_host ,b.i_build, c.I_FCT, d.I_SPT, e.i_gest,
+		f.I_SINFO, g.i_RULE, h.I_DTR, i.I_CK, j.I_FEE, k.i_ph
+		FROM HOST_USER a 
+		left JOIN Build_type b
+		ON a.i_host = b.I_HOST
+		left JOIN	FACILITE c
+		ON a.i_host	= c.I_HOST
+		left JOIN 	SAFE_PLANT d
+		ON a.I_HOST = d.i_host
+		left JOIN	GEST_SPACE e
+		ON a.i_host = e.I_HOST
+		left JOIN	SPACE_INFO f
+		ON a.i_host = f.i_host
+		left JOIN 	room_rule g
+		ON a.i_host = g.i_host
+		left JOIN 	room_dt_rule h
+		ON a.i_host = h.i_host
+		left JOIN 	CHECK_INOUT i
+		ON a.i_host = i.i_host
+		left JOIN 	ROOM_FEE j
+		ON a.i_host = j.i_host
+		left JOIN 	Workplace_ph k
+		ON a.i_host = k.i_host
+		WHERE A.I_USER = #{i_user}
+		AND A.I_HOST = #{i_host}
+	</select>
+	
+	<select id="selHostUserVO" parameterType="HostUserVO" resultType="HostUserVO">
+		SELECT *
+		FROM host_user
+		WHERE I_HOST = #{i_host}
+	</select>
+	
+	<select id="getI_Host" parameterType="HostUserVO" resultType="Integer">
+		SELECT MAX(i_host) AS i_host
+		FROM  host_user
+		WHERE  i_user = #{i_user};
+	</select>
+	
+	<select id="selBuildType" parameterType="HostUserVO" resultType="BuildTypeVO">
+		SELECT *
+		FROM Build_type
+		WHERE	I_HOST = #{i_host}
+		<if test="i_build != 0">
+		AND		I_BUILD = #{i_build}
+		</if>
+	</select>
+	
+	<select id="selFacilite" parameterType="FaciliteVO" resultType="FaciliteVO">
+		SELECT *
+		FROM facilite
+		WHERE I_HOST = #{i_host}
+		<if test="i_fct != 0">
+			AND I_FCT = #{i_fct}
+		</if>
+	</select>
+	
+	<select id="selSafePlant" parameterType="SafePlantVO" resultType="SafePlantVO">
+		SELECT *
+		FROM safe_plant
+		WHERE I_HOST = #{i_host}
+		<if test="i_spt != 0">
+			AND i_spt = #{i_spt}
+		</if>
+	</select>
+	
+	<select id="selGestSpace" parameterType="GestSpaceVO" resultType="GestSpaceVO">
+		SELECT *
+		FROM gest_space
+		WHERE I_HOST = #{i_host}
+		<if test="i_gest != 0">
+			AND I_GEST = #{i_gest}
+		</if>
+	</select>
+	
+	<select id="selSpaceInfo" parameterType="SpaceInfoVO" resultType="SpaceInfoVO">
+		SELECT *
+		FROM space_info
+		WHERE I_HOST = #{i_host}
+		<if test="i_sinfo != 0">
+			AND I_SINFO = #{i_sinfo}
+		</if>
+	</select>
+	
+	<select id="selDTLRule" parameterType="DTLRuleVO" resultType="DTLRuleVO">
+		SELECT *
+		FROM  DTL_RULE
+		WHERE I_HOST = #{i_host}
+		<if test="i_drule != 0">
+			AND I_DRULE = #{i_drule}
+		</if>
+	</select>
+	
+	<select id="selRoomRule" parameterType="RoomRuleVO" resultType="RoomRuleVO">
+		SELECT *
+		FROM  room_rule
+		WHERE I_HOST = #{i_host}
+		<if test="i_rule != 0">
+			AND I_RULE = #{i_rule}
+		</if>
+	</select>
+	
+	<select id="selRoom_Dt_Rule" parameterType="Room_Dt_RuleVO" resultType="Room_Dt_RuleVO">
+		SELECT *
+		FROM  room_dt_rule
+		WHERE I_HOST = #{i_host}
+		<if test="i_dtr != 0">
+			AND I_DTR = #{i_dtr}
+		</if>
+	</select>
+	
+	<select id="selCheckInOut" parameterType="CheckInOutVO" resultType="CheckInOutVO">
+		SELECT *
+		FROM  check_inout
+		WHERE I_HOST = #{i_host}
+		<if test="i_ck != 0">
+			AND I_CK = #{i_ck}
+		</if>
+	</select>
+	
+	<select id="selRoomFee" parameterType="RoomFeeVO" resultType="RoomFeeVO">
+		SELECT *
+		FROM  room_fee
+		WHERE I_HOST = #{i_host}
+		<if test="i_fee != 0">
+			AND I_FEE = #{i_fee}
+		</if>
+	</select>
+	
+	<select id="selWorkplacePh" parameterType="WorkplacePhVO" resultType="WorkplacePhVO">
+		SELECT *
+		FROM  workplace_ph
+		WHERE I_HOST = #{i_host}
+		<if test="i_ph != 0">
+			AND I_PH = #{i_ph}
+		</if>
+	</select>
+	
+	<select id="selRoomIMG" parameterType="RoomIMGVO" resultType="RoomIMGVO">
+		SELECT *
+		FROM  rooms_img
+		WHERE I_HOST = #{i_host}
+		<if test="i_img != 0">
+			AND I_IMG = #{i_img}
+		</if> 
+	</select>
+	
+	<!--  insert -->
+	<insert id="insHostSaveOne" parameterType="HostUserVO">
+		INSERT INTO host_user
+		(I_USER,COUNTRY,C_LAT,C_LNG,ADDR,S_LAT,S_LNG ,R_VASTION,
+		b_room,BED_QTY,BED_TYPE,BTH_ROOM,ROOM_TITLE 
+		,acc  ,acc_bank  ,acc_owner)
+		VALUES(#{i_user},#{country}, #{c_lat},#{c_lng},#{addr},#{s_lat},#{s_lng},#{r_vastion},
+					#{b_room},#{bed_qty},#{bed_type},#{bth_room},#{room_title},
+					#{acc},#{acc_bank},#{acc_owner});
+	</insert>
+	
+	<insert id="insHostSaveTwo" parameterType="BuildTypeVO">
+		INSERT INTO Build_type
+		(I_HOST,I_USER,typ,live_type)
+		VALUES(#{i_host}, #{i_user}, #{typ}, #{live_type})
+	</insert>
+	
+	<insert id="insHostSaveThree" parameterType="FaciliteVO">
+		INSERT INTO facilite
+		(I_HOST,I_USER,REQUIER,AIRCON,SAMPOO
+		,HITER,IN_HITER,WIFI,BREAKFAST,HANGER
+		,IRON,HIAR_DRY,PLACE_LATTOP,TV
+		,BABY_BAD,BABY_CHAIRS,SELF_CHECKIN,SELF_BTH_ROOM
+		,PIANO,DOOR
+		)
+		VALUES(
+			#{i_host}, #{i_user},#{requier, jdbcType=VARCHAR},#{aircon, jdbcType=VARCHAR},#{sampoo, jdbcType=VARCHAR} 
+			,#{hiter, jdbcType=VARCHAR},#{in_hiter, jdbcType=VARCHAR},#{wifi, jdbcType=VARCHAR},#{breakfast, jdbcType=VARCHAR},#{hanger, jdbcType=VARCHAR}
+			,#{iron, jdbcType=VARCHAR},#{hiar_dry, jdbcType=VARCHAR},#{place_lattop, jdbcType=VARCHAR},#{tv, jdbcType=VARCHAR} 				
+			,#{baby_bad, jdbcType=VARCHAR},#{baby_chairs, jdbcType=VARCHAR},#{self_checkin, jdbcType=VARCHAR},#{self_bth_room, jdbcType=VARCHAR}	
+			,#{piano, jdbcType=VARCHAR},#{door, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insHostSaveThree1" parameterType="SafePlantVO">
+		INSERT INTO safe_plant
+		(I_HOST,I_USER,FIRE_EMBLE,Carbon_ALARM,
+		MADIC_KIT,FIRE_EXTING,BAD_LOCK)
+		VALUES(
+		#{i_host},#{i_user} ,#{fire_emble, jdbcType=VARCHAR} ,#{carbon_alarm, jdbcType=VARCHAR}
+		 ,#{madic_kit, jdbcType=VARCHAR} ,#{fire_exting, jdbcType=VARCHAR} ,#{bad_lock, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insHostSaveFour" parameterType="GestSpaceVO">
+		INSERT INTO GEST_SPACE
+		(I_HOST,I_USER,LIVIROOM,cooking,WACHING,
+		DRYING,PAKING,GYM,SWIM_POOL,JACUZZI)
+		VALUES(
+		#{i_host},#{i_user} ,#{liviroom, jdbcType=VARCHAR} ,#{cooking, jdbcType=VARCHAR}
+		 ,#{waching, jdbcType=VARCHAR} ,#{drying, jdbcType=VARCHAR} ,#{paking, jdbcType=VARCHAR},#{gym, jdbcType=VARCHAR},#{swim_pool, jdbcType=VARCHAR}
+		 ,#{jacuzzi, jdbcType=VARCHAR}
+		
+		)
+	</insert>
+	
+	<insert id="insHostSaveFive" parameterType="SpaceInfoVO">
+		INSERT INTO SPACE_INFO
+		(I_HOST,I_USER,EXPA,Room_info,loca_info,TRAF_INFO)
+		VALUES(#{i_host}, #{i_user}, #{expa}, #{room_info}, #{loca_info}, #{traf_info})
+	</insert>
+	
+	<insert id="insRoomRule" parameterType="RoomRuleVO">
+		INSERT INTO room_rule
+		(i_host, i_user, child_ok, y_ch_ok, smoking, party)
+		VALUES(#{i_host}, #{i_user}, #{child_ok, jdbcType=VARCHAR}, #{y_ch_ok, jdbcType=VARCHAR}, #{smoking, jdbcType=VARCHAR}, #{party, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insRoom_Dt_Rule" parameterType="Room_Dt_RuleVO">
+		INSERT INTO room_dt_rule
+		(	i_host, i_user, STAIRS, NOISE, ANIMAL, 
+			IN_PKING, PUBLIC_SPACE, PLANT, CCTV, WEAPON, 
+			DENGER_DOG
+		)
+		VALUES(	
+			#{i_host}, #{i_user}, #{stairs, jdbcType=VARCHAR}, #{noise, jdbcType=VARCHAR}, #{animal, jdbcType=VARCHAR}, 
+			#{in_pking, jdbcType=VARCHAR}, #{public_space, jdbcType=VARCHAR},#{plant, jdbcType=VARCHAR},#{cctv, jdbcType=VARCHAR},#{weapon, jdbcType=VARCHAR},
+			#{denger_dog, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<insert id="insCheckInOut" parameterType="Room_Dt_RuleVO">
+		INSERT INTO CHECK_INOUT(
+		I_HOST,I_USER,CHECKIN_T,FINICH_T,
+		Ieast_DAY,max_DAY,reser_DATE ,reser_END_T
+		)
+		VALUES(
+		#{i_host}, #{i_user}, #{checkin_t}, #{finich_t},
+		#{ieast_day}, #{max_day}, #{reser_date}, #{reser_end_t}
+		)
+	</insert>
+	
+	<insert id="insRoomFee" parameterType="RoomFeeVO">
+		INSERT INTO ROOM_FEE
+		(i_host,i_user,
+		fee,sale,w_sale,m_sale 
+		)
+		VALUES(
+		#{i_host}, #{i_user}, #{fee}, #{sale, jdbcType=VARCHAR},
+		#{w_sale}, #{m_sale}
+		)
+	</insert>
+	
+	<insert id="inWorkplacePh" parameterType="WorkplacePhVO">
+		INSERT INTO workplace_ph(
+		I_HOST,I_USER,WP_PH,GEST_OK)
+		VALUES(
+		#{i_host}, #{i_user}, #{wp_ph}, #{gest_ok, jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<!-- update  -->
+	<update id="upHostSaveOne" parameterType="HostUserVO" >
+		UPDATE HOST_USER
+		SET COUNTRY		= #{country},	C_LAT		= #{c_lat},		C_LNG		= #{c_lng},
+		 	ADDR 		= #{addr},		S_LAT		= #{s_lat},		S_LNG		= #{s_lng},
+		 	R_VASTION	= #{r_vastion},	B_ROOM		= #{b_room},	BED_QTY		= #{bed_qty},
+		 	BED_TYPE	= #{bed_type},	BTH_ROOM	= #{bth_room},	ROOM_TITLE	= #{room_title},
+		 	ACC			= #{acc},		ACC_BANK	= #{acc_bank},	ACC_OWNER	= #{acc_owner},
+		 	M_DT		= NOW()
+		 WHERE I_HOST = #{i_host}
+		 AND I_USER = #{i_user}
+		
+	</update>
+	
+	<update id="upBuildType" parameterType="BuildTypeVO" >
+		UPDATE build_type
+		SET TYP	= #{typ},	LIVE_TYPE = #{live_type},	M_DT = NOW()
+		WHERE I_HOST = #{i_host}
+		AND I_USER = #{i_user}
+		AND I_BUILD = #{i_build}
+	</update>
+	
+	<update id="upFacilite" parameterType="FaciliteVO">
+		UPDATE facilite
+		SET REQUIER 	= #{requier, jdbcType=VARCHAR}, 		AIRCON = #{aircon, jdbcType=VARCHAR}, 				SAMPOO = #{sampoo, jdbcType=VARCHAR},
+		HITER			= #{hiter, jdbcType=VARCHAR}, 			IN_HITER = #{in_hiter, jdbcType=VARCHAR}, 			WIFI = #{wifi, jdbcType=VARCHAR},
+		BREAKFAST 		= #{breakfast, jdbcType=VARCHAR}, 		HANGER = #{hanger, jdbcType=VARCHAR}, 				IRON = #{iron, jdbcType=VARCHAR},
+		HIAR_DRY 		= #{hiar_dry, jdbcType=VARCHAR}, 		PLACE_LATTOP = #{place_lattop, jdbcType=VARCHAR}, 	TV = #{tv, jdbcType=VARCHAR},
+		BABY_BAD 		= #{baby_bad, jdbcType=VARCHAR}, 		BABY_CHAIRS = #{baby_chairs, jdbcType=VARCHAR}, 	SELF_CHECKIN = #{self_checkin, jdbcType=VARCHAR},
+		SELF_BTH_ROOM 	= #{self_bth_room, jdbcType=VARCHAR},	PIANO = #{piano, jdbcType=VARCHAR}, 				DOOR = #{door, jdbcType=VARCHAR},	M_DT = NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_FCT		= #{i_fct}
+	</update>
+	
+	<update id="upSafePlant" parameterType="SafePlantVO">
+		UPDATE safe_plant
+		SET FIRE_EMBLE 	= #{fire_emble, jdbcType=VARCHAR},	CARBON_ALARM = #{carbon_alarm, jdbcType=VARCHAR},	MADIC_KIT = #{madic_kit, jdbcType=VARCHAR},
+		FIRE_EXTING 	= #{fire_exting, jdbcType=VARCHAR},	BAD_LOCK = #{bad_lock, jdbcType=VARCHAR},			M_DT = NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_SPT		= #{i_spt}
+	</update>
+	
+	<update id="upGestSpace" parameterType="GestSpaceVO">
+		UPDATE gest_space
+		SET LIVIROOM	= #{liviroom, jdbcType=VARCHAR},	COOKING 		= #{cooking, jdbcType=VARCHAR},	WACHING = #{waching, jdbcType=VARCHAR},
+		DRYING 			= #{drying, jdbcType=VARCHAR},		PAKING 			= #{paking, jdbcType=VARCHAR},	GYM 	= #{gym, jdbcType=VARCHAR},
+		SWIM_POOL 		= #{swim_pool, jdbcType=VARCHAR},	JACUZZI 		= #{jacuzzi, jdbcType=VARCHAR},	M_DT 	= NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_GEST		= #{i_gest}
+	</update>
+	
+	<update id="upSpaceInfo" parameterType="SpaceInfoVO">
+		UPDATE space_info
+		SET EXPA 	= #{expa}, ROOM_INFO	= #{room_info}, LOCA_INFO	= #{loca_info},
+		TRAF_INFO	= #{traf_info},			M_DT = NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_SINFO		= #{i_sinfo}
+	</update>
+	
+	<update id="upRoomRule" parameterType="RoomRuleVO">
+		UPDATE room_rule
+		SET CHILD_OK	= #{child_ok, jdbcType=VARCHAR},	Y_CH_OK	= #{y_ch_ok, jdbcType=VARCHAR}, SMOKING	= #{smoking, jdbcType=VARCHAR},
+			ANIMAL_OK	= #{animal_ok, jdbcType=VARCHAR},	PARTY	= #{party, jdbcType=VARCHAR} , 	M_DT = NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_RULE		= #{i_rule}
+	</update>
+	
+	<update id="upRoom_Dt_Rule" parameterType="Room_Dt_RuleVO">
+		UPDATE room_dt_rule
+		SET STAIRS	= #{stairs, jdbcType=VARCHAR},		NOISE		= #{noise, jdbcType=VARCHAR},			ANIMAL		= #{animal, jdbcType=VARCHAR},
+			IN_PKING= #{in_pking, jdbcType=VARCHAR},	PUBLIC_SPACE= #{public_space, jdbcType=VARCHAR},	PLANT		= #{plant, jdbcType=VARCHAR},
+			CCTV	= #{cctv, jdbcType=VARCHAR},		WEAPON		= #{weapon, jdbcType=VARCHAR},			DENGER_DOG	= #{denger_dog, jdbcType=VARCHAR},
+			M_DT = NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_DTR		= #{i_dtr}
+	</update>
+	
+	<update id="upCheckInOut" parameterType="CheckInOutVO">
+		UPDATE check_inout
+		SET CHECKIN_T	= #{checkin_t}, FINICH_T= #{finich_t}, 		IEAST_DAY= #{ieast_day},
+			MAX_DAY		= #{max_day}, 	RESER_DATE= #{reser_date},	RESER_END_T= #{reser_end_t},
+			M_DT = NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_CK		= #{i_ck}
+	</update>
+	
+	<update id="upRoomFee" parameterType="RoomFeeVO">
+		UPDATE room_fee
+		SET FEE = #{fee},	SALE = #{sale, jdbcType=VARCHAR},	W_SALE = #{w_sale},
+		M_SALE = #{m_sale},	M_DT = NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_FEE		= #{i_fee}
+	</update>
+	
+	<update id="upWorkplacePh" parameterType="WorkplacePhVO">
+		UPDATE workplace_ph
+		SET WP_PH = #{wp_ph}, GEST_OK= #{gest_ok, jdbcType=VARCHAR},M_DT = NOW()
+		WHERE I_HOST	= #{i_host}
+		AND I_USER		= #{i_user}
+		AND I_PH		= #{i_ph}
+	</update>
+	<!-- delete 메시지 테이블 안지웠음  -->
+	<delete id="delHost" parameterType="RoomIMGVO">
+		        DELETE FROM rooms_img		WHERE I_HOST = #{i_host};
+				DELETE FROM workplace_ph	WHERE I_HOST = #{i_host};
+				DELETE FROM room_fee 		WHERE I_HOST = #{i_host};
+				DELETE FROM check_inout 	WHERE I_HOST = #{i_host};
+				DELETE FROM room_dt_rule 	WHERE I_HOST = #{i_host};
+				DELETE FROM DTL_RULE 		WHERE I_HOST = #{i_host};
+				DELETE FROM room_rule 		WHERE I_HOST = #{i_host};
+				DELETE FROM space_info 		WHERE I_HOST = #{i_host};
+				DELETE FROM gest_space 		WHERE I_HOST = #{i_host};
+				DELETE FROM safe_plant 		WHERE I_HOST = #{i_host};
+				DELETE FROM facilite 		WHERE I_HOST = #{i_host};
+				DELETE FROM build_type 		WHERE I_HOST = #{i_host};
+				DELETE FROM AIRPORT_INFO 	WHERE I_HOST = #{i_host};
+				DELETE FROM USER_RESER 		WHERE I_HOST = #{i_host};
+				DELETE FROM user_like 		WHERE I_HOST = #{i_host};
+				DELETE FROM HOST_REVIEW 	WHERE I_HOST = #{i_host};
+		        DELETE FROM HOST_USER 		WHERE I_HOST = #{i_host};
+	</delete>
+	<!-- 숙소 사진 -->
+	<insert id="insRoomImg" parameterType="RoomIMGVO">
+		INSERT INTO ROOMS_IMG(I_HOST,i_user, img_url)
+		VALUES(
+		#{i_host}, #{i_user},#{img_url}
+		)
+	</insert>
+	
+	<select id="delGetImg" parameterType="RoomIMGVO" resultType="RoomIMGVO">
+		SELECT i_img, I_HOST, I_USER, IMG_URL
+		FROM rooms_img 
+		WHERE	i_host	= #{i_host}
+		AND		i_user	= #{i_user}
+		AND		I_IMG	= #{i_img}
+	</select>
+	
+	<select id="getRoomImg" parameterType="RoomIMGVO" resultType="RoomIMGVO">
+		SELECT a.i_img, a.I_HOST, a.I_USER, a.IMG_URL
+		FROM rooms_img a
+		INNER JOIN 
+		(
+		SELECT MAX(i_img) AS i_img
+		FROM rooms_img
+		WHERE i_host = #{i_host}
+		AND i_user = #{i_user}
+		) b
+		ON a.i_img = b.i_img
+		WHERE i_host = #{i_host}
+		AND i_user = #{i_user};
+	</select>
+	
+	<delete id="delRoomImg" parameterType="RoomIMGVO" >
+		DELETE FROM rooms_img
+		WHERE	i_host	= #{i_host}
+		AND		i_user	= #{i_user}
+		AND		I_IMG	= #{i_img}
+	</delete>
+	
+	<!-- 추가 규칙 -->
+	<select id="lastDtlRule" parameterType ="DTLRuleVO" resultType="DTLRuleVO">
+		SELECT *
+		FROM  dtl_rule a
+		INNER JOIN (
+		SELECT MAX(I_DRULE) AS I_DRULE
+		FROM dtl_rule
+		WHERE i_host = #{i_host}
+		AND i_user = #{i_user}
+		) b 
+		ON a.I_DRULE = b.I_DRULE
+	</select>
+	
+	<insert id="insDtlRule" parameterType="DTLRuleVO">
+		INSERT INTO DTL_RULE
+		(i_host, i_user, RULE)
+		VALUES(#{i_host}, #{i_user}, #{rule})
+	</insert>
+	
+	<delete id="delDtlRule" parameterType="DTLRuleVO">
+		DELETE FROM DTL_RULE
+		WHERE	i_drule	= #{i_drule}
+	</delete>
+	
+	
+	
+	
+	
+	
+	
+</mapper>

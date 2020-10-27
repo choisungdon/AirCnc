@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.aircnc.wishlists.WishlistsMapper">
+
+<!-- 생성된 리스트가 있는지 체크하고 보여주기. 후에 리스트를 생성하거나 선택해서 삽입 -->
+<select id="selWishL" parameterType="TUserVO" resultType="UserLListVO">
+	SELECT a.i_list, a.i_user, a.LIST_TITLE, b.host_count, b.i_host, c.img_url
+	FROM user_l_list a
+	left JOIN  (
+	SELECT  i_list, i_user, COUNT(i_host) host_count, i_host
+	FROM  user_like 
+	GROUP BY i_list
+	)b
+	ON a.i_list = b.i_list 
+	left JOIN (
+	SELECT *
+	FROM  rooms_img
+	GROUP BY i_host
+	)c
+	ON b.i_host = c.i_host
+	WHERE a.i_user = #{i_user}
+	ORDER BY a.r_dt DESC
+</select>
+<select id="selLinfo" parameterType="UserLListVO" resultType="UserLListVO">
+	SELECT a.i_list, a.i_user, a.LIST_title, COUNT(b.I_LIKE) as host_count 
+	FROM  user_l_list a
+	INNER JOIN user_like b
+	ON a.i_list = b.i_list
+	WHERE a.i_list = #{i_list};
+</select>
+
+<select id="selHInfo" parameterType="UserLListVO" resultType="WishlistsVO">
+	SELECT a.i_list, a.i_user, a.LIST_TITLE , b.i_host,
+	c.b_room, c.BED_QTY, c.BED_TYPE, c.BTH_ROOM, c.ROOM_TITLE,
+	(c.r_vastion - c.rv_state) as hum_count , d.FEE, E.avg, E.count,
+	c.C_LAT,c.C_LNG,c.S_LAT,c.S_LNG, ifnull(b.i_user,0) AS like_user
+	FROM user_l_list a
+	INNER JOIN user_like b
+	ON a.i_list = b.i_list
+	INNER JOIN host_user c
+	ON b.i_host = c.i_host
+	INNER JOIN room_fee d
+	ON b.i_host = d.I_HOST
+	left JOIN (
+	SELECT I_HOST, I_USER, CONTENTS, round(avg(ifnull(evaluate_val,0)),2) AS avg,
+	COUNT(CONTENTS) as count
+	FROM host_review
+	GROUP BY I_HOST
+	)e
+	ON b.i_host = e.i_host
+	WHERE a.i_list = #{i_list};
+</select>
+
+<select id="selRoomImg" parameterType="WishlistsVO" resultType="RoomIMGVO">
+	SELECT *
+	FROM rooms_img
+	WHERE i_host = #{i_host};
+</select>
+
+
+<!-- 목록만들기 버튼으로 리스트 생성 -->
+<insert id="insWishL" parameterType="UserLListVO">
+	INSERT INTO user_l_list (i_user, list_title)
+	VALUES (#{i_user}, #{list_title})
+</insert>
+
+
+<!-- 선택한 리스트에 i_host 저장. 새 리스트를 생성한 후 저장할 때도 재활용 -->
+<insert id="insHost" parameterType="UserLikeVO">
+	INSERT INTO user_like (i_user, i_list, i_host)
+	VALUES (#{i_user}, #{i_list}, #{i_host})
+</insert>
+
+<!-- 검색결과화면에서 새 리스트 생성하기 -->
+<insert id="insLfromS" parameterType="UserLListVO"
+	useGeneratedKeys="true" keyProperty="i_list">
+	INSERT INTO user_l_list (search_nm, check_in, check_out, gest_qty, i_user)
+	VALUES (#{search_nm}, #{check_int}, #{check_out}, #{gest_qty}, #{i_user})
+</insert>
+
+
+
+</mapper> 
