@@ -64,7 +64,7 @@
                     <li class="room_title">${hinfo.room_title}</li>
                     <li class="fee">${hinfo.fee}/1박</li>
                     <li class="eval">${hinfo.avg} ${hinfo.count}</li>
-                    <li class="reser">예약하기</li>
+                    <li class="reser" onclick="reser(${hinfo.i_host})">예약하기</li>
                 </div>
                 </c:forEach>
             </div>

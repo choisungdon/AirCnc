@@ -1,5 +1,3 @@
-
-
 function viewMenu(){
     var drop_menu = document.querySelector('.drop_menu');
 
@@ -9,6 +7,9 @@ function viewMenu(){
         drop_menu.style.display = 'none';
     }
 }
+
+window.onload = goComfirm();
+
 
 // up down button
 function countUp(qty){
@@ -93,6 +94,13 @@ function goSearch(){
 	var chin	= document.getElementById("searchin").value;
 	var chout	= document.getElementById("searchout").value;
 	var qty 	= document.getElementById('qty').value;
+	
+	// 검색 옵션 없을시 return 
+	if(addr == '') return alert('위치를 입력하시오.');
+	if(chin == '') return alert('날짜를 추가하시오.');
+	if(chout == '') return alert('날짜를 추가하시오.');
+	if(qty < 1)  return alert('인원수를 추가하시오.');
+	
 	location.href = "/search/searchMain?addr="+addr+"&chin="+chin+"&chout="+chout+"&qty="+qty;
 }
 
@@ -270,15 +278,20 @@ function SaveLList(){
 	
 }
 
+
 // class = payment 예약 날짜 변경시 
 $(function() {
  //체크인 눌렀을때  달력 출력 
+
   $('#r_chin').daterangepicker({
       autoUpdateInput: false,
       locale: {
           cancelLabel: 'Clear'
       }
   });
+
+
+
 // apply 누른 순간 input value에 날짜 값 삽입 
   $('#r_chin').on('apply.daterangepicker', function(ev, picker) {
       	$(this).html(picker.startDate.format('YYYY-MM-DD'));
@@ -383,12 +396,24 @@ function qtyDW(qty){
 
 // 숙박 인원 및 날짜 변경시 가능 여부 함수 
 function goComfirm(){
+	
 	var submit 	= document.querySelector('#sub'); // 예약하기 버튼
 	var erro	= document.querySelector('.erro'); // 에러 태그
 	var chin	= $('input[name="chin"]').val(); // 체크인 날짜
 	var chout	= $('input[name="chout"]').val(); // 체크아웃 날짜
 	var date 	= $('input[name="date"]').val(); // 일수($박)
 	var qty 	= $('input[name="qty"]').val(); // 인원
+	
+	if(chin == '' || chout == ''){
+		erro.innerHTML = '날짜를 입력하세요.'; // 오류 메시지 
+		
+		submit.disabled='true';// 예약 버튼 비활성화
+		return false;
+	}else if(qty <= 0){
+		erro.innerHTML = '인원수를 입력하세요.'; // 오류 메시지 
+		submit.disabled='true';// 예약 버튼 비활성화
+		return false;
+	}
 	
 	axios.get('/search/goComfirm', {
     params: {

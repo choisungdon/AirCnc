@@ -409,13 +409,13 @@
                         <div class="payment_date">
                             <span class="chin">
                                <span>체크인 : </span>
-                               <span id="r_chin" >${sData.chin}</span>
+                               <span id="r_chin" >${sData.chin eq '' || sData.chin eq null? '날짜 없음' : sData.chin}</span>
                                <input type="hidden" name="chin"  value="${sData.chin}">
                             </span>
                             
                             <span class="chout">
                                 <span>체크아웃 : </span>
-                                <span id="r_chout" >${sData.chout}</span>
+                                <span id="r_chout" >${sData.chout eq '' || sData.chout eq null? '날짜 없음' : sData.chout}</span>
                                 <input type="hidden" name="chout" value="${sData.chout}">
                             </span>
                         </div>

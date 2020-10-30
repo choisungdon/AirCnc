@@ -143,6 +143,10 @@ function popClose(ele){
 	 parent.style.display='none';
 }
 
+function reser(i_host){
+	location.href="/search/searchDetail?i_host="+i_host
+}
+
 // menuctnt 버튼 함수 
 
 // 메뉴-저장 목록으로 이동

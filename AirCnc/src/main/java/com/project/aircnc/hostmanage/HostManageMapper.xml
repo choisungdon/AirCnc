@@ -24,5 +24,48 @@
 		)
 		AND ISNULL(reser_state) 
 	</select>
+	
+	<select id="selRsv" parameterType="TUserVO" resultType="RsvVO">
+		SELECT a.i_reser, a.i_host, a.i_user,a.check_in AS chin,a.check_out AS chout,
+		a.gest_qty AS qty , a.total_fee,a.reser_state, 
+		b.img_url, c.ROOM_TITLE,c.addr,DATE_FORMAT(a.R_DT,'%Y-%m-%d') AS R_DT, DATE_FORMAT(a.m_dt,'%Y-%m-%d') AS M_DT
+		FROM user_reser a
+		INNER JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) b
+		ON a.i_host = b.i_host
+		INNER JOIN host_user c
+		ON a.i_host = c.I_HOST
+		WHERE c.I_USER = ${i_user}
+		AND a.check_out > NOW()
+		AND  ISNULL(a.reser_state);
+		
+	</select>
+	
+	<select id="selViewData" parameterType="int" resultType="RsvViewData">
+		SELECT a.i_reser, a.i_host, a.i_user,a.check_in AS chin,a.check_out AS chout,
+		a.gest_qty AS qty , a.total_fee,
+		c.img_url, d.ROOM_TITLE, DATE_FORMAT(a.R_DT,'%Y-%m-%d') AS R_DT, DATE_FORMAT(a.m_dt,'%Y-%m-%d') AS M_DT,
+		d.BED_QTY, b.NM, b.PRO_IMG,e.live_type,e.typ,f.fee
+		FROM user_reser a
+		INNER JOIN t_user b
+		ON a.I_USER = b.I_USER
+		INNER JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) c
+		ON a.i_host = c.i_host
+		INNER JOIN host_user d
+		ON a.i_host = d.i_host
+		INNER JOIN build_type e
+		ON a.i_host= e.i_host
+		INNER JOIN room_fee f
+		ON a.I_HOST = f.i_host
+		WHERE a.I_RESER = #{i_reser};
+		
+	</select>
 
 </mapper>

@@ -12,6 +12,7 @@
     <script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/resources/css/trip.css">
     <script type="text/javascript" src="/resources/js/trip.js"></script>
+    
     <title>trip</title>
 </head>
 <body>

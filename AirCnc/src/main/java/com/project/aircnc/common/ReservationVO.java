@@ -11,7 +11,7 @@ public class ReservationVO {
 	private String  chin;
 	private String  chout;
 	private int 	qty; //명수 
-	private int		total_fee;
+	private int		total_fee;// 총 요금 ㄴ
 	private long 	date;
 	private String  ms_title; // 톡방 이름
 	private String  cmt; // 메시지 내용

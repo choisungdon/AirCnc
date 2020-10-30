@@ -1,5 +1,8 @@
 package com.project.aircnc.hostmanage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.aircnc.common.TUserVO;
 
@@ -26,8 +31,16 @@ public class HostManageContoller {
 	// 예약(숙소 관리)화면 이동 
 	@RequestMapping(value = "/rsv", method = RequestMethod.GET)
 	public String main(TUserVO param, HttpSession hs, Model model) {
-		
+		model.addAttribute("data", service.selRsv(param));
 		return "/hostManage/rsv";
+	}
+	// 예약 숙박 내용 확인 
+	@RequestMapping(value="/viewData", method=RequestMethod.GET)
+	public @ResponseBody Map<String, Object> goComfirm (@RequestParam int i_reser,Model model, HttpSession hs){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selViewData(i_reser));		
+		return map;
 	}
 	
 }
