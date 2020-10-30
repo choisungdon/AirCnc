@@ -490,14 +490,6 @@
 		)
 	</insert>
 	
-	<select id="delGetImg" parameterType="RoomIMGVO" resultType="RoomIMGVO">
-		SELECT i_img, I_HOST, I_USER, IMG_URL
-		FROM rooms_img 
-		WHERE	i_host	= #{i_host}
-		AND		i_user	= #{i_user}
-		AND		I_IMG	= #{i_img}
-	</select>
-	
 	<select id="getRoomImg" parameterType="RoomIMGVO" resultType="RoomIMGVO">
 		SELECT a.i_img, a.I_HOST, a.I_USER, a.IMG_URL
 		FROM rooms_img a
@@ -519,6 +511,14 @@
 		AND		i_user	= #{i_user}
 		AND		I_IMG	= #{i_img}
 	</delete>
+	
+	<select id="delGetImg" parameterType="RoomIMGVO" resultType="RoomIMGVO">
+		SELECT i_img, I_HOST, I_USER, IMG_URL
+		FROM rooms_img 
+		WHERE	i_host	= #{i_host}
+		AND		i_user	= #{i_user}
+		AND		I_IMG	= #{i_img}
+	</select>
 	
 	<!-- 추가 규칙 -->
 	<select id="lastDtlRule" parameterType ="DTLRuleVO" resultType="DTLRuleVO">

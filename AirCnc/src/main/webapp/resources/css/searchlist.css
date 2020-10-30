@@ -304,12 +304,15 @@ footer{
 
 .items > .item_text{
     flex-grow: 5;
+    display:flex;
+    flex-direction: column;
     margin-bottom: 20px;
     margin-top: 20px;
     margin-left: 10px;
 }
 
 .item_text > .m_item_title{
+	flex-grow: 1;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -336,16 +339,19 @@ footer{
 
 .item_room{
     color : rgb(114, 109, 109);
+    flex-grow: 1;
 }
 .item_text > .item_line{
     color:rgb(189, 184, 184);
+    flex-grow: 1;
 }
 
 .item_text > .item_fee{
+	flex-grow: 7;
    display: flex;
    flex-direction: row;
    justify-content: space-between;
-   align-items: flex-end;
+   align-items: flex-start;
 }
 
 .item_fee > .item_sub_fee{
@@ -634,6 +640,10 @@ img {vertical-align: middle;}
 
 img{
 	object-fit: cover;
+}
+
+.fa-heart{
+	margin-right: 10px;
 }
 
 

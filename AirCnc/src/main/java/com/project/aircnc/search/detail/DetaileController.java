@@ -23,7 +23,7 @@ public class DetaileController {
 	
 	@Autowired
 	private DetaileService service;
-	
+	// 숙소 디테일 화면 
 	@RequestMapping(value = "/searchDetail", method = RequestMethod.GET)
 	public String goAddr(SearchVO param, Model model, HttpSession hs) {
 		

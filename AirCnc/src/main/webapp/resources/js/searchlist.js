@@ -30,20 +30,11 @@ function gosubmit(){
 
 // Detaile  화면 
 function goDetail(i_host,chin,chout,qty,element){
-	
-	if(element.className == 'fa-heart')
-		return false;
-			
 	var url = "/search/searchDetail?i_host="+i_host+"&chin="+chin+"&chout="+chout+"&qty="+qty+"&addr="+s_addr.value;
 	var win = window.open(url, '_blank');
   	win.focus();
 }
-function goFilter(){
-	var form = document.querySelector('#ffom');
-	for (var pair of formData.entries()) {
-  	 console.log(pair[0] + ': ' + pair[1]);
-	}
-}
+
 
 // 초기 검색 인원 증감함수
 function countUp(d) {
@@ -238,15 +229,15 @@ function type_del(){
 // layer popup (like)
 // 좋아요 버튼 
  function like(likeTag){
-	var popup1		= document.querySelector(".popup1");
-	var popup2		= document.querySelector(".popup2");
+	var popup1		= document.querySelector(".popup1"); // 좋아요 목록 Popup
+	var popup2		= document.querySelector(".popup2"); // 새로 만들기 Popup
 	var ctButton 	= document.getElementById("ctButton"); // 목록 만들기 버튼 
 	var sLikeButton = document.getElementById("sLikeButton"); // 새로 만들기 번튼 
 	var likUser 	= likeTag.nextElementSibling; // 좋아요 상태 값 태그 
 	var i_host		= likUser.nextElementSibling; // 숙소 pk
-	var titleTag	= popup1.querySelectorAll(".like_list");
-	var title 		= document.getElementById("list_title");// 저장 목록 title
-	var afList 		= document.getElementById("afList");// hr 태그 
+	var titleTag	= popup1.querySelectorAll(".like_list");// 좋아요 목록 태그 
+	var title 		= document.getElementById("list_title");// 저장 목록 title input Text 태그 
+	var afList 		= document.getElementById("afList");// 좋아요 목록 위 hr 태그 
 	
 	
 	if(likUser.value == 0){ // diLike 상태 
@@ -260,42 +251,43 @@ function type_del(){
 		// 목록 만들기 클릭시 
 		ctButton.addEventListener('click', function(event){
         	//alert('Hello world, '+event.target.value);
-			popup1.style.display = 'none';
-			popup2.style.display = 'block';
+			popup1.style.display = 'none'; // 좋아요 목록 Popup
+			popup2.style.display = 'block';// 새로 만들기 Popup 
     	});
-		// 새로 만들기 
+
+		// 목록 새로 만들기 
 		sLikeButton.addEventListener('click', function(event){
         	//alert('Hello world, '+event.target.value);
-			if(title.value == ''){
+			if(title.value == ''){ // 제목 없으면 return 
 				alert("제목을 설정하세요.");
 				title.focus();
 				return false;
 			}
 			axios.get('/user/likelist', {
 				params: {
-					i_host	: i_host.value,
-					title 	: title.value
+					i_host	: i_host.value, // 해당 숙소 pk
+					title 	: title.value // 좋아요 제목 
 				}
 			 })
 			  .then(function (res) {
 			    console.log(res.data.result);
-				if(res.data.result == 0){
+				if(res.data.result == 0){ // 저장 안됨 
 					alert("DB 오류");
 					return false;
-				}else{
-					popup2.style.display='none';
-					likeTag.style.color = 'red';
-					likUser.value = 1;
+				}else{ //  저장 성공 (res.data.result -> 좋아요 목록 PK 가지고 옵니다.)
+					popup2.style.display='none'; // 새로 만들기 popup none
+					likeTag.style.color = 'red'; // 해당 숙소 하트 이모지 색 지정 
+					likUser.value = 1;// 좋아요 상태 값 
 					// 저장 목록 태그 생성 
-					var div = document.createElement("div");
+					var div = document.createElement("div"); // 좋아요 목록 Popup 내용 추가 태그 생성 
 					div.setAttribute("class","like_list")
-					div.innerHTML = title.value;
-					var input = document.createElement("input");
+					div.innerHTML = title.value; // 좋아요 목록 제목 삽입 
+					var input = document.createElement("input"); // 좋아요 클릭 이벤트때 i_list(pk) 사용 합니다. 
 					input.setAttribute("type","hidden");
-					input.setAttribute("id","i_list");
-					input.setAttribute("value",res.data.result);
+					input.setAttribute("id","i_list"); 
+					input.setAttribute("value",res.data.result); 
 					afList.after(input);
-					afList.after(div);
+					afList.after(div); //좋아요 목록 Popup 내용 추가 
 				}
 			  })
     	});
@@ -311,7 +303,7 @@ function type_del(){
 				if(res == 0){
 					alert("DB 오류");
 				}else{
-					likeTag.style.color = 'gray';
+					likeTag.style.color = 'gray'; // 이모지 색깔 변경 
 					likUser.value = 0// 좋아요 비활성화 
 				}
 		  })
@@ -324,8 +316,8 @@ function type_del(){
 function llSave(i_list,i_host,popup1,likeTag,likUser){
 	axios.get('/user/llSave', {
 		params: {
-			i_host	: i_host,
-			i_list	: i_list
+			i_host	: i_host, // 해당 숙소 pk
+			i_list	: i_list // 좋아용 목록 pk
 		}
 	 })
 	 .then(function (res) {

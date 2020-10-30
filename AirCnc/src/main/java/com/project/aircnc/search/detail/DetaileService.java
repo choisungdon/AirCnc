@@ -29,9 +29,9 @@ public class DetaileService {
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		param.setI_user(loginUser.getI_user()); 
 		
-		SearchDetaileVO dbVO= mapper.selDetaile(param);
+		SearchDetaileVO dbVO= mapper.selDetaile(param); // DB 데이터 가져오기 
 		
-		// host 유저 profile 경로 수정 
+		// host 유저 profile(이미지) 경로 수정 
 		String profileImg = dbVO.getPro_img();
 		
 		if(profileImg == null || profileImg.equals("")) {
@@ -42,17 +42,17 @@ public class DetaileService {
 		dbVO.setMy_profile(profileImg);
 		//
 		
-		// room IMG 경로 수정,HostReviewVO cmt_user_poto 수정 및 추가 규칙,HostReviewVO select
+		// room IMG 경로 수정,HostReviewVO cmt_user_poto 수정 및 추가 규칙,HostReviewVO(후기) select
 		dbVO.setRoomImgList(mapper.selRoomImg(param));
 		dbVO.setDtlRuleList(mapper.selDtRule(param));
 		dbVO.setHostReviewList(mapper.selHostReview(param));
 		dbVO.setUserLList(mapper.selLikeList(loginUser)); // 좋아용 list 출력 
-		
+		//room IMG 경로 수정
 		for (RoomIMGVO roomImgVO : dbVO.getRoomImgList()) {
 			String room_poto = "/resources/room_img/host" + roomImgVO.getI_host() + "/" + roomImgVO.getImg_url();
 			roomImgVO.setRoom_poto(room_poto);
 		}
-		
+		// 후기 기입 유저 이미지 경로 수정 
 		for (HostReviewVO reViewVO : dbVO.getHostReviewList()) {
 			profileImg = reViewVO.getPro_img();
 			
@@ -65,7 +65,7 @@ public class DetaileService {
 			
 		}
 		
-		// 일수 계산 
+		// 일수 계산 (박)
 		try {
 			long date = MyUtils.changeDate(param.getChin(), param.getChout());
 			param.setDate(date);
@@ -91,14 +91,14 @@ public class DetaileService {
 		int inoutDate = mapper.existInOutDate(param); // 숙박 일 가능여부
 		int Rvation = mapper.existRvation(param); // 인원 가능여부 
 		
-		if(inout != 1) {
+		if(inout != 1) { // 0 : 숙박 불가  1: 숙박 가능
 			return "해당 날짜에 숙박이 불가 합니다.";
-		}else if(inoutDate != 1) {
+		}else if(inoutDate != 1) { // 0 : 숙박 불가  1: 숙박 가능
 			return "최소, 최대 숙박 일수를 초과 했습니다.";
-		}else if(Rvation != 1) {
+		}else if(Rvation != 1) { // 0 : 숙박 불가  1: 숙박 가능
 			return "현재 숙박 가능인원을 초과 했습니다.";
 		}else {
-			return "o";
+			return "o"; // 최종 숙박 가능 
 		}
 		
 	}

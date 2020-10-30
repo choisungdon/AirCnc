@@ -111,13 +111,14 @@ public class HostService {
 	}
 	
 	public List<RoomIMGVO> selRoomIMG(RoomIMGVO param,HttpSession hs){
+		
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		param.setI_user(loginUser.getI_user());
 		
 		List<RoomIMGVO> vo = mapper.selRoomIMG(param);
 		// URL 수정 
 		for (RoomIMGVO roomIMGVO : vo) {
-			String img_url = "/resources/room_img/host" + param.getI_user() + "/" + roomIMGVO.getImg_url();
+			String img_url = "/resources/room_img/host" + param.getI_host() + "/" + roomIMGVO.getImg_url();
 			roomIMGVO.setImg_url(img_url);
 		}
 		return vo;
@@ -270,43 +271,41 @@ public class HostService {
 	
 	// 숙소 사진 insert delete select
 	public RoomIMGVO getRoomImg(int i_host,HttpSession hs) {
-		RoomIMGVO param = new RoomIMGVO();
+		RoomIMGVO param = new RoomIMGVO();// mapper로 보낼 데이터 
 		String profileImg = null;
-		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
-		param.setI_host(i_host);
-		param.setI_user(loginUser.getI_user());
+		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");// 유저 정보 
+		param.setI_host(i_host);// 숙소  pk
+		param.setI_user(loginUser.getI_user()); // 유저 pk
 		
-		param = mapper.getRoomImg(param);
-		
+		param = mapper.getRoomImg(param);// 이미지 파일 이름 
+		// 이미지 URL 변경 
 		profileImg = "/resources/room_img/host" + i_host + "/" + param.getImg_url();
 		param.setImg_url(profileImg);
 
-		return param;	
+		return param;// 이미지 return  
 	}
 	
 	public int insRoomImg(MultipartFile photo,int i_host,HttpSession hs) {
-		RoomIMGVO param = new RoomIMGVO();
+		RoomIMGVO param = new RoomIMGVO(); //mapper로 보낼 데이터 
 		
-		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
-		param.setI_host(i_host);
-		param.setI_user(loginUser.getI_user());
+		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser"); // 유저 정보 
+		param.setI_host(i_host);// 숙소 pk
+		param.setI_user(loginUser.getI_user());// 유저 pk
 		
 		String realPath = hs.getServletContext().getRealPath("/"); //루트 절대경로 가져오기
-		String imgFolder = realPath + "/resources/room_img/host" + i_host;
+		String imgFolder = realPath + "/resources/room_img/host" + i_host;// 서버에 저장할 파일 
 		
-		String fileNm = MyUtils.saveFile(imgFolder, photo);
-
+		String fileNm = MyUtils.saveFile(imgFolder, photo);// 이미지 저장 및 폴더 생성 
+		param.setImg_url(fileNm);// 파일 이름 
 		
-		param.setImg_url(fileNm);
-		
-		return mapper.insRoomImg(param);
+		return mapper.insRoomImg(param);// DB 저장 
 	}
 	
 	public int delRoomImg(int i_host,int i_user, int i_img, HttpSession hs) {
 		RoomIMGVO param = new RoomIMGVO();
-		param.setI_host(i_host);
-		param.setI_user(i_user);
-		param.setI_img(i_img);
+		param.setI_host(i_host); // 숙소 pk
+		param.setI_user(i_user); // 유저 pk
+		param.setI_img(i_img); // 이미지 pk
 		//db 파일 이름 저장 
 		param = mapper.delGetImg(param);
 		//루트 절대경로 가져오기
@@ -318,7 +317,7 @@ public class HostService {
 			String imgPath = imgFolder + "/" + param.getImg_url();
 			MyUtils.deleteFile(imgPath);
 		}
-		// db 파일 이름 (행)삭제 
+		// db 이미지 삭제 
 		return mapper.delRoomImg(param);
 	}
 	//

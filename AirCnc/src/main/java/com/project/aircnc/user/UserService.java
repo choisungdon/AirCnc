@@ -158,29 +158,34 @@ public class UserService {
 			return 2;
 		}
 	}
-	
+	// 좋아요 목록 새로 만들기 
 	public int inslikeList(int i_host,String title,HttpSession hs) {
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
-		// likeList -> insert
-		UserLikeVO likeVO = new UserLikeVO();
-		UserLListVO listVO = new UserLListVO();
-		listVO.setI_user(loginUser.getI_user());
+		
+		UserLikeVO likeVO = new UserLikeVO(); // mapper에 넘겨줄 객체 
+		UserLListVO listVO = new UserLListVO(); // mapper에 넘겨줄 객체 
+		
+		// 파라미터 객체 데이터 setter (숙소 제목) DB 저장 데이터 
+		listVO.setI_user(loginUser.getI_user()); 
 		listVO.setList_title(title);
 		 
-		mapper.insLikeList(listVO);
-	//  user_like - > insert
+		mapper.insLikeList(listVO); // 목록 생성 (DB insert) listVO안에 새로 생성된 PK(i_list) 저장된 상태 
+		
+		// 파라미터 객체 데이터 setter (DB 저장 데이터)
 		likeVO.setI_list(listVO.getI_list());
 		likeVO.setI_host(i_host);
 		likeVO.setI_user(loginUser.getI_user());
-		int result = 0;
+		int result = 0; // 결과 값 
+		// 새로 생성된 저장 목록에 데이터 저장 
 		result = mapper.insLikeUser(likeVO);
-		if(result != 0) {
+		if(result != 0) { // DB insert 성공시  i_list(저장 목록 pk) return 
 			return listVO.getI_list();
 		}
-		return result;
+		return result;// 아니면 0 return 
 	}
-	
+	// 좋아요 비활성화 
 	public int delLikeUser(int i_host, HttpSession hs) {
+		// 파라미터 객체 데이터 setter (DB 삭제 할 데이터)
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		UserLikeVO likeVO = new UserLikeVO();
 		
@@ -189,8 +194,9 @@ public class UserService {
 		
 		return mapper.delLikeUser(likeVO);
 	}
-	
+	// 기존 좋아요 목록에 저장 
 	public int insLikeUser(int i_host, int i_list, HttpSession hs) {
+		// 파라미터 객체 데이터 setter (DB 저장 데이터)
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		
 		UserLikeVO likeVO = new UserLikeVO();

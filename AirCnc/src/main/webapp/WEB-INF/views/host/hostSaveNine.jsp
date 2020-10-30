@@ -67,7 +67,7 @@ function saveImg(){
 		  
 	})
 	
-	return false; 
+	
 }
 
 function delImg(el,pk){

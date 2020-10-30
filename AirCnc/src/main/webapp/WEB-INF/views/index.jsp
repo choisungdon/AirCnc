@@ -150,7 +150,6 @@
          <li class="b" onclick="goHost()">숙소 관리</li>
          <li class="b" onclick="goUser()">계정</li>
          <div class="line">――――――――――――――――</div>
-         <li>도움말</li>
          <li class="b" onclick="goLogOut()">로그아웃</li>
          </c:if>
          

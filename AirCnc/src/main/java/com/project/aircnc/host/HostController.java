@@ -358,26 +358,26 @@ public class HostController {
 		
 		return "/host/hostSaveNine";
 	}
-	
+	// 숙소 이미지 업로드 
 	@RequestMapping(value = "/hostLast", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> saveLast(@RequestParam("photo")  MultipartFile photo, 
 			@RequestParam("i_host") int i_host,HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap();
-		if(!photo.isEmpty()) {
-			int reuslt = service.insRoomImg(photo,i_host ,hs);
-			RoomIMGVO data = service.getRoomImg(i_host ,hs);
-			map.put("result", data);
+		if(!photo.isEmpty()) {// 이미지 파일이 없으면 실행 안됨 
+			int reuslt = service.insRoomImg(photo,i_host ,hs); // 이미지 저장 
+			RoomIMGVO data = service.getRoomImg(i_host ,hs); // 최근 이미지 저장 파일 불러오기 
+			map.put("result", data);// return 데이터 
 		}
 		
 		return map;
 	}
-	
+	// 숙소 이미지 삭제 
 	@RequestMapping(value = "/delRoomImg", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> delRoomImg(@RequestParam int i_host,
 			@RequestParam int i_img, @RequestParam int i_user,  HttpSession hs, Model model) {
 		
 		Map<String, Object> map = new HashMap();
-		map.put("result", service.delRoomImg(i_host, i_user, i_img, hs));
+		map.put("result", service.delRoomImg(i_host, i_user, i_img, hs)); // 이미지  삭제 
 		
 		return map;
 	}

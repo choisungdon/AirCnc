@@ -14,7 +14,7 @@ import com.project.aircnc.common.UserLListVO;
 
 @Mapper
 public interface DetaileMapper {
-	
+	// 숙소 Detail
 	public SearchDetaileVO	selDetaile(SearchVO param);
 	public List<RoomIMGVO>	selRoomImg(SearchVO param);
 	public List<DTLRuleVO>	selDtRule(SearchVO param);
@@ -24,6 +24,5 @@ public interface DetaileMapper {
 	public int existInOut(SearchVO param);
 	public int existInOutDate(SearchVO param);
 	public int existRvation(SearchVO param);
-	
 	
 }

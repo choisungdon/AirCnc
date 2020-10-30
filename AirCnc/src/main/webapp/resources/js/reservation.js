@@ -45,18 +45,19 @@ function nextPage2(){
 function nextPage3(){
     var msg_erro	= document.querySelector('.msg_erro'); // 에러 문구 넣을 태그 
 	var qty_erro	= document.querySelector('.qty_erro'); // 인원 초과 에러 문구
-    var mainPage	= document.querySelector('.container');
-    var containerArr= mainPage.childNodes;
+    var mainPage	= document.querySelector('.container'); // 숙소 이용 규칙[0],게스트 정보 입력[1], 확인 및 결재[2] 
+    var containerArr= mainPage.childNodes; //각 페이지 배열타입으로 저장 
 
-    if(cmt.value != "") {
-		if(qty_erro.innerHTML == ''){
-	        containerArr[1].style.display = 'none';
-	        containerArr[3].style.display = 'none';
-	        containerArr[5].style.display = 'flex';
+    if(cmt.value != "") { // 메시지 내용 있으면 True
+		if(qty_erro.innerHTML == ''){ // 해당 인원 숙박 가능 하면 다음 페이지 이동
+			msg_erro.innerHTML= ""; // 에러 문구 삭제 
+	        containerArr[1].style.display = 'none'; // 숙소 이용 규칙
+	        containerArr[3].style.display = 'none'; // 게스트 정보 입력
+	        containerArr[5].style.display = 'flex'; // 확인 및 결재
 		}
-    }else{		
-        msg_erro.innerHTML= "호스트에게 전할 메시지를 입력하세요.";
-        document.getElementById("cmt").focus();
+    }else{		// 메시지 내용 없으면 다음 페이지 못감 
+        msg_erro.innerHTML= "호스트에게 전할 메시지를 입력하세요."; // 에러 문구 삽입 
+        document.getElementById("cmt").focus(); // 메시지 태그 Focus
     }
     
     /*

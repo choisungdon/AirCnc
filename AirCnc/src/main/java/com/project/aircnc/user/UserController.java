@@ -109,7 +109,7 @@ public class UserController {
 		return map;
 	}
 	
-	// 좋아용 활성화 (저장 목록에 추가)
+	// 좋아용 활성화 (기존 저장 목록에 추가)
 	@RequestMapping(value="/user/llSave", method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> llSave (@RequestParam int i_host,  @RequestParam int i_list  
 			,Model model, HttpSession hs){
@@ -122,7 +122,6 @@ public class UserController {
 	@RequestMapping(value="/user/disLike", method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> userDisLike (@RequestParam int i_host, Model model, HttpSession hs) 
 	{
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", service.delLikeUser(i_host,hs));
 		return map;

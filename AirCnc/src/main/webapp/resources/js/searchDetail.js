@@ -330,14 +330,16 @@ $('#r_chout').daterangepicker({
 
 // 예약 금 변경 
 function changeFee(){
+	// 체크인 날짜
 	var dateArray = r_chin.innerHTML.split("-");  
 	var stDate = new Date(dateArray[0],parseInt(dateArray[1])-1,parseInt(dateArray[2]) ) ;
+	// 체크아웃 날짜 
 	dateArray	=   r_chout.innerHTML.split("-");
 	var endDate = new Date(dateArray[0],parseInt(dateArray[1])-1,parseInt(dateArray[2]) ) ;
  
     var btMs = endDate.getTime() - stDate.getTime() ;
 
-    var btDay = btMs / (1000*60*60*24) ; // 일수 
+    var btDay = btMs / (1000*60*60*24) ; // 일수($박)
 	date.value = btDay;
 	var qty = parseInt(r_qty.innerHTML); // 인원
 	var b_fee = fee.value; // 기본 요금
@@ -381,16 +383,16 @@ function qtyDW(qty){
 
 // 숙박 인원 및 날짜 변경시 가능 여부 함수 
 function goComfirm(){
-	var submit 	= document.querySelector('#sub');
-	var erro	= document.querySelector('.erro');
-	var chin	= $('input[name="chin"]').val();
-	var chout	= $('input[name="chout"]').val();
-	var date 	= $('input[name="date"]').val();
-	var qty 	= $('input[name="qty"]').val();
+	var submit 	= document.querySelector('#sub'); // 예약하기 버튼
+	var erro	= document.querySelector('.erro'); // 에러 태그
+	var chin	= $('input[name="chin"]').val(); // 체크인 날짜
+	var chout	= $('input[name="chout"]').val(); // 체크아웃 날짜
+	var date 	= $('input[name="date"]').val(); // 일수($박)
+	var qty 	= $('input[name="qty"]').val(); // 인원
 	
 	axios.get('/search/goComfirm', {
     params: {
-		i_host	:	i_host.value,
+		i_host	:	i_host.value,// 숙소(PK)
 		chin	:	chin,
 		chout	:	chout,
 		date	:	date,
@@ -400,12 +402,12 @@ function goComfirm(){
   .then(function (res) {
 	console.log(res.data.result);
     if(res.data.result != 'o'){
-		erro.innerHTML = res.data.result;
-		submit.disabled='true';
+		erro.innerHTML = res.data.result; // 오류 메시지 
+		submit.disabled='true';// 예약 버튼 비활성화
 	
 	}else{
-		erro.innerHTML = '';
-		submit.disabled='';
+		erro.innerHTML = ''; // 오류 메시지 지우기 
+		submit.disabled=''; // 예약 버튼 활성화
 		
 	}
   })

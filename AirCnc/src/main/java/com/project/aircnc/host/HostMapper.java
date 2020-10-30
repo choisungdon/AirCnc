@@ -54,7 +54,7 @@ public interface HostMapper {
 	public int insCheckInOut(CheckInOutVO param);
 	public int insRoomFee(RoomFeeVO param);
 	public int inWorkplacePh(WorkplacePhVO param);
-	public int insRoomImg(RoomIMGVO param);
+	
 	//update 
 	public int upHostSaveOne(HostUserVO param);
 	public int upBuildType(BuildTypeVO param);
@@ -70,9 +70,10 @@ public interface HostMapper {
 	// delete 
 	public int delHost(RoomIMGVO param);
 	// 숙소 사진
-	public RoomIMGVO getRoomImg(RoomIMGVO param);
+	public int insRoomImg(RoomIMGVO param); // 숙소 이미지  저장 
+	public RoomIMGVO getRoomImg(RoomIMGVO param); // 최근 업로드 이미지 출력 
 	public RoomIMGVO delGetImg(RoomIMGVO param);
-	public int delRoomImg(RoomIMGVO param);
+	public int delRoomImg(RoomIMGVO param);// 해당 숙소 이미지 삭제 
 	// 추가 규칙 
 	public int insDtlRule(DTLRuleVO param); 
 	public DTLRuleVO lastDtlRule(DTLRuleVO param);
