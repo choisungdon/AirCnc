@@ -39,9 +39,9 @@
 		INNER JOIN host_user c
 		ON a.i_host = c.I_HOST
 		WHERE c.I_USER = ${i_user}
-		AND a.check_out > NOW()
-		AND  ISNULL(a.reser_state);
-		
+		AND a.check_out > DATE_FORMAT(NOW(),'%Y-%m-%d')
+		AND  ISNULL(a.reser_state)
+		ORDER BY a.R_DT DESC
 	</select>
 	
 	<select id="selViewData" parameterType="int" resultType="RsvViewData">
@@ -66,6 +66,65 @@
 		ON a.I_HOST = f.i_host
 		WHERE a.I_RESER = #{i_reser};
 		
+	</select>
+	
+	<select id="selCompleteData" parameterType="TUserVO" resultType="RsvVO">
+		SELECT a.i_reser, a.i_host, a.i_user,a.check_in AS chin,a.check_out AS chout,
+		a.gest_qty AS qty , a.total_fee,a.reser_state, 
+		b.img_url, c.ROOM_TITLE,c.addr,DATE_FORMAT(a.R_DT,'%Y-%m-%d') AS R_DT, DATE_FORMAT(a.m_dt,'%Y-%m-%d') AS M_DT
+		FROM user_reser a
+		INNER JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) b
+		ON a.i_host = b.i_host
+		INNER JOIN host_user c
+		ON a.i_host = c.I_HOST
+		WHERE c.I_USER = #{i_user}
+		<![CDATA[
+		AND a.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+		]]>
+		AND  ISNULL(a.reser_state)
+		ORDER BY a.R_DT DESC
+		
+	</select>
+	
+	<select id="selCancelData" parameterType="TUserVO" resultType="HostRsvCancelVO">
+		SELECT b.I_CANCEL, a.i_host, b.I_USER,d.nm, b.REASON, c.img_url,d.PRO_IMG,
+		a.ROOM_TITLE,
+		DATE_FORMAT(b.R_DT,'%Y-%m-%d') AS R_DT, DATE_FORMAT(b.m_dt,'%Y-%m-%d') AS M_DT
+		FROM host_user a
+		INNER JOIN user_rsv_cancel b
+		ON a.I_HOST = b.i_host
+		INNER JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) c
+		ON a.i_host = c.i_host
+		INNER JOIN t_user d
+		ON b.i_user = d.I_USER
+		WHERE a.I_USER = ${i_user}
+		AND b.STATE = 'o';
+	</select>
+	
+	<select id="selrsvCcData" parameterType="TUserVO" resultType="RsvVO">
+		SELECT a.i_reser, a.i_host, a.i_user,a.check_in AS chin,a.check_out AS chout,
+		a.gest_qty AS qty , a.total_fee,a.reser_state, 
+		b.img_url, c.ROOM_TITLE,c.addr,DATE_FORMAT(a.R_DT,'%Y-%m-%d') AS R_DT, DATE_FORMAT(a.m_dt,'%Y-%m-%d') AS M_DT
+		FROM user_reser a
+		INNER JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) b
+		ON a.i_host = b.i_host
+		INNER JOIN host_user c
+		ON a.i_host = c.I_HOST
+		WHERE c.I_USER = #{i_user}
+		AND a.reser_state IN('cc','ch')
+		ORDER BY a.R_DT asc
 	</select>
 
 </mapper>

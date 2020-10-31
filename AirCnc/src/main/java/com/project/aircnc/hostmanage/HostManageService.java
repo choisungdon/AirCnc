@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.aircnc.common.HostRsvCancelVO;
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
@@ -29,7 +30,7 @@ public class HostManageService {
 		return mapper.selUserReser(loginUser);
 	}
 	
-	// 숙소 관리 예약 화면 
+	// 숙소 관리 예약 화면 및 비동기 테이터 받아올때도 같이 씀
 	public List<RsvVO> selRsv(TUserVO param) {
 		List<RsvVO> list = mapper.selRsv(param);
 		// 숙소 이미지 경로 변경 
@@ -56,6 +57,36 @@ public class HostManageService {
 		dbVO.setDate(date);
 		
 		return dbVO;
+	}
+	
+	// 예약 완료 데이터 가져오기
+	public List<RsvVO> selCompleteData(TUserVO param){
+		List<RsvVO> list = mapper.selCompleteData(param); // 예약 완료 데이터 가져오기 
+		// 숙소 이미지 경로 변경 
+		for(RsvVO dbVO : list) {
+			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
+		}
+		return list;
+	}
+	
+	// 취소된 예약 정보 데이터 가져오기 비동기 
+	public List<HostRsvCancelVO> selCancelData(TUserVO param){
+		List<HostRsvCancelVO> list = mapper.selCancelData(param); // 예약 완료 데이터 가져오기 
+		// 숙소 이미지 경로 변경 
+		for(HostRsvCancelVO dbVO : list) {
+			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
+			dbVO.setPro_img(proImgChange(dbVO.getPro_img(), dbVO.getI_user()));
+		}
+		return list;
+	}
+	// 예약 변경 및 취소 요청 데이터가져오기 비동기 
+	public List<RsvVO> selrsvCcData(TUserVO param) {
+		List<RsvVO> list = mapper.selrsvCcData(param); // 예약 완료 데이터 가져오기 
+		// 숙소 이미지 경로 변경 
+		for(RsvVO dbVO : list) {
+			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
+		}
+		return list;
 	}
 	
 	// 숙소  이미지 경로 변경 

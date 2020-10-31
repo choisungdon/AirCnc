@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,10 +37,40 @@ public class HostManageContoller {
 	}
 	// 예약 숙박 내용 확인 
 	@RequestMapping(value="/viewData", method=RequestMethod.GET)
-	public @ResponseBody Map<String, Object> goComfirm (@RequestParam int i_reser,Model model, HttpSession hs){
+	public @ResponseBody Map<String, Object> selViewData (@RequestParam int i_reser,Model model, HttpSession hs){
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", service.selViewData(i_reser));		
+		return map;
+	}
+	// 예정 예약(숙소 관리)데이터 가져오기 비동기 
+	@RequestMapping(value = "/rsv", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selRSV(@RequestBody TUserVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selRsv(param));
+		return map;
+	}
+		
+	// 예약 완료 데이터 가져오기 비동기
+	@RequestMapping(value="/completeData", method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selCompleteData(@RequestBody TUserVO param,Model model, HttpSession hs){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selCompleteData(param));		
+		return map;
+	}
+	
+	// 취소된 예약 정보 데이터 가져오기 비동기 
+	@RequestMapping(value = "/cancelData", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selCancelData(@RequestBody TUserVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selCancelData(param));
+		return map;
+	}
+	// 예약 변경 및 취소 요청 데이터가져오기 비동기 
+	@RequestMapping(value = "/rsvCcData", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selrsvCcData(@RequestBody TUserVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selrsvCcData(param));
 		return map;
 	}
 	

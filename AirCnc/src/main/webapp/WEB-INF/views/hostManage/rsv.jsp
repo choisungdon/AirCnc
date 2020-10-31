@@ -67,11 +67,11 @@
             <h1>예약</h1>
         </div>
         <div class="data_menu">
-            <span class="af_trip" onclick="af_trip(this)">예정된 여행</span>
-            <span class="complete" onclick="complete(this)">완료</span>
-            <span class="cancel" onclick="cancel(this)">취소됨</span>
-            <span class="rsv_cc" onclick="rsv_cc(this)">변경및 취소 요청</span>
-            <span class="all" onclick="allView(this)">모두 보기</span>
+            <span class="af_trip" onclick="af_trip(this,${loginUser.i_user})">예정된 여행</span>
+            <span class="complete" onclick="complete(this,${loginUser.i_user})">완료</span>
+            <span class="cancel" onclick="cancel(this,${loginUser.i_user})">취소됨</span>
+            <span class="rsv_cc" onclick="rsv_cc(this,${loginUser.i_user})">변경및 취소 요청</span>
+            <span class="all" onclick="allView(this,${loginUser.i_user})">모두 보기</span>
         </div>
         <div class="data">
         <c:choose>
@@ -88,23 +88,31 @@
 					    예정된 예약이 없습니다
 					</h3>
 				</div>
+				
+				<table>
+	                <thead class="th">
+	                </thead>
+	                
+	                <tbody class="tb">
+	                </tbody>
+            	</table>
 	        </c:when>
 	        <c:otherwise>
-	        	<table >
-	                <thead>
+	        	<table>
+	                <thead class="th">
 	                    <tr>
 	                        <th class="loebl7r">숙소</th>
 	                        <th class="_8ggqw1">숙박 날짜</th>
 	                        <th class="_isoiixu">게스트</th>
 	                        <th class="_1l0umdhh">총 요금</th>
-	                        <th class="_8ggqw2">해야할 일</th>
+	                        <th class="_8ggqw2">해야 할 일</th>
 	                        <th class="_8ggqw2">위치</th>
 	                        <th class="_8ggqw2">예약 신청일</th>
 	                        <th class="_n7vhew5"></th>
 	                    </tr>
 	                </thead>
 	                
-	                <tbody>
+	                <tbody class="tb">
 	                	<c:forEach items="${data}" var="item">
 							<tr>
 							      <td class="loebl7r"> 

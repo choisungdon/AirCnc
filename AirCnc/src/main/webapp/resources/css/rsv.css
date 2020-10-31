@@ -446,6 +446,42 @@ tbody > tr > td{
 
 
 
+.host {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    width: 40%;
+    
+}
+
+.host > .host_img{
+    margin-right: 20px;
+}
+
+.reser_user{
+    flex-grow: 1;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    width: 50%;
+}
+
+.user_img > img{
+    border-radius: 50% ;
+    border: solid 1px #DDDDDD;
+}
+
+.reason{
+    width: 25%;
+}
+
+.cancel_day{
+    width: 25%;
+}
+
+
+
 
 
 /**********footer***************/
