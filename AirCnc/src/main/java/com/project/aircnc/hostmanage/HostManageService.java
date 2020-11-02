@@ -88,6 +88,15 @@ public class HostManageService {
 		}
 		return list;
 	}
+	// 예약 모두 보기 데이터 가져오기 비동기 
+	public List<RsvVO> selAllViewData(TUserVO param){
+		List<RsvVO> list = mapper.selAllViewData(param); // 예약 완료 데이터 가져오기 
+		// 숙소 이미지 경로 변경 
+		for(RsvVO dbVO : list) {
+			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
+		}
+		return list;
+	}
 	
 	// 숙소  이미지 경로 변경 
 	public String imgUrlChange(String url,int i_host) {

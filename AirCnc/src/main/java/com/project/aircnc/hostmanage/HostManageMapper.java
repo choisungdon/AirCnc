@@ -25,5 +25,6 @@ public interface HostManageMapper {
 	public List<HostRsvCancelVO> selCancelData(TUserVO param);
 	// 예약 변경 및 취소 요청 데이터가져오기 비동기 
 	public List<RsvVO> selrsvCcData(TUserVO param);
-	
+	// 예약 모두 보기 데이터 가져오기 비동기 
+	public List<RsvVO> selAllViewData(TUserVO param);
 }

@@ -74,4 +74,12 @@ public class HostManageContoller {
 		return map;
 	}
 	
+	// 예약 모두 보기 데이터 가져오기 비동기 
+	@RequestMapping(value = "/allViewData", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selAllViewData(@RequestBody TUserVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selAllViewData(param));
+		return map;
+	}
+	
 }

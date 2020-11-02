@@ -56,7 +56,7 @@ function af_trip(ele,i_user){
 		v.remove();
 	}
 	
-	// 예약 완료 데이터  불러오기 
+	// 예약 예정 데이터  불러오기 
 	axios.post('/hostManage/rsv', {
 		 i_user: i_user// pk
 	  })
@@ -775,7 +775,7 @@ function viewChangeData(i_reser){
 }
 
 //모두 보기
-function allView(ele){
+function allView(ele,i_user){
     var data_menu = document.querySelector('.data_menu'); //  예약 메뉴 부모 태그 
     menu_arr = data_menu.children; // 예약 메뉴 자식 태그들(배열)
    
@@ -789,6 +789,214 @@ function allView(ele){
     // 클릭 메뉴버튼 style 변경 
     ele.style.color='#008489'
     ele.style.borderBottom = 'solid 2px #008489';
+	// 일단 Table 내용 다지우기
+	var tb = document.querySelector('.tb');// tbody
+	tb.innerHTML = '';
+	var th = document.querySelector('.th'); // thd
+	th.innerHTML = '';
+	// 코로나 경고 문구 
+	var n = document.querySelector('.data_notice');
+	// 데이터 없음 문구 
+	var v = document.querySelector('.void_data');
+	
+	if(n != null || v != null){ // 지우기 
+		n.remove(); 
+		v.remove();
+	}
+	
+	// 예약 모두 보기 데이터 출력 
+	axios.post('/hostManage/allViewData', {
+		 i_user: i_user// pk
+	  })
+	  .then(function (res) {
+		if(res.data.result.length < 1 || res.data.result == null){
+			// 코로나 경고 문고 (예약 없을때 나옵니다.) 
+			var data_notice 	=	document.createElement("div");
+			data_notice.setAttribute("class", "data_notice");
+			var fa_shield_virus	=	document.createElement("i");
+			fa_shield_virus.setAttribute("class", "fas fa-shield-virus fa-2x");
+			
+			var div 			=	document.createElement("div");
+			
+			var dn_title		=	document.createElement("div");
+			dn_title.setAttribute("class", "dn_title");
+			dn_title.innerHTML 	= '호스트와 게스트를 위한 보건·안전 가이드라인';
+			
+			var dn_text			=	document.createElement("div");
+			dn_text.setAttribute("class", "dn_text");
+			dn_text.innerHTML = '여행이 점차 회복되는 가운데, 에어비앤비는 호스트와 게스트의 안전을 중요하게 생각합니다. 게스트를 만날 때에는 보건·안전 가이드라인을 따라주시기 바랍니다.';
+			
+			div.appendChild(dn_title);
+			div.appendChild(dn_text);
+			
+			data_notice.appendChild(fa_shield_virus);
+			data_notice.appendChild(div);
+			// 예약 없다는 경고문고 
+			var void_data = document.createElement("div");
+			var h3 = document.createElement("h3");
+			
+			void_data.setAttribute("class", "void_data");
+			h3.innerHTML = '검색 결과가 없습니다.';
+			void_data.appendChild(h3);
+			
+			var data = document.querySelector('.data');
+			data.appendChild(data_notice);
+			data.appendChild(void_data);
+		}else{
+		// thead 만들기 
+		var th_tr	= document.createElement("tr");
+		var th_th1	= document.createElement("th");
+		var th_th2	= document.createElement("th");
+		var th_th3	= document.createElement("th");
+		var th_th4	= document.createElement("th");
+		var th_th5	= document.createElement("th");
+		var th_th6	= document.createElement("th");
+		var th_th7	= document.createElement("th");
+		var th_th8	= document.createElement("th");
+		
+		th_th1.setAttribute("class", "loebl7r");
+		th_th2.setAttribute("class", "_8ggqw1");
+		th_th3.setAttribute("class", "_isoiixu");
+		th_th4.setAttribute("class", "_1l0umdhh");
+		th_th5.setAttribute("class", "_8ggqw2");
+		th_th6.setAttribute("class", "_8ggqw2");
+		th_th7.setAttribute("class", "_8ggqw2");
+		th_th8.setAttribute("class", "_n7vhew5");
+		
+		th_th1.innerHTML = '숙소';
+		th_th2.innerHTML = '숙박 날짜';
+		th_th3.innerHTML = '게스트';
+		th_th4.innerHTML = '총 요금';
+		th_th5.innerHTML = '해야 할 일';
+		th_th6.innerHTML = '위치';
+		th_th7.innerHTML = '예약 신청일';
+		th_th8.innerHTML = '';
+		
+		th_tr.appendChild(th_th1);
+		th_tr.appendChild(th_th2);
+		th_tr.appendChild(th_th3);
+		th_tr.appendChild(th_th4);
+		th_tr.appendChild(th_th5);
+		th_tr.appendChild(th_th6);
+		th_tr.appendChild(th_th7);
+		th_tr.appendChild(th_th8);
+		
+		th.appendChild(th_tr); // 컬럼 제목 
+		
+	    // forEach문 돌리기 (list 데이터로 받아서 그럽니다.)
+		res.data.result.forEach(function(element){
+		    // tbody 에 들어갈 td 만들기 
+			var td1 = document.createElement("td"); // 숙소 이미지, 제목  담을 태그 
+			td1.setAttribute("class", "loebl7r");
+			
+			var span1 = document.createElement("span");// 숙소 이미지 담을 태그 
+			span1.setAttribute("class", "host_img");
+			
+			var img = document.createElement("img"); // 숙소 이미지 
+			img.setAttribute("src",element.img_url);
+			img.setAttribute("width","71px");
+			span1.appendChild(img);
+			
+			var span2 = document.createElement("span");// 숙소 제목 
+			span2.setAttribute("class", "host_title");
+			span2.innerHTML = element.room_title;
+			
+			td1.appendChild(span1);
+			td1.appendChild(span2);
+			
+			var td2 = document.createElement("td"); // 체크인 체크아웃 
+			td2.setAttribute("class", "_8ggqw1");
+			td2.innerHTML = element.chin+' ~ '+element.chout;
+			
+			var td3 = document.createElement("td"); // 인원 
+			td3.setAttribute("class", "_isoiixu");
+			td3.innerHTML = element.qty+'명';
+			
+			var td4 = document.createElement("td"); // 요금 
+			td4.setAttribute("class", "_1l0umdhh");
+			td4.innerHTML = '￦'+numberWithCommas(element.total_fee);
+			
+			var td5 = document.createElement("td");
+			td5.setAttribute("class", "prom");
+			
+			switch (element.reser_state) { // 상태 값에 따라 해야 할 일 표시 변경 
+			  case null:
+			    td5.innerHTML = '없음'; 
+			    break;
+ 			  case 'complete':
+			    td5.innerHTML = '완료 승인'; 
+			    break;
+			  case 'cc':
+			    td5.innerHTML = '취소 승인'; 
+			    break;
+ 			  case 'ch':
+			    td5.innerHTML = '변경 승인';
+			    break;
+			}
+			
+			var td6 = document.createElement("td"); // 주소 
+			td6.setAttribute("class", "_8ggqw2");
+			td6.innerHTML = element.addr;
+						
+			var td7 = document.createElement("td"); // 예약일
+			td7.setAttribute("class", "_8ggqw2");
+			td7.innerHTML = element.r_dt;
+			
+			var td8 = document.createElement("td"); // 승인 버튼 
+			td8.setAttribute("class", "_n7vhew5");
+			var span3 = document.createElement('span'); // 승인
+			var span4 = document.createElement('span'); // 내용 확인 & 이유 확인 
+			
+			
+			switch (element.reser_state) { // 상태 값에 따라 버튼 함수 변경 
+			  case null:
+			    span3.setAttribute("onclick","viewData('"+element.i_reser+"')");
+				span3.innerHTML = '내용 확인';
+				td8.appendChild(span3);
+			    break;
+ 			  case 'complete':
+			    span3.setAttribute("onclick","rsvComplete('"+element.i_reser+"')");
+				span3.innerHTML = '승인';
+				td8.appendChild(span3);
+			    break;
+			  case 'cc':
+				span3.innerHTML = '승인';
+				span3.setAttribute("onclick","goRsvCC('"+element.i_reser+"','"+element.reser_state+"')");
+			    span4.innerHTML = '이유 확인'; 
+				span4.setAttribute("onclick","viewCancelReason('"+element.i_reser+"')");
+				td8.appendChild(span3);
+				td8.appendChild(span4);			    
+				break;
+ 			  case 'ch':
+				span3.innerHTML = '승인';
+				span3.setAttribute("onclick","goRsvCC('"+element.i_reser+"','"+element.reser_state+"')");
+			    span4.innerHTML = '변경 내용 확인'; 
+				span4.setAttribute("onclick","viewChangeData('"+element.i_reser+"')");
+				td8.appendChild(span3);
+				td8.appendChild(span4);
+			    break;
+			}
+			
+			
+			
+			var tr = document.createElement("tr");
+			
+			tr.appendChild(td1);
+			tr.appendChild(td2);
+			tr.appendChild(td3);
+			tr.appendChild(td4);
+			tr.appendChild(td5);
+			tr.appendChild(td6);
+			tr.appendChild(td7);
+			tr.appendChild(td8);
+			tb.appendChild(tr);
+		});
+		}
+		
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
     
 }
 

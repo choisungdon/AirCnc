@@ -126,5 +126,25 @@
 		AND a.reser_state IN('cc','ch')
 		ORDER BY a.R_DT asc
 	</select>
+	
+	<select id="selAllViewData" parameterType="TUserVO" resultType="RsvVO">
+		SELECT a.i_reser, a.i_host, a.i_user,a.check_in AS chin,a.check_out AS chout,
+		a.gest_qty AS qty , a.total_fee,
+		<![CDATA[
+		IF(a.reser_state IS NOT null ,a.reser_state, if(a.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d'),'complete',a.reser_state)) AS reser_state, 
+		b.img_url, c.ROOM_TITLE,c.addr,DATE_FORMAT(a.R_DT,'%Y-%m-%d') AS R_DT, DATE_FORMAT(a.m_dt,'%Y-%m-%d') AS M_DT
+		]]>
+		FROM user_reser a
+		INNER JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) b
+		ON a.i_host = b.i_host
+		INNER JOIN host_user c
+		ON a.i_host = c.I_HOST
+		WHERE c.I_USER = #{i_user}
+		ORDER BY a.R_DT asc
+	</select>
 
 </mapper>
