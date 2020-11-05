@@ -220,16 +220,13 @@
             <div class="h_title_img">
                 <div class="h_title">
                     <h3>
-                        프라이빗 펜트하우스_전망 
-                        <br>
-                        최상, 시내 중심가, 편리한 교통, 
-                        <br>
-                        남춘천역 인근
-                    </h2>
-                    <h3>집 전체 . 침대 2개</h2>
+                        
+                    </h3>
+                    <h3>
+                    </h3>
                 </div>
                 <div class="h_img">
-                    <img class="home_img" src="./img/bar-5475279_1920.jpg"  >
+                    <img  src=""  >
                 </div>
             </div>
             
@@ -240,28 +237,43 @@
             </div>
 
             <div class="change_data">
-                <table>
+                <table class="change_tb">
                     <tr>
                         <th></th><th>변경전</th><th>변경후</th>
                     </tr>
                     <tr>
                         <td> <i class="fas fa-user-friends"></i></td>
-                        <td>게스트 2명</td>
-                        <td>게스트 3명</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td> <i class="far fa-calendar"></i></td>
-                        <td>2020년 9월 24일 → 2020년 9월 30일</td>
-                        <td>2020년 9월 10일 → 2020년 9월 30일</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr class="fee">
                         <td> 총 합계 (KRW)</td>
-                        <td>￦360,000</td>
-                        <td>￦360,000</td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
+    
+    <div class="reason_pop">
+        <div class="rs_main">
+            <div class="close-modal" onclick="close_modal(this)">
+                <span>X</span>
+            </div>
+            <div class="rs_items">
+                <div class="rs_it_title">
+                  	  취소 사유 :
+                </div>
+                <div class="rs_it_item"></div>
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>

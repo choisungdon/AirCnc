@@ -14,6 +14,7 @@ import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
 import com.project.aircnc.common.SelChangeDataVO;
 import com.project.aircnc.common.TUserVO;
+import com.project.aircnc.common.UserRsvCancelVO;
 import com.project.aircnc.common.UserRsvChangeVO;
 
 @Service
@@ -83,11 +84,15 @@ public class HostManageService {
 	}
 	// 예약 변경 및 취소 요청 데이터가져오기 비동기 
 	public List<RsvVO> selrsvCcData(TUserVO param) {
+		
+		
 		List<RsvVO> list = mapper.selrsvCcData(param); // 예약 완료 데이터 가져오기 
 		// 숙소 이미지 경로 변경 
 		for(RsvVO dbVO : list) {
 			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
+			
 		}
+		
 		return list;
 	}
 	// 예약 모두 보기 데이터 가져오기 비동기 
@@ -110,6 +115,41 @@ public class HostManageService {
 		
 		return dbVO;
 	}
+	// 숙소 예약 취소 사유  확인 
+	public UserRsvCancelVO selCcelReason(UserRsvCancelVO param){
+		return mapper.selCcelReason(param);
+	}
+	
+	// 숙소 변경 승인 비동기
+	public int upRsvChange(UserRsvChangeVO param, HttpSession hs) {
+		int result = mapper.existGestQty(param); // 예약 가능 명수 확인  (1 : 예약 가능 , 0 : 예약 불가능)
+		if(result >= 1) {
+			result = mapper.upRsvChange(param); // 예약 변경 실행 
+			if(result > 0) { // 1이상 이면  update 성공  i_user 보냅니다. 
+				TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
+				return loginUser.getI_user();
+			}else return result; // 0 이면 실패/ return 0 보냅니다. 
+		}else return -1; // 예약 불가능 / 인원 초과 
+	}
+	
+	// 숙소 취소 승인 비동기 
+	public int RsvCancel(UserRsvCancelVO param, HttpSession hs) {
+		
+		int result = mapper.RsvCancel(param); // 성공 : 1 ,실패 : 0 
+		//System.out.println("result : "+result);
+		if(result > 0) {
+			result = mapper.upRsvCancel(param);// 성공 : 1 ,실패 : 0 
+			if(result > 0) {
+				result = mapper.delRsvCancel(param); // 성공 : 1 ,실패 : 0 
+				if(result > 0) {
+					TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
+					return loginUser.getI_user();
+				}else return result;
+			}else return result;
+		}else return result;
+		
+	}
+	
 	// 숙소  이미지 경로 변경 
 	public String imgUrlChange(String url,int i_host) {
 		String room_poto = "/resources/room_img/host" + i_host + "/" + url;

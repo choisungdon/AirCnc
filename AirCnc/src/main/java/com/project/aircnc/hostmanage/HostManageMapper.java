@@ -2,6 +2,8 @@ package com.project.aircnc.hostmanage;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.aircnc.common.HostRsvCancelVO;
@@ -9,6 +11,7 @@ import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
 import com.project.aircnc.common.SelChangeDataVO;
 import com.project.aircnc.common.TUserVO;
+import com.project.aircnc.common.UserRsvCancelVO;
 import com.project.aircnc.common.UserRsvChangeVO;
 
 @Mapper
@@ -31,4 +34,18 @@ public interface HostManageMapper {
 	public List<RsvVO> selAllViewData(TUserVO param);
 	// 숙소 예약 변경 내용 확인 
 	public SelChangeDataVO selChangeData(UserRsvChangeVO param);
+	// 숙소 예약 취소 사유  확인 
+	public UserRsvCancelVO selCcelReason(UserRsvCancelVO param);
+	// 숙소 변경 승인 비동기
+	public int upRsvChange(UserRsvChangeVO param);
+	// 현재 숙소가 예약 가능 한지 확인 
+	public int existGestQty(UserRsvChangeVO param);
+	
+	
+	// 숙소 취소 승인 비동기 삭제  (예약 테이블 빼고)
+	public int RsvCancel(UserRsvCancelVO param);
+	// 숙소 취소 승인 비동기 update 
+	public int upRsvCancel(UserRsvCancelVO param);
+	// 숙소 예약 테이블 삭제 (최종 예약 테이블 삭제)
+	public int delRsvCancel(UserRsvCancelVO param);
 }

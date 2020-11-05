@@ -150,7 +150,7 @@
 	<select id="selChangeData" parameterType="UserRsvChangeVO" resultType="SelChangeDataVO">
 		SELECT b.i_host,b.I_USER,b.I_RESER,b.I_CHANGE,
 		b.CHIN, b.CHOUT, b.GEST_QTY, b.TOTAL_FEE,
-		b.BE_CHIN,b.BE_CHOUT,b.BE_GEST_QTY, b.TOTAL_FEE,
+		b.BE_CHIN,b.BE_CHOUT,b.BE_GEST_QTY, b.BE_TOTAL_FEE,
 		c.img_url, d.ROOM_TITLE,d.addr,DATE_FORMAT(a.R_DT,'%Y-%m-%d') AS R_DT, DATE_FORMAT(a.m_dt,'%Y-%m-%d') AS M_DT,
 		a.RESER_STATE AS state, d.BED_QTY,e.live_type, e.typ, f.NM, f.PRO_IMG
 		FROM user_reser a
@@ -168,8 +168,86 @@
 		ON a.i_host = e.I_HOST
 		INNER JOIN t_user f
 		ON a.i_user = f.i_user
-		WHERE a.i_reser = #{i_user}
+		WHERE a.i_reser = #{i_reser}
 		AND a.RESER_STATE = 'ch'
 	</select>
+	
+	<select id="selCcelReason" parameterType="UserRsvCancelVO" resultType="UserRsvCancelVO">
+		SELECT *
+		FROM user_rsv_cancel
+		WHERE state IS NULL
+		AND i_reser = #{i_reser}
+	</select>
+	
+	<update id="upRsvChange" parameterType="UserRsvChangeVO">
+		UPDATE user_reser a
+		INNER JOIN user_rsv_change b
+		ON a.I_RESER = b.I_RESER
+		SET a.reser_state = NULL,
+		a.check_in	= b.BE_CHIN,
+		a.check_out = b.BE_CHOUT,
+		a.GEST_QTY 	= b.BE_GEST_QTY,
+		a.total_FEE	= b.BE_TOTAL_FEE
+		WHERE a.i_reser = #{i_reser}
+		AND a.reser_state = 'ch';
+		
+		UPDATE host_user a
+		INNER JOIN user_rsv_change b
+		ON a.i_host = b.i_host
+		SET a.RV_STATE = (a.RV_STATE-b.gest_qty)+ b.BE_GEST_QTY 
+		WHERE b.i_reser = #{i_reser}
+		AND b.STATE IS NULL;
+
+		UPDATE user_rsv_change
+		SET state = 'o'
+		WHERE i_reser = #{i_reser}
+		AND state IS NULL;
+	</update>
+	
+	<select id="existGestQty" parameterType="UserRsvChangeVO" resultType="int">
+		SELECT EXISTS(
+			SELECT  *
+			FROM host_user a
+			INNER JOIN user_rsv_change b
+			ON a.i_host = b.i_host
+			WHERE b.i_reser = #{i_reser}
+			AND a.R_VASTION >= (a.RV_STATE-b.gest_qty)+ b.BE_GEST_QTY 
+			AND b.STATE IS NULL
+		);
+	</select>
+	
+	<delete id="RsvCancel" parameterType="UserRsvCancelVO">
+		DELETE FROM aircnc_msg 
+		WHERE i_reser = #{i_reser};
+		
+		DELETE a
+		FROM aircnc_msgusers a
+		INNER JOIN aircnc_msglist b
+		ON a.i_mlist = b.i_mlist
+		WHERE b.I_RESER = #{i_reser};
+		
+		DELETE FROM aircnc_msglist
+		WHERE i_reser = #{i_reser};
+		
+	</delete>
+	
+	<update id="upRsvCancel" parameterType="UserRsvCancelVO">
+		UPDATE host_user a
+		INNER JOIN user_reser b
+		ON a.I_HOST = b.I_HOST
+		SET a.RV_STATE = a.RV_STATE - b.GEST_QTY
+		WHERE b.RESER_STATE = 'cc' 
+		AND b.i_reser  = #{i_reser};
+		
+		UPDATE user_rsv_cancel
+		SET state = 'o'
+		WHERE state IS NULL
+		AND i_reser  = #{i_reser};
+	</update>
+	
+	<delete id="delRsvCancel" parameterType="UserRsvCancelVO">
+		DELETE FROM USER_RESER
+		WHERE i_reser = #{i_reser};
+	</delete>
 
 </mapper>

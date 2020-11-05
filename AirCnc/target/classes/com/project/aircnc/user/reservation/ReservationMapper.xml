@@ -179,14 +179,16 @@
 	</select>
 	
 	<insert id="inserRsvChange" parameterType="UserRsvChangeVO">
-		INSERT INTO USER_RSV_CHANGE
+		INSERT INTO user_rsv_change
 		(i_host, i_user, i_reser, chin, chout, gest_qty,total_fee,
 		 be_chin, be_chout, be_gest_qty, be_total_fee)
-		SELECT i_host,i_user,i_reser, #{chin}, #{chout}, #{gest_qty}, #{total_fee},
-		check_in, check_out, gest_qty, total_fee
+		SELECT i_host,i_user,i_reser,
+		check_in, check_out, gest_qty, total_fee,
+		 #{chin}, #{chout}, #{gest_qty}, #{total_fee}
 		FROM user_reser
 		WHERE I_RESER = #{i_reser}
 		AND i_user = #{i_user}
+
 	</insert>
 	
 	<update id="upRsvChange" parameterType="UserRsvChangeVO">

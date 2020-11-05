@@ -497,7 +497,7 @@ function cancel(ele,i_user){
 		th_tr.appendChild(th_th2);
 		th_tr.appendChild(th_th3);
 		th_tr.appendChild(th_th4);
-		
+		console.log(th_tr);
 		
 		th.appendChild(th_tr); // 컬럼 제목 
 		
@@ -707,7 +707,7 @@ function rsv_cc(ele,i_user){
 			var td4 = document.createElement("td"); // 요금 
 			td4.setAttribute("class", "_1l0umdhh");
 			td4.innerHTML = '￦'+numberWithCommas(element.total_fee);
-			
+			//console.log(td4);
 			var td5 = document.createElement("td");
 			td5.setAttribute("class", "prom");
 			
@@ -763,11 +763,65 @@ function rsv_cc(ele,i_user){
 }
 // 예약 변경 및 취소 승인 버튼 
 function goRsvCC(i_reser,state){
-	console.log(i_reser+","+state)
+	console.log(i_reser);
+	switch (state){
+		case 'ch':
+		  axios.post('/hostManage/exChange', {
+			 i_reser: i_reser// pk
+		  })
+		  .then(function (res) {
+			console.log(res.data.result);
+			
+			if(res.data.result > 0){
+				alert("변경 승인 했습니다.");
+				location.href="/hostManage/rsv?i_user="+res.data.result;
+			}else if(res.data.result == 0){
+				alert("DB 오류");
+			}else if(res.data.result == -1){
+				alert("현재 숙소의 숙박 인원이 꽉 찼습니다.");
+			}
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+		break;
+		case 'cc':
+		  axios.post('/hostManage/exCancel', {
+			 i_reser: i_reser// pk
+		  })
+		  .then(function (res) {
+			if(res.data.result > 0){
+				alert("취소 승인 했습니다.");
+				location.href="/hostManage/rsv?i_user="+res.data.result;
+			}else alert("DB 오류");
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+		break;
+	}
+	
 }
 // 예약 취소 이유 보기 
 function viewCancelReason(i_reser){
-	console.log(i_reser)
+	var reason = document.querySelector('.reason');// 팝업 태그 
+    if(reason.style.display != 'block'){// 팝업이 닫혀있으면 뛰우기 
+        reason.style.display= 'block';
+    }else{// 아니면 닫기 
+        reason.style.display = 'none';
+    }
+	// 취소 사유 담는 태그 
+	var rs_it_item = document.querySelector('.rs_it_item');
+	// 취소 사유  데이터 출력 
+	axios.post('/hostManage/viewCancelReason', {
+		 i_reser: i_reser// pk
+	  })
+	  .then(function (res) {
+		rs_it_item.innerHTML = res.data.result.reason;
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
 }
 // 예약 변경 내용 보기 
 function viewChangeData(i_reser){
@@ -777,14 +831,60 @@ function viewChangeData(i_reser){
     }else{// 아니면 닫기 
         change.style.display = 'none';
     }
-	console.log(i_reser);
+	// 
+	var h_title = document.querySelector('.h_title'); // 숙소 제목 , 유형 등등 담는 태그 
+	var arr_ht = h_title.children;
+	var hImg = document.querySelector('.h_img'); // 숙소 이미지 담는 태그 
+	var homeImg = hImg.children;
+	var user_data = document.querySelector('.user_data'); //예약자 데이터 담는 태그 
+	var arrUD = user_data.children;
+	// 유저 변경 전 후 데이터 담는 태그 
+	var changeTB = document.querySelector('.change_tb');
+	var arr_tb = changeTB.children;
+	var arr_tr = arr_tb[0].children; // tr 태그 들 
+	// td 태그 들
+	var arr_td1 = arr_tr[1].children;
+	var arr_td2 = arr_tr[2].children;
+	var arr_td3 = arr_tr[3].children;
+	
 	// 예약 모두 보기 데이터 출력 
 	axios.post('/hostManage/viewChangeData', {
 		 i_reser: i_reser// pk
 	  })
 	  .then(function (res) {
-		console.log(res.data.result.room_title);
-		
+		arr_ht[0].innerHTML = res.data.result.room_title;// 숙소 제목 
+		var live_type;
+		var typ;
+		if(typ == 'apt'){ // 숙소 유형
+			typ = '아파트';
+		}else { // outbuild
+			typ = '별채';
+		}
+		// 숙박 유형 
+		if(live_type == 'all'){ 
+			live_type = '전체';
+		}else if(live_type == 'single') { 
+			live_type = '개인실';
+		}else{ // share
+			live_type = '다인실';
+		}
+		// 숙소 유형 및 침대 개수 담기 
+		arr_ht[1].innerHTML = typ +' '+ live_type + ' . 침대'+ res.data.result.bed_qty+'개';
+		// 숙소 이미지 URL 담기 
+		homeImg[0].src= res.data.result.img_url;
+		// 예약자 데이터 담기 
+		arrUD[0].src = res.data.result.pro_img; // 유저 이미지
+		arrUD[1].innerHTML = res.data.result.nm; // 유저 이름
+		arrUD[2].innerHTML = '(예약일) '+res.data.result.r_dt; // 예약일 
+		// 게스트 명수 담기 
+		arr_td1[1].innerHTML = '게스트 '+res.data.result.gest_qty+'명'; // 이전 명수 
+		arr_td1[2].innerHTML = '게스트 '+res.data.result.be_gest_qty+'명'; // 변경 명수 
+		// 예약 날짜 변경 담기 
+		arr_td2[1].innerHTML = changeDate(res.data.result.chin)+' -> '+changeDate(res.data.result.chout); // 이전 체크인 체크아웃 
+		arr_td2[2].innerHTML = changeDate(res.data.result.be_chin)+' -> '+changeDate(res.data.result.be_chout); // 변경 체크인 체크아웃 
+		// 변경  총 합계 요금 담기  
+		arr_td3[1].innerHTML = '￦'+numberWithCommas(res.data.result.total_fee); // 변경 전  요금
+		arr_td3[2].innerHTML = '￦'+numberWithCommas(res.data.result.be_total_fee); // 변경  후  요금 
 	  })
 	  .catch(function (error) {
 	    console.log(error);
@@ -1109,6 +1209,12 @@ function viewData(i_reser){
 // 숫자 콤마 찍기
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+// 날짜 년 월 일  출력 함수 
+function changeDate(date) {
+    var arrDate = date.split("-");
+	return arrDate[0]+'년'+arrDate[1]+'월'+arrDate[2]+'일'; 
 }
 
 // 모든 팝업창 (X) close 버튼 

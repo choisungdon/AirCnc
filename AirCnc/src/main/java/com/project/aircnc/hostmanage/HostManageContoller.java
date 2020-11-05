@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.aircnc.common.TUserVO;
+import com.project.aircnc.common.UserRsvCancelVO;
 import com.project.aircnc.common.UserRsvChangeVO;
 
 @Controller
@@ -83,12 +84,36 @@ public class HostManageContoller {
 		return map;
 	}
 	
-	// 숙소 예약 변경 내용 확인 
+	// 숙소 예약 변경 내용 확인 비동기 
 	@RequestMapping(value = "/viewChangeData", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> RsvChangeData(@RequestBody UserRsvChangeVO param, HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", service.selChangeData(param));
 		return map;
 	}
+	
+	// 숙소 예약 취소 사유  확인  비동기 
+	@RequestMapping(value = "/viewCancelReason", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> RsvCcelReason(@RequestBody UserRsvCancelVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selCcelReason(param));
+		return map;
+	}
+	
+	// 숙소 변경 승인 비동기 
+	@RequestMapping(value = "/exChange", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> upRsvChange(@RequestBody UserRsvChangeVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.upRsvChange(param,hs));
+		return map;
+	} 
+	
+	// 숙소 취소 승인 비동기 
+	@RequestMapping(value = "/exCancel", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> RsvCancel(@RequestBody UserRsvCancelVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.RsvCancel(param,hs));
+		return map;
+	} 
 	
 }
