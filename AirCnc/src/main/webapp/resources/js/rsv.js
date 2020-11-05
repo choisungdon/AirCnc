@@ -761,7 +761,7 @@ function rsv_cc(ele,i_user){
 	  });
    
 }
-// 예약 변경 취소 승인 버튼 
+// 예약 변경 및 취소 승인 버튼 
 function goRsvCC(i_reser,state){
 	console.log(i_reser+","+state)
 }
@@ -771,7 +771,25 @@ function viewCancelReason(i_reser){
 }
 // 예약 변경 내용 보기 
 function viewChangeData(i_reser){
-	console.log(i_reser)
+	var change = document.querySelector('.change');// 팝업 태그 
+    if(change.style.display != 'block'){// 팝업이 닫혀있으면 뛰우기 
+        change.style.display= 'block';
+    }else{// 아니면 닫기 
+        change.style.display = 'none';
+    }
+	console.log(i_reser);
+	// 예약 모두 보기 데이터 출력 
+	axios.post('/hostManage/viewChangeData', {
+		 i_reser: i_reser// pk
+	  })
+	  .then(function (res) {
+		console.log(res.data.result.room_title);
+		
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+    
 }
 
 //모두 보기

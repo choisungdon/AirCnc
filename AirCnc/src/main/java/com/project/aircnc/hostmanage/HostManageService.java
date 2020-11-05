@@ -12,7 +12,9 @@ import com.project.aircnc.common.HostRsvCancelVO;
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
+import com.project.aircnc.common.SelChangeDataVO;
 import com.project.aircnc.common.TUserVO;
+import com.project.aircnc.common.UserRsvChangeVO;
 
 @Service
 public class HostManageService {
@@ -98,6 +100,16 @@ public class HostManageService {
 		return list;
 	}
 	
+	// 숙소 예약 변경 내용 확인 
+	public SelChangeDataVO selChangeData(UserRsvChangeVO param){
+		SelChangeDataVO dbVO = mapper.selChangeData(param); // 예약 완료 데이터 가져오기 
+		
+		// 숙소 예약자  이미지 경로 변경 
+		dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
+		dbVO.setPro_img(proImgChange(dbVO.getPro_img(), dbVO.getI_user()));
+		
+		return dbVO;
+	}
 	// 숙소  이미지 경로 변경 
 	public String imgUrlChange(String url,int i_host) {
 		String room_poto = "/resources/room_img/host" + i_host + "/" + url;

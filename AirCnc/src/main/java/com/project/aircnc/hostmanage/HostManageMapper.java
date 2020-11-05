@@ -7,7 +7,9 @@ import org.apache.ibatis.annotations.Mapper;
 import com.project.aircnc.common.HostRsvCancelVO;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
+import com.project.aircnc.common.SelChangeDataVO;
 import com.project.aircnc.common.TUserVO;
+import com.project.aircnc.common.UserRsvChangeVO;
 
 @Mapper
 public interface HostManageMapper {
@@ -27,4 +29,6 @@ public interface HostManageMapper {
 	public List<RsvVO> selrsvCcData(TUserVO param);
 	// 예약 모두 보기 데이터 가져오기 비동기 
 	public List<RsvVO> selAllViewData(TUserVO param);
+	// 숙소 예약 변경 내용 확인 
+	public SelChangeDataVO selChangeData(UserRsvChangeVO param);
 }

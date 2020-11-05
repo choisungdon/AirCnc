@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.aircnc.common.TUserVO;
+import com.project.aircnc.common.UserRsvChangeVO;
 
 @Controller
 @RequestMapping("/hostManage")
@@ -79,6 +80,14 @@ public class HostManageContoller {
 	public @ResponseBody Map<String, Object> selAllViewData(@RequestBody TUserVO param, HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", service.selAllViewData(param));
+		return map;
+	}
+	
+	// 숙소 예약 변경 내용 확인 
+	@RequestMapping(value = "/viewChangeData", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> RsvChangeData(@RequestBody UserRsvChangeVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selChangeData(param));
 		return map;
 	}
 	

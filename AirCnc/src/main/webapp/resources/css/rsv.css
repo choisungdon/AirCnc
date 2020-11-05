@@ -679,6 +679,117 @@ div > .pay_ctnt3{
 .pay_ctnt3 > .fee_info{
  margin-bottom: 24px;
 }
+/****************예약 변경 정보 보기 팝업**********************/
+.change{
+    display: none; 
+    background-color: rgba(0, 0, 0, 0.2) ;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100vh;
+}
+
+.change > .ch_containner{
+    overflow: auto;
+    background-color: #fff;
+    width: 50%;
+    height: 70%;
+    padding: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 1em;
+	border-top-left-radius: 1em;
+	border-top-right-radius: 1em;
+	border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+}
+
+.ch_containner > .h_title_img{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding : 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-bottom: solid 2.5px #e4e4e4;
+}
+
+.h_title{
+    flex-grow: 1;
+    margin-left: 100px;
+}
+
+.h_img{
+    flex-grow: 1;
+}
+.h_img > img{
+    width: auto;
+    height: 300px;
+    margin-left: 200px;
+}
+
+.user_data {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding : 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-bottom: solid 2.5px #e4e4e4;
+}
+
+.user_data > div{
+    padding-left: 10px;
+}
+
+.user_data > img{
+    height: auto ;
+    max-width: 100px;
+    border-radius: 50% ;
+    border: solid 1px #DDDDDD;
+}
+
+.change_data{
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-grow: 1;
+}
+
+.change_data > table{
+    padding : 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+
+
+.change_data > table>tbody > tr {
+    border-bottom-style: solid !important;
+    border-bottom-width: 2.5px !important;
+    border-bottom-color: #DDDDDD !important;
+    vertical-align: middle !important;   
+}
+
+.change_data > table > tbody > tr > td{
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    text-align: center !important;
+}
+
+.change_data > table > tbody >.fee{
+    font-weight: 800 !important;
+    line-height: 1.375em !important;
+}
 
 
 /*********************************/
