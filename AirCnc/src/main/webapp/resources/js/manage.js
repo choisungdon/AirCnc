@@ -17,7 +17,7 @@ function goRSV(i_user){
 }
 // 등록중 및 등록한 숙소 화면 이동 (숙소 관리) 
 function goHouse(i_user){
-	location.href="/hostManage/house?i_user="+i_user;
+	location.href="/hostManage/hostHouse?i_user="+i_user;
 }
 // 실적 (숙소 수입) 화면  (숙소 관리) 
 function goProfit(i_user){

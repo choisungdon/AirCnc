@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.aircnc.common.HostHouseVO;
+import com.project.aircnc.common.HostUserVO;
 import com.project.aircnc.common.TUserVO;
 import com.project.aircnc.common.UserRsvCancelVO;
 import com.project.aircnc.common.UserRsvChangeVO;
@@ -100,7 +102,7 @@ public class HostManageContoller {
 		return map;
 	}
 	
-	// 숙소 변경 승인 비동기 
+	// 예약 숙소 변경 승인 비동기 
 	@RequestMapping(value = "/exChange", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> upRsvChange(@RequestBody UserRsvChangeVO param, HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -108,12 +110,37 @@ public class HostManageContoller {
 		return map;
 	} 
 	
-	// 숙소 취소 승인 비동기 
+	// 예약 숙소 취소 승인 비동기 
 	@RequestMapping(value = "/exCancel", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> RsvCancel(@RequestBody UserRsvCancelVO param, HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", service.RsvCancel(param,hs));
 		return map;
-	} 
+	}
+	
+	// 저장된 숙소 메뉴 화면 이동 (숙소)
+	@RequestMapping(value = "/hostHouse", method = RequestMethod.GET)
+	public String goHostHouse(HostHouseVO param,HttpSession hs, Model model) {
+		model.addAttribute("data", service.selHostHouse(param)); // 유저 가 등록한 숙소 데이터 들고 오기 
+		model.addAttribute("shData", param); // 유저 가 등록한 숙소 데이터 들고 오기 
+		return "/hostManage/hostHouse";
+	}
+	
+	//숙소 삭제 실행  비동기 
+	@RequestMapping(value = "/delHostHouse", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> delHostHouse(@RequestBody HostHouseVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.delHostHouse(param));
+		return map;
+	}
+	
+	// 숙소 삭제 후 등록한 숙소 데이터 갱신 비동기 
+	@RequestMapping(value = "/shHsotHouse", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> shHsotHouse(@RequestBody HostHouseVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selHostHouse(param));
+		return map;
+	}
+
 	
 }

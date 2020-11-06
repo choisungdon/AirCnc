@@ -249,5 +249,78 @@
 		DELETE FROM USER_RESER
 		WHERE i_reser = #{i_reser};
 	</delete>
+	
+	<select id="selHostHouse" parameterType="HostHouseVO" resultType="HostHouseVO">
+		SELECT a.I_HOST, a.i_user, a.COUNTRY, a.ADDR, a.b_room, a.BED_QTY, a.BTH_ROOM,
+		a.ROOM_TITLE, f.img_url ,DATE_FORMAT(a.R_DT,'%Y-%m-%d') as R_DT ,DATE_FORMAT(a.M_DT,'%Y-%m-%d') as M_DT,
+		if(b.I_HOST is null or c.I_HOST is null or d.i_host is null or e.I_HOST is null or f.i_host is NULL or g.I_HOST is null or h.i_host is null or i.i_host is null or j.i_host is null or k.i_host is null or  l.I_HOST is null or m.i_host is NULL,'x','o') AS state
+		FROM host_user a
+		LEFT JOIN build_type b
+		ON a.i_host = b.i_host
+		LEFT JOIN FACILITE c
+		ON a.i_host = c.i_host
+		LEFT JOIN SAFE_PLANT d
+		ON a.i_host = d.i_host
+		LEFT JOIN GEST_SPACE e
+		ON a.i_host = e.i_host
+		LEFT JOIN (
+		SELECT *
+		FROM rooms_img
+		GROUP BY i_host
+		) f
+		ON a.i_host = f.i_host
+		LEFT JOIN SPACE_INFO g
+		ON a.i_host = g.i_host
+		LEFT JOIN room_rule h
+		ON a.i_host = h.i_host
+		LEFT JOIN (
+		SELECT *
+		FROM dtl_rule
+		GROUP BY i_host
+		) i
+		ON a.i_host = i.i_host
+		LEFT JOIN room_dt_rule j
+		ON a.i_host = j.i_host
+		LEFT JOIN CHECK_INOUT k
+		ON a.i_host = k.i_host
+		LEFT JOIN ROOM_FEE l
+		ON a.i_host = l.i_host
+		LEFT JOIN Workplace_ph m
+		ON a.i_host = m.i_host
+		WHERE a.i_user = #{i_user}
+		<if test="room_title != null">
+		AND a.room_title LIKE '%${room_title}%'
+		</if>
+		ORDER BY a.M_DT desc;
+	</select>
+	
+	<delete id="delHostHouse" parameterType="HostHouseVO">
+		DELETE FROM HOST_REVIEW WHERE i_host = #{i_host};
+		DELETE FROM user_like WHERE i_host = #{i_host};
+		DELETE FROM aircnc_msg WHERE i_host = #{i_host};
+		DELETE FROM aircnc_msgUsers WHERE i_host = #{i_host};
+		DELETE FROM aircnc_msglist WHERE i_host = #{i_host};
+		DELETE FROM USER_RSV_CANCEL WHERE i_host = #{i_host};
+		DELETE FROM USER_RSV_CHANGE WHERE i_host = #{i_host};
+		DELETE FROM user_reser WHERE i_host = #{i_host};
+		DELETE FROM Workplace_ph WHERE i_host = #{i_host};
+		DELETE FROM ROOM_FEE WHERE i_host = #{i_host};
+		DELETE FROM CHECK_INOUT WHERE i_host = #{i_host};
+		DELETE FROM room_dt_rule WHERE i_host = #{i_host};
+		DELETE FROM DTL_RULE WHERE i_host = #{i_host};
+		DELETE FROM room_rule WHERE i_host = #{i_host};
+		DELETE FROM SPACE_INFO WHERE i_host = #{i_host};
+		DELETE FROM ROOMS_IMG WHERE i_host = #{i_host};
+		DELETE FROM GEST_SPACE WHERE i_host = #{i_host};
+		DELETE FROM SAFE_PLANT WHERE i_host = #{i_host};
+		DELETE FROM FACILITE WHERE i_host = #{i_host};
+		DELETE FROM Build_type WHERE i_host = #{i_host};
+	</delete>
+	
+	<delete id="delHostUser" parameterType="HostHouseVO">
+		DELETE FROM HOST_USER WHERE i_host = #{i_host};
+	</delete>
+	
+	
 
 </mapper>

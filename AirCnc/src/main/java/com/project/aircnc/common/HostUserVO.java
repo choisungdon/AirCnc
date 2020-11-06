@@ -26,10 +26,6 @@ public class HostUserVO {
 	private String r_dt;
 	private String m_dt;
 	
-	
-	
-	
-	
 	public int getRv_state() {
 		return rv_state;
 	}

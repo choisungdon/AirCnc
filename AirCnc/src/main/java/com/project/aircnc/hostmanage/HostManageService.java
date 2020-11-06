@@ -8,7 +8,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.aircnc.common.HostHouseVO;
 import com.project.aircnc.common.HostRsvCancelVO;
+import com.project.aircnc.common.HostUserVO;
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
@@ -148,6 +150,21 @@ public class HostManageService {
 			}else return result;
 		}else return result;
 		
+	}
+	// 유저 가 등록한 숙소 데이터 들고 오기 
+	public List<HostHouseVO> selHostHouse(HostHouseVO param) {
+		List<HostHouseVO> list = mapper.selHostHouse(param);
+		// 숙소 사진 추가 
+		for(HostHouseVO dbVO : list) {
+			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));	
+		}
+		return list;
+	}
+	//숙소 삭제 실행  비동기 
+	public int delHostHouse(HostHouseVO param){
+		int result = mapper.delHostHouse(param);
+		result = mapper.delHostUser(param);
+		return result; // 0 : 실패  1 : 성공 
 	}
 	
 	// 숙소  이미지 경로 변경 

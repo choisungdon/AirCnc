@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.aircnc.common.HostHouseVO;
 import com.project.aircnc.common.HostRsvCancelVO;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
@@ -48,4 +49,11 @@ public interface HostManageMapper {
 	public int upRsvCancel(UserRsvCancelVO param);
 	// 숙소 예약 테이블 삭제 (최종 예약 테이블 삭제)
 	public int delRsvCancel(UserRsvCancelVO param);
+	
+	// 유저 가 등록한 숙소 데이터 들고 오기 
+	public List<HostHouseVO> selHostHouse(HostHouseVO param);
+	//숙소 삭제 실행  비동기 
+	public int delHostHouse(HostHouseVO param);
+	//숙소 삭제 실행  비동기 (마지막)hostUser 테이블 지우기 
+	public int delHostUser(HostHouseVO param);
 }

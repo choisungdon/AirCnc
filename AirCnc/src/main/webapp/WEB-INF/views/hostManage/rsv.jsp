@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>rsv</title>
 <script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/resources/js/rsv.js"></script>
@@ -30,7 +30,7 @@
             </div>
 
             <div class="top_menu">
-                <a href="/" class="hSaveBtn">
+                <a href="/host/hosting?i_user=${loginUser.i_user}" class="hSaveBtn">
                     <span class="hSaveBtn">숙소 등록하기</span>
                 </a>
                
