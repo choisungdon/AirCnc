@@ -804,7 +804,7 @@ function goRsvCC(i_reser,state){
 }
 // 예약 취소 이유 보기 
 function viewCancelReason(i_reser){
-	var reason = document.querySelector('.reason');// 팝업 태그 
+	var reason = document.querySelector('.reason_pop');// 팝업 태그 
     if(reason.style.display != 'block'){// 팝업이 닫혀있으면 뛰우기 
         reason.style.display= 'block';
     }else{// 아니면 닫기 
