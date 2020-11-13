@@ -141,6 +141,13 @@ public class HostManageContoller {
 		map.put("result", service.selHostHouse(param));
 		return map;
 	}
+	
+	@RequestMapping(value = "/profit", method = RequestMethod.GET)
+	public String profit(TUserVO param,HttpSession hs, Model model) {
+		model.addAttribute("rsvCcData", 1); // 예약 변경 및 취소 요청 data 가져오기
+		
+		return "/hostManage/profit";
+	}
 
 	
 }
