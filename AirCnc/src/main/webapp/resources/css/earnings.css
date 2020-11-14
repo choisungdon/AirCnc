@@ -1,0 +1,593 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width:100%; 
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/**********header***************/
+
+header{
+    flex-grow: 0.1;
+    display: flex;
+    flex-direction: row;
+}
+
+header > .sub_header{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.sub_header > .log_menu{
+   display: flex;
+   flex-direction: row;
+   flex-grow: 1;
+   align-items: center;
+}
+
+.log_menu > .logo{
+    padding-top: 16px ;
+    padding-right: 15px ;
+    padding-bottom: 16px ;
+    padding-left: 21px ;
+}
+
+.log_menu > .notice{
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-left: 15px;
+    height: 100%;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+    cursor: pointer;
+}
+
+.log_menu > .notice:hover{
+    border-bottom: solid 3px #008489;
+}
+
+
+.log_menu > .rsv{
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-left: 15px;
+    height: 100%;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+    cursor: pointer;
+}
+
+.log_menu > .rsv:hover{
+    border-bottom: solid 3px #008489;
+}
+
+.log_menu > .house{
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-left: 15px;
+    height: 100%;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+    cursor: pointer;
+}
+
+.log_menu > .house:hover{
+    border-bottom: solid 3px #008489;
+}
+
+.log_menu > .profit{
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+    margin-left: 15px;
+    height: 100%;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.2857142857142858em !important;
+    border-bottom: solid 3px #008489;
+    color: #484848 !important;
+    cursor: pointer;
+}
+
+.log_menu > .profit:hover{
+    border-bottom: solid 3px #008489;
+}
+
+
+.sub_header > .top_menu{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.top_menu > .hSaveBtn{
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 6px 15px 6px 15px;
+    background-color: #008489;
+    border-radius: 2em;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+}
+
+.top_menu > .userMenu{
+    border: solid 1px;
+    margin-top: 20px !important;
+    margin-right: 16px !important;
+    margin-bottom: 16px !important;
+    margin-left: 16px !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #DDDDDD !important;
+    border-radius: 2em;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    border-bottom-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.userMenu:hover{
+    box-shadow: 2px 2px 2px 2px rgba(109, 108, 108, 0.2);
+}
+
+.userMenu > .my_profile{
+    margin-left: 12px;
+    border-radius: 50% !important;
+    border: solid 1px #DDDDDD;
+}
+
+.userMenu > .drop_menu{
+    position: absolute;
+    right: 80px;
+    top: 70px;
+    width: 256px;
+    height: 309px;
+    border: 1px solid #DDDDDD !important;
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display: none;
+    background-color: white;
+    z-index: 3;
+
+    
+}
+
+.drop_menu > .main_menu{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.main_menu > .menu_item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+    border-bottom:  1px solid #DDDDDD !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.menu_item > div{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.menu_item > div:hover{
+    border-radius: 1em;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    background-color: #e5e5e5;
+}
+
+/**********container***************/
+
+.container{
+    flex-grow: 6.9;
+    border-top: solid 1px #DDDDDD;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2px;
+}
+
+.ctnt_main{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-top: 32px;
+    padding-left: 80px;
+    padding-right: 80px;
+    margin-left: 111px;
+    margin-right: 111px;
+}
+
+
+
+.ctnt_main > .ctnt_title{
+    flex-grow: 0.2;
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid 1px #EBEBEB ;
+}
+
+
+.ctnt_title > .review {
+    font-size: 16px;
+    font-weight: 600;
+    color: #484848; 
+    padding-top: 24px;
+    padding-bottom: 24px;
+    margin-right: 32px;
+    text-decoration: none; outline: none;
+}
+
+.ctnt_title > .income {
+    font-size: 16px;
+    font-weight: 600;
+    color: #008489; 
+    padding-top: 24px;
+    padding-bottom: 24px;
+    margin-right: 32px;
+    border-bottom: solid 2px #008489 ;
+    text-decoration: none; outline: none;
+}
+
+.ctnt_main > .ctnt_all{
+    flex-grow: 9.8;
+    display: flex;
+    flex-direction: column;
+    margin-top: 48px;
+}
+
+.ctnt_all > .month_select{
+    flex-grow: 2;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.375em !important;
+    color: #484848 !important;
+    padding-bottom: 10px;
+}
+
+.check_out {
+    flex-grow: 2;
+    border-radius: 5px;
+    padding-left: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.ctnt_all > .month_fee{
+    flex-grow: 2;
+    margin-bottom: 20px;
+}
+
+.month_fee > div{
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 1.375em !important;
+    color: #484848 !important;   
+}
+
+.ctnt_all > .fee_state{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 24px;
+
+}
+
+.fee_state > span{
+    margin-right: 20px;
+}
+
+
+
+span > .com_fee{
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    line-height: 1.25em !important;
+    color: #484848 !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+span > .com_text{
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
+
+.s_color1{
+    background-color: #008489;
+    display: inline-block !important;
+    margin-bottom: 2px !important;
+    margin-right: 8px !important;
+    vertical-align: middle !important;
+    height: 16px !important;
+    width: 16px !important;
+}
+
+
+span > .be_fee{
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    line-height: 1.25em !important;
+    color: #484848 !important;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+}
+
+span > .be_text{
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
+s
+ .s_color2{
+    background-color: #84D2CB;
+    display: inline-block !important;
+    margin-bottom: 2px !important;
+    margin-right: 8px !important;
+    vertical-align: middle !important;
+    height: 16px !important;
+    width: 16px !important;
+}
+
+
+.ctnt_all > .myChart{
+    flex-grow: 2;
+   
+}
+
+.ctnt_all > .cal_button{
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+    flex-grow: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.main_date {
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
+
+.left_date{
+    cursor: pointer;
+}
+
+.right_date{
+    cursor: pointer;
+}
+
+.left_date > .date{
+    font-size: 14px;
+}
+
+.right_date > .date{
+    font-size: 14px;
+}
+
+table{
+   
+    border-collapse: collapse;
+}
+
+
+tr {
+    border-bottom: 1px solid #DDDDDD;
+}
+
+
+caption{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 24px !important;
+    font-weight: 800 !important;
+    line-height: 1.25em !important;
+    color: #484848 !important;
+}
+
+
+
+
+thead > tr > .house_info{
+    text-align: left;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+thead > tr > .date_info{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+thead > tr > .user_info{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+thead > tr > .gest_qty{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+thead > tr > .incom_info{
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+
+
+tbody > tr > .house_info{
+    text-align: left;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    display: flex;
+    align-items: center;
+}
+
+.house_info > img{
+    max-width: auto;
+    height: 100px;
+}
+
+
+tbody > tr > .date_info{
+    text-align: center;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
+
+tbody > tr > .user_info{
+    text-align: center;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user_info > img{
+    max-width: auto;
+    height: 100px;
+}
+
+
+tbody > tr > .gest_qty{
+    text-align: center;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
+
+tbody > tr > .incom_info{
+    text-align: center;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
+
+
+.total {
+    text-align: center;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
+
+.total_fee{
+    text-align: center;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
+
+
+
+
+
+/**********footer***************/
+
+footer{
+  
+    flex-grow: 3;
+    background-color: rgb(230, 230, 230);
+}
+
+/************기타*********************/
+img{
+    object-fit: cover;
+}
+
+a { text-decoration:none } 
+

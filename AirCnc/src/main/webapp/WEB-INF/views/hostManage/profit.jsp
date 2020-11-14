@@ -65,7 +65,7 @@
         <div class="ctnt_main">
            <div class="ctnt_title">
                <a href="/hostManage/profit?i_user=${loginUser.i_user}" class="review">후기</a>
-               <a href="#" class="income">수입</a>
+               <a href="/hostManage/earnings?i_user${loginUser.i_user}" class="income">수입</a>
            </div>
            <div class="ctnt_item">
                 <div class="ctnt_menu">

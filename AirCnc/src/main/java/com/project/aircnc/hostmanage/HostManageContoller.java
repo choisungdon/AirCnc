@@ -141,13 +141,22 @@ public class HostManageContoller {
 		map.put("result", service.selHostHouse(param));
 		return map;
 	}
-	
+	// 실적 > 후기 
 	@RequestMapping(value = "/profit", method = RequestMethod.GET)
 	public String profit(TUserVO param,HttpSession hs, Model model) {
 		model.addAttribute("rsvCcData", 1); // 예약 변경 및 취소 요청 data 가져오기
 		
 		return "/hostManage/profit";
 	}
+	
+	// 실적 > 수입 
+	@RequestMapping(value = "/earnings", method = RequestMethod.GET)
+	public String earnings(TUserVO param,HttpSession hs, Model model) {
+		model.addAttribute("rsvCcData", 1); // 예약 변경 및 취소 요청 data 가져오기
+		
+		return "/hostManage/earnings";
+	}
+	
 
 	
 }
