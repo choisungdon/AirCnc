@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.project.aircnc.common.HostHouseVO;
 import com.project.aircnc.common.HostRsvCancelVO;
+import com.project.aircnc.common.HostUserVO;
+import com.project.aircnc.common.ProfitReviewVO;
+import com.project.aircnc.common.ReviewAvgQtyVO;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
 import com.project.aircnc.common.SelChangeDataVO;
@@ -56,4 +59,12 @@ public interface HostManageMapper {
 	public int delHostHouse(HostHouseVO param);
 	//숙소 삭제 실행  비동기 (마지막)hostUser 테이블 지우기 
 	public int delHostUser(HostHouseVO param);
+	
+	// 실적 > 후기 (host_title 출력)
+	public List<HostUserVO> selHost(ReviewAvgQtyVO param);
+	// 실적 > 후기 (후기 평균 점수 및 개수 출력)
+	public ReviewAvgQtyVO selReviewAvg(ReviewAvgQtyVO param);
+	// 실적 > 후기 (실제 후기 데이터 출력)
+	public List<ProfitReviewVO> selReview(ReviewAvgQtyVO param);
+	
 }

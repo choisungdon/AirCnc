@@ -12,6 +12,8 @@ import com.project.aircnc.common.HostHouseVO;
 import com.project.aircnc.common.HostRsvCancelVO;
 import com.project.aircnc.common.HostUserVO;
 import com.project.aircnc.common.MyUtils;
+import com.project.aircnc.common.ProfitReviewVO;
+import com.project.aircnc.common.ReviewAvgQtyVO;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.RsvViewData;
 import com.project.aircnc.common.SelChangeDataVO;
@@ -167,6 +169,48 @@ public class HostManageService {
 		return result; // 0 : 실패  1 : 성공 
 	}
 	
+	// 실적 > 후기 (host_title 출력)
+	public List<HostUserVO> selHost(ReviewAvgQtyVO param){
+		return mapper.selHost(param);
+	}
+	// 실적 > 후기 (후기 평균 점수 및 개수 출력)
+	public ReviewAvgQtyVO selReviewAvg(ReviewAvgQtyVO param){
+		return mapper.selReviewAvg(param);
+	}
+	// 실적 > 후기 (실제 후기 데이터 출력)
+	public List<ProfitReviewVO> selReview(ReviewAvgQtyVO param){
+		List<ProfitReviewVO> list = mapper.selReview(param);
+		for(ProfitReviewVO dbVO : list) {
+			// 숙소 사진 경로 변경 
+			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
+			// 유저 사진 경로 변경 
+			dbVO.setPro_img(proImgChange(dbVO.getPro_img(), dbVO.getI_user()));
+		}
+		return list;
+	}
+	
+	// 실적 > 후기  (실제 후기 데이터 출력 ) 비동기 
+	public List<ProfitReviewVO> selectReview(ReviewAvgQtyVO param, HttpSession hs){
+		// 로그인 유저 i_user 가져오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		
+		List<ProfitReviewVO> list = mapper.selReview(param);
+		for(ProfitReviewVO dbVO : list) {
+			// 숙소 사진 경로 변경 
+			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
+			// 유저 사진 경로 변경 
+			dbVO.setPro_img(proImgChange(dbVO.getPro_img(), dbVO.getI_user()));
+		}
+		return list;
+	}
+	
+	public ReviewAvgQtyVO selectReviewAvg(ReviewAvgQtyVO param, HttpSession hs) {
+		// 로그인 유저 i_user 가져오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		// 검색 평균 후기 점수 
+		return mapper.selReviewAvg(param);
+	}
+	
 	// 숙소  이미지 경로 변경 
 	public String imgUrlChange(String url,int i_host) {
 		String room_poto = "/resources/room_img/host" + i_host + "/" + url;
@@ -184,4 +228,5 @@ public class HostManageService {
 		}
 		return pro_img;
 	}
+	
 }

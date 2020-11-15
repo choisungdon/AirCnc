@@ -6,6 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+
+import javax.servlet.http.HttpSession;
+
 import com.project.aircnc.common.*;
 
 import org.apache.commons.io.FilenameUtils;
@@ -29,6 +32,12 @@ public class MyUtils {
 		String returnStr = str.replaceAll("\n", "<br>");
 				
 		return returnStr;
+	}
+	
+	// 로그인 유저 i_user 가져오기 
+	public static int getSesstion(HttpSession hs) {
+		TUserVO	loginUser = (TUserVO)hs.getAttribute("loginUser");
+		return loginUser.getI_user();
 	}
 
 	// 리턴값: 저장된 파일명

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.aircnc.common.HostHouseVO;
-import com.project.aircnc.common.HostUserVO;
+import com.project.aircnc.common.ReviewAvgQtyVO;
 import com.project.aircnc.common.TUserVO;
 import com.project.aircnc.common.UserRsvCancelVO;
 import com.project.aircnc.common.UserRsvChangeVO;
@@ -141,12 +141,24 @@ public class HostManageContoller {
 		map.put("result", service.selHostHouse(param));
 		return map;
 	}
-	// 실적 > 후기 
+	// 
 	@RequestMapping(value = "/profit", method = RequestMethod.GET)
-	public String profit(TUserVO param,HttpSession hs, Model model) {
-		model.addAttribute("rsvCcData", 1); // 예약 변경 및 취소 요청 data 가져오기
+	public String profit(ReviewAvgQtyVO param,HttpSession hs, Model model) {
 		
+		model.addAttribute("host_title", service.selHost(param)); // 실적 > 후기 (host_title 출력)
+		model.addAttribute("reviewAvg", service.selReviewAvg(param)); //후기 평균 점수 및 개수 출력
+		model.addAttribute("data", service.selReview(param)); // 실제 후기 데이터 출력 
 		return "/hostManage/profit";
+	}
+	
+	// 실적 > 후기  (실제 후기 데이터 출력 ) 비동기 
+	@RequestMapping(value = "/profit", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selectReview(@RequestBody ReviewAvgQtyVO param, HttpSession hs, Model model) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("review", service.selectReview(param,hs));
+		map.put("rvAvg", service.selectReviewAvg(param,hs));
+		return map;
 	}
 	
 	// 실적 > 수입 

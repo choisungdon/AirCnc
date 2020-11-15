@@ -282,6 +282,31 @@ header > .sub_header{
     flex-grow: 9.8;
 }
 
+.ctnt_item > .search{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 50%;
+}
+
+.search > .sh_title{
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.375em !important;
+    color: #484848 !important;
+    padding-bottom: 10px;
+}
+
+.search > .i_host{
+    margin-bottom: 20px;
+    border-radius: 5px;
+    padding-left: 8px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
 .ctnt_item >  .ctnt_menu {
     flex-grow: 0.1;
     display: flex;
@@ -396,7 +421,7 @@ header > .sub_header{
     margin-right: 40px;
 }
 
-.rv_item1 > div{
+.rv_item1 > .rv_void{
     margin-top: 24px;
     flex-grow: 1;
     background-color: #F2F2F2 ;
@@ -405,6 +430,84 @@ header > .sub_header{
     display: block ;
     height: 153px ;
     width: 100% ;
+}
+
+.rv_item1 > .rv_main{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 24px;
+    flex-grow: 1;
+    border: 0.5px solid #EBEBEB ;
+    border-radius: 3px ;
+    height: 153px ;
+    width: 100% ;
+    box-shadow: 2px 2px 2px 2px rgba(109, 108, 108, 0.2);
+
+}
+
+.rv_main > .host_room{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-right: 20px;
+}
+
+.host_room > img{
+   width: auto;
+   height: 100px;
+}
+
+.host_review {
+    display: flex;
+    flex-direction: column;
+   
+}
+
+.host_review > .host_rv_nm{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 16px;
+}
+
+
+.host_rv_nm > img{
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+}
+
+.host_rv_nm > .rv_nm{
+    margin-left: 12px;
+}
+
+.rv_nm > .nm{
+    color: rgb(34, 34, 34) !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+}
+
+.rv_nm > .day{
+    color: rgb(113, 113, 113) !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    font-weight: 400 !important;
+    font-size: 14px !important;
+}
+
+
+
+.host_room > .rv_room_title{
+    color: rgb(34, 34, 34) !important;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 20px !important;
+}
+
+.rv_main > .host_review{
+    flex-grow: 9;
 }
 
 .rv_item2 {
