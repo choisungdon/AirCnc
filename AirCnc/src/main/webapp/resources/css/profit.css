@@ -340,6 +340,7 @@ header > .sub_header{
     border-top: solid 1px #EBEBEB ;
     border-bottom: solid 1px #EBEBEB ;
     border-left: solid 1px #EBEBEB ;
+    border-right: solid 1px #EBEBEB ;
     cursor: pointer;
 }
 
@@ -437,7 +438,7 @@ header > .sub_header{
     flex-direction: row;
     align-items: center;
     margin-top: 24px;
-    flex-grow: 1;
+    flex-grow: 0.1;
     border: 0.5px solid #EBEBEB ;
     border-radius: 3px ;
     height: 153px ;

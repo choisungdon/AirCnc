@@ -97,27 +97,33 @@
                         <span>1</span><i class="fas fa-star"></i>
                     </span>
                 </div>
+                <input type="hidden" id="val" value="0">
 
                 <div class="review_main">
-	                <c:choose>
-		                <c:when test="${fn:length(data) eq 0}">
-		                	<h2>아직 후기 없음</h2>
-	                    
-	                    	<div>첫 번째 후기를 받으면 여기에 표시됩니다.</div>
-		                </c:when>
-	                </c:choose>
+                	<div class="void_title">
+		                <c:choose>
+			                <c:when test="${fn:length(data) eq 0}">
+			                        <h2>
+			                            	아직 후기 없음
+			                        </h2>
+			                        <div>
+			                            	첫 번째 후기를 받으면 여기에 표시됩니다.
+			                        </div>
+			                </c:when>
+		                </c:choose>
+					</div>
                     
                     <div class="rv_ctnt">
                         <section class="rv_item1">
                         <c:choose>
                         	<c:when test="${fn:length(data) eq 0}">
-                        		<!-- 없을때  -->
+                        		<!-- 데이터 없을때  -->
 	                            <div class="rv_void"></div>
 	                            <div class="rv_void"></div>
 	                            <div class="rv_void"></div>
                         	</c:when>
                         	<c:otherwise>
-                        		<!-- 있을때  -->
+                        		<!-- 데이터 있을때  -->
                         		<c:forEach var="item" items="${data}">
                         			<div class="rv_main">
 		                                <div class="host_room">
@@ -126,14 +132,14 @@
 		                                </div>
 		                                <div class="host_review">
 		                                    <div class="host_rv_nm">
-		                                        <img  src="${item.pro_img}"  >
+		                                        <img  src="${item.pro_img}">
 		                                        <div class="rv_nm">
 		                                            <div class="nm">${item.nm}</div>
 		                                            <div class="day">${item.m_dt}</div>
 		                                        </div>
 		                                    </div>
 		                                   
-		                                    <div>
+		                                    <div class="contents">
 							                	${item.contents}
 		                                    </div>
 		                                </div>

@@ -60,35 +60,47 @@ function ctnt_menu(ele){
 	switch(ele.className){
 		case 'sco_all': 
 			evaluate_val = 0;
+			document.querySelector('#val').value = 0;
 		break;
 		case 'sco_1': 
 			evaluate_val = 1;
+			document.querySelector('#val').value = 1;
 		break;
 		case 'sco_2': 
 			evaluate_val = 2;
+			document.querySelector('#val').value = 2;
 		break;
 		case 'sco_3': 
 			evaluate_val = 3;
+			document.querySelector('#val').value = 3;
 		break;
 		case 'sco_4': 
 			evaluate_val = 4;
+			document.querySelector('#val').value = 4;
 		break;
 		case 'sco_5': 
 			evaluate_val = 5;
+			document.querySelector('#val').value = 5;
 		break;
 	}
+		
 	
 	selectReview(evaluate_val,i_host);
 }
 
 // 숙소  선택시 검색 함수 
 function search_host(ele){
-    //console.log(ele.value);
+	// 숙소  pk
+	var i_host = ele.value;
+	// 별점 
+	var evaluate_val = document.querySelector('#val').value;
+	// 비동기 후기 출력 함수 실행
+	selectReview(evaluate_val,i_host);
 }
 
 // 비동기 후기 출력 
 function selectReview(evaluate_val,i_host){
-	
+		
 		axios.post('/hostManage/profit', {
 	    evaluate_val: evaluate_val,
 	    i_host: i_host
@@ -107,14 +119,84 @@ function selectReview(evaluate_val,i_host){
 		
 		qty.innerHTML = res.data.rvAvg.ctnt_qty; // 후기 개수 삽입 
 		
+		// 후기 없음 문구 지우기 
+		var void_title = document.querySelector('.void_title');
+		void_title.innerHTML = '';
 		
+		// 후기 글 내용이 있으면 태그  삽입  없으면 비워 두기 
+		//console.log(res.data.review.length);
 		if(res.data.review.length >0){
+			// 후기 들어갈 태그 비우기 
+			var rv_item1 = document.querySelector('.rv_item1');
+			rv_item1.innerHTML = ''; // main 후기들 담는 태그  비우기 ㄴ
+			
 			res.data.review.forEach(function(ele){
-			    //console.log(ele.i_host); 
+				
+				// 후기 담는 부모 태그  
+				var rv_main = document.createElement('div');
+				rv_main.setAttribute('class','rv_main');
+				
+				
+				// 그 안에 들어갈 태그 
+				var host_room	= document.createElement('div');
+				var host_review = document.createElement('div');
+				
+				host_room.setAttribute('class','host_room');
+				host_review.setAttribute('class','host_review');
+				
+				// 숙소 이미지 이름 삽입 
+				var img1 = document.createElement('img');
+				img1.src = ele.img_url; // 이미지 경로 
+				var rv_room_title = document.createElement('dvi');
+				rv_room_title.setAttribute('class','rv_room_title');
+				rv_room_title.innerHTML = ele.room_title; // 숙소 이름 
+				
+				// 최종 숙소 이름 이미지 담는 태그 완성 
+				host_room.appendChild(img1);
+				host_room.appendChild(rv_room_title);
+				
+				// 유저 후기 태그 들어갈  유저 이미지 만들기&&내용 삽입 
+				var host_rv_nm = document.createElement('host_rv_nm');
+				host_rv_nm.setAttribute('class','host_rv_nm');
+				
+				var img2 = document.createElement('img');
+				img2.src = ele.pro_img; // 유저 이미지 경로 
+				
+				var rv_nm = document.createElement('div');
+				rv_nm.setAttribute('class','rv_nm');
+				
+				var nm = document.createElement('div');
+				var day = document.createElement('div');
+				
+				nm.setAttribute('class','nm');
+				day.setAttribute('class','day');
+				
+				nm.innerHTML = ele.nm; // 유저 이름 
+				day.innerHTML = ele.m_dt; // 후기 작성 날짜 
+				
+				rv_nm.appendChild(nm);
+				rv_nm.appendChild(day);
+				
+				// 유저 이름 이미지 삽입 
+				host_rv_nm.appendChild(img2);
+				host_rv_nm.appendChild(rv_nm);
+				
+				// 유저 후기글 
+				var contents = document.createElement('div');
+				contents.setAttribute('class','contents');
+				contents.innerHTML = ele.contents;
+				
+				// 최종 유저  후기 담는 태그 완성 
+				host_review.appendChild(host_rv_nm);
+				host_review.appendChild(contents);
+				
+				// 후기 담는 태그 완성 
+				rv_main.appendChild(host_room);
+				rv_main.appendChild(host_review);
+				
+				rv_item1.appendChild(rv_main);
 			});
 		}else{
-			// 후기 들어갈 최상위 태그 
-			var review_main = document.querySelector('.review_main');
 			// 후기 없을때 들어가는 문구 
 			var div = document.createElement('div');
 				div.innerHTML= '첫 번째 후기를 받으면 여기에 표시됩니다.';
@@ -122,8 +204,24 @@ function selectReview(evaluate_val,i_host){
 			var h2 = document.createElement('h2');
 				h2.innerHTML= '아직 후기 없음';
 			// 문구 삽입 
-				review_main.prepend(div)
-				review_main.prepend(h2)
+				void_title.prepend(div);
+				void_title.prepend(h2);
+				
+			// 후기 없을때 문구 밑에 빈칸 삽입  
+			var rv_item1 = document.querySelector('.rv_item1');
+			rv_item1.innerHTML = ''; // main 후기들 담는 태그  비우기 
+			// 빈칸 후기 만들기 
+			div	= document.createElement('div');
+			var div1	= document.createElement('div');
+			var div2	= document.createElement('div');
+			// class 삽입 
+			div.setAttribute('class','rv_void');
+			div1.setAttribute('class','rv_void');
+			div2.setAttribute('class','rv_void');
+			// 빈칸 삽입 
+			rv_item1.appendChild(div);
+			rv_item1.appendChild(div1);
+			rv_item1.appendChild(div2);
 		}
 		
 		

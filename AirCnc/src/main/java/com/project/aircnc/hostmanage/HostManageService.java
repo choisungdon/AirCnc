@@ -1,7 +1,9 @@
 package com.project.aircnc.hostmanage;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -195,12 +197,15 @@ public class HostManageService {
 		param.setI_user(MyUtils.getSesstion(hs));
 		
 		List<ProfitReviewVO> list = mapper.selReview(param);
+		
+		// 숙소 이미지 유저 이미지 경로 변경 
 		for(ProfitReviewVO dbVO : list) {
 			// 숙소 사진 경로 변경 
 			dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(), dbVO.getI_host()));
 			// 유저 사진 경로 변경 
 			dbVO.setPro_img(proImgChange(dbVO.getPro_img(), dbVO.getI_user()));
 		}
+		
 		return list;
 	}
 	

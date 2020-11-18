@@ -154,7 +154,6 @@ public class HostManageContoller {
 	// 실적 > 후기  (실제 후기 데이터 출력 ) 비동기 
 	@RequestMapping(value = "/profit", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> selectReview(@RequestBody ReviewAvgQtyVO param, HttpSession hs, Model model) {
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("review", service.selectReview(param,hs));
 		map.put("rvAvg", service.selectReviewAvg(param,hs));

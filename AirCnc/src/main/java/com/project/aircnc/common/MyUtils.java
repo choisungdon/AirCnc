@@ -1,23 +1,28 @@
 package com.project.aircnc.common;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import com.project.aircnc.common.*;
-
 import org.apache.commons.io.FilenameUtils;
+import org.apache.ibatis.mapping.ParameterMapping;
+import org.apache.ibatis.session.SqlSession;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-
 public class MyUtils {
+	
+	@Autowired
+	private static SqlSession sqlSession;
+	
 	// 암호화 salt 구하기 
 	public static String gensalt() {
 		return BCrypt.gensalt();
@@ -88,5 +93,7 @@ public class MyUtils {
 		//System.out.println(diffDay+"일");
 		return diffDay;
 	}
+	
+
 	
 }

@@ -376,7 +376,7 @@
 	</select>
 	
 	<select id="selReview" parameterType="ReviewAvgQtyVO" resultType="ProfitReviewVO">
-		SELECT STRAIGHT_JOIN  A.I_CONTENTS , A.I_HOST, A.I_RESER, A.I_USER, C.NM,
+		SELECT STRAIGHT_JOIN A.I_CONTENTS , A.I_HOST, A.I_RESER, A.I_USER, C.NM,
 		B.ROOM_TITLE , D.IMG_URL, C.PRO_IMG, A.CONTENTS, A.evaluate_val , DATE_FORMAT(a.M_DT,'%Y년 %m월') AS M_DT
 		FROM host_review A
 		INNER JOIN host_user B
