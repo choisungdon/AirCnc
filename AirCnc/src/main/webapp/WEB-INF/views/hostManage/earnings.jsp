@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +16,15 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <!--이모지 -->
 <script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <link rel="stylesheet" href="/resources/css/earnings.css">
 <script type="text/javascript" src="/resources/js/earnings.js"></script>
 </head>
+<jsp:useBean id="now" class="java.util.Date" />
+<fmt:formatDate value="${now}" pattern="yyyy-MM" var="today" />
+<%
+	Calendar mon = Calendar.getInstance(); // 현재 날짜 객체 
+%>
 <body>
 	<header>
 		<div class="sub_header">
@@ -74,23 +82,36 @@
 	  
 		  <div class="ctnt_all">
 			<div class="month_select">월 선택</div>
-			<select name="check_out" class="check_out">
-				<option value="">월 선택</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
-				<option value="2020-11">2020년 11월</option>
+			<select name="check_out" class="check_out" onchange="shearchDate(this)">
+			<%
+				mon.add(Calendar.MONTH , -11); // 11개월 빼기 
+				String Month = new java.text.SimpleDateFormat("yyyy-MM").format(mon.getTime());// 날짜 포맷 설정 
+				String Hmonth= new java.text.SimpleDateFormat("yyyy년 MM월").format(mon.getTime());// 날짜 포맷 설정  년 월
+				
+			%>
+				<!-- 비교 날짜  selDate ㄴ-->
+				<c:set var="selDate" value="<%=Month%>"/>
+				<option value="<fmt:formatDate value="${now}" pattern="yyyy" />">월 선택</option>
+			<%
+				for(int i=1; i<=23; i++){
+					
+			%>
+																					<!-- 비교 날짜  selDate today 둘이 같은 날짜이면 (현재) 표기 -->
+				<option value="<%out.println(Month);%>" ><%out.println(Hmonth);%> <c:out value="${today == selDate? '(현재)': ''}"/></option>
+			<%
+					mon.add(Calendar.MONTH , 1); // 1개월 씩 더하기  
+					Month = new java.text.SimpleDateFormat("yyyy-MM").format(mon.getTime());// 날짜 포맷 설정 
+					Hmonth = new java.text.SimpleDateFormat("yyyy년 MM월").format(mon.getTime());// 날짜 포맷 설정  년 월 
+			%>
+					<c:set var="selDate" value="<%=Month%>"/>
+			<%
+				}
+			%>
 			</select>
-		
+			
 			<div class="month_fee">
 				<h1>₩0</h1>
-				<div>2020 예약 수입</div>
+				<div>2020년 예약 수입</div>
 			</div>
 		
 			<div class="fee_state">

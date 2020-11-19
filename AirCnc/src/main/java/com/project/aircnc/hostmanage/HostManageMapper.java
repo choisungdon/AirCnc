@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.aircnc.common.EarnChartVO;
+import com.project.aircnc.common.EarningsSeachVO;
 import com.project.aircnc.common.HostHouseVO;
 import com.project.aircnc.common.HostRsvCancelVO;
 import com.project.aircnc.common.HostUserVO;
@@ -66,5 +68,8 @@ public interface HostManageMapper {
 	public ReviewAvgQtyVO selReviewAvg(ReviewAvgQtyVO param);
 	// 실적 > 후기 (실제 후기 데이터 출력)
 	public List<ProfitReviewVO> selReview(ReviewAvgQtyVO param);
+	
+	// 실적 > 수입 비동기. 동기(검색) 월별 수입 출력 
+	public List<EarnChartVO> selChart(EarningsSeachVO param);
 	
 }

@@ -399,5 +399,31 @@
 		ORDER BY A.M_DT DESC
 	</select>
 	
+	<select id="selChart" parameterType="EarningsSeachVO" resultType="EarnChartVO">
+		SELECT SUBSTR(a.check_out,6) as check_out, a.fee AS b_fee, b.fee AS c_fee
+		FROM (
+			SELECT DATE_FORMAT(JOIN3.check_out,'%Y-%m') AS check_out, SUM(JOIN3.total_fee) AS fee
+			FROM user_reser JOIN3
+			INNER JOIN host_user JOIN4
+			ON JOIN3.i_host = JOIN4.i_host
+			WHERE JOIN4.i_user = #{i_user}
+			AND JOIN3.reser_state  IS NULL
+			AND JOIN3.check_out LIKE '${check_out}%'
+			GROUP BY DATE_FORMAT(JOIN3.check_out,'%Y-%m')
+		) a
+		left JOIN (
+			SELECT DATE_FORMAT(JOIN1.check_out,'%Y-%m') AS check_out, SUM(JOIN1.total_fee) AS fee
+			FROM user_reser JOIN1
+			INNER JOIN host_user JOIN2
+			ON JOIN1.i_host = JOIN2.i_host
+			WHERE JOIN2.i_user = #{i_user}
+			AND JOIN1.reser_state  = 'o'
+			AND JOIN1.check_out LIKE  '${check_out}%'
+			GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y-%m')
+		) b
+		ON a.check_out = b.check_out
+		ORDER BY DATE_FORMAT(a.check_out,'%Y-%m') ASC
+	</select>
+	
 
 </mapper>

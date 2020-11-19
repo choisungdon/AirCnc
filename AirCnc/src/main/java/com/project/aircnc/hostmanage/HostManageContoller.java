@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.aircnc.common.EarningsSeachVO;
 import com.project.aircnc.common.HostHouseVO;
 import com.project.aircnc.common.ReviewAvgQtyVO;
 import com.project.aircnc.common.TUserVO;
@@ -166,6 +167,16 @@ public class HostManageContoller {
 		model.addAttribute("rsvCcData", 1); // 예약 변경 및 취소 요청 data 가져오기
 		
 		return "/hostManage/earnings";
+	}
+	
+	// 실적 > 수입 비동기. 동기(검색)
+	@RequestMapping(value = "/earnings", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selChart(@RequestBody EarningsSeachVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("chart", service.selChart(param,hs));
+		map.put("table", 1);
+		return map;
 	}
 	
 

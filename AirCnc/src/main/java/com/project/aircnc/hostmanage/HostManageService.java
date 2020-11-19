@@ -1,15 +1,16 @@
 package com.project.aircnc.hostmanage;
 
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.aircnc.common.EarnChartVO;
+import com.project.aircnc.common.EarnChartVO;
+import com.project.aircnc.common.EarningsSeachVO;
 import com.project.aircnc.common.HostHouseVO;
 import com.project.aircnc.common.HostRsvCancelVO;
 import com.project.aircnc.common.HostUserVO;
@@ -208,12 +209,29 @@ public class HostManageService {
 		
 		return list;
 	}
-	
+	//실적 > 후기 (검색 평균 후기 점수 출력)
 	public ReviewAvgQtyVO selectReviewAvg(ReviewAvgQtyVO param, HttpSession hs) {
 		// 로그인 유저 i_user 가져오기 
 		param.setI_user(MyUtils.getSesstion(hs));
 		// 검색 평균 후기 점수 
 		return mapper.selReviewAvg(param);
+	}
+	
+	// 실적 > 수입 비동기. 동기(검색) 월별 수입 출력 
+	public List<EarnChartVO> selChart(EarningsSeachVO param, HttpSession hs) {
+		// 로그인 유저 i_user 가져오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		//System.out.println("check_out : "+param.getCheck_out());
+		
+		System.out.println("i_user : "+param.getI_user());
+		List<EarnChartVO> list = mapper.selChart(param);
+		
+		for(EarnChartVO dbVO : list) {
+			System.out.println("가격 : "+dbVO.getB_fee());
+		}
+		
+		// 데이터 출력 
+		return mapper.selChart(param);
 	}
 	
 	// 숙소  이미지 경로 변경 

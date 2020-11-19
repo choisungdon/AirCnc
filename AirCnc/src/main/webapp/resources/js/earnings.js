@@ -33,6 +33,11 @@ function chDate(ele){
     var  thisDate = new Date(); // 현재 날짜 
     var thisYear = thisDate.getFullYear(); // 현재 년도 
 
+	// 월선택 select 태그 
+	var check_out = document.querySelector('.check_out');
+	check_out.options[0].selected = true; // 월선택 으로 변경
+
+	// 년도 선택 태그 
     var cal_button = document.querySelector('.cal_button');
     var arr_cb = cal_button.children;
     arr_cb[0] // left_date
@@ -52,7 +57,9 @@ function chDate(ele){
         arr_cb[1].innerHTML = arr_date1[1].innerHTML;// maind_date
         arr_date2[0].innerHTML = Number(arr_cb[1].innerHTML)+1; // right_date > date
         arr_date1[1].innerHTML =  Number(arr_date1[1].innerHTML) -1 //left_date > date
-        sh_chart(arr_cb[1].innerHTML); // 차트 검색 
+        
+		// chart 및 세부 정보 검색 
+		shChart(arr_date1[1].innerHTML);
     }else if(ele.className == 'right_date'){
         if(Number(arr_date2[0].innerHTML) > Number(thisYear)) return alert('해당 년도는 알수가 없습니다.')
         
@@ -63,13 +70,65 @@ function chDate(ele){
 
         arr_cb[1].innerHTML = temp_date; // main_date
 
-        sh_chart(temp_date); // 차트 검색 
+		// chart 및 세부 정보 검색 
+		shChart(temp_date);
     }
 }
-// 해당 년도 수입 차트 검색 
-function sh_chart(main_date){
-    console.log(main_date);
-}   
+
+// 해당 년월 수입 차트 검색 
+function shearchDate(ele){
+	
+	// month_fee ~년 ~월 예상 수입 
+	var month_fee = document.querySelector('.month_fee');
+	var arr_month_fee = month_fee.children;
+	
+	// 차트 밑에 있는 검색 년도
+	var left_date = document.querySelector('.left_date');
+	var right_date = document.querySelector('.right_date');
+	var main_date = document.querySelector('.main_date');
+	var arr_left_date = left_date.children;
+	var arr_right_date = right_date.children;
+	
+	// 현재 년도  세부정보 title 
+	var cpt = document.querySelector('caption');
+	
+	var  thisDate = new Date(); // 현재 날짜 
+    var thisYear = thisDate.getFullYear(); // 현재 년도 
+	
+	if(ele.value != thisYear){ 
+		var arr_ym = ele.value.split('-');
+		arr_month_fee[1].innerHTML = arr_ym[0]+'년 '+arr_ym[1]+'월 예약 수입';
+		main_date.innerHTML = arr_ym[0];
+		arr_left_date[1].innerHTML = Number(arr_ym[0])-1;
+		arr_right_date[0].innerHTML = Number(arr_ym[0])+1;
+		cpt.innerHTML = arr_ym[0]+'년 '+arr_ym[1]+'월 세부정보';
+	}else{ // 모두 보기 선택 
+		var today = new Date(); // 기준  현재시간 
+		arr_month_fee[1].innerHTML = getFormatDate(today)+'년  예약 수입'; // 연도 예약 수입 
+		main_date.innerHTML = getFormatDate(today);
+		arr_left_date[1].innerHTML = Number(getFormatDate(today))-1;
+		arr_right_date[0].innerHTML = Number(getFormatDate(today))+1;
+		cpt.innerHTML = getFormatDate(today)+' 세부정보';
+	}
+	
+	shChart(ele.value);
+	
+}
+
+// 검색 비동기 
+function shChart(check_out){
+	
+	axios.post('/hostManage/earnings', {
+    check_out: check_out
+  })
+  .then(function (res) {
+    console.log(res.data.chart);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
 // chart 표기 
 window.onload = function(){
     var ctx = document.querySelector('.myChart');
@@ -179,4 +238,13 @@ window.onload = function(){
 	
 	});
 
+}
+// 날짜 포맷 바꾸기 
+function getFormatDate(date){
+    var year = date.getFullYear();              //yyyy
+    var month = (1 + date.getMonth());          //M
+    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+    var day = date.getDate();                   //d
+    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+    return  year       //'-' 추가하여 yyyy-mm-dd 형태 생성 가능 현재 yyyy로 사용
 }
