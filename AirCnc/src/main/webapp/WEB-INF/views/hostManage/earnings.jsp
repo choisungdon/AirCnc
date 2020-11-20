@@ -132,7 +132,7 @@
 			</div>
 		
 			
-			<canvas class="myChart" style="width: 600px; height: 300px;"></canvas>
+			<canvas class="myChart" ></canvas>
 			
 			<div class="cal_button">
 				<div class="left_date" onclick="chDate(this)">

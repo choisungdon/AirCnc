@@ -221,14 +221,6 @@ public class HostManageService {
 	public List<EarnChartVO> selChart(EarningsSeachVO param, HttpSession hs) {
 		// 로그인 유저 i_user 가져오기 
 		param.setI_user(MyUtils.getSesstion(hs));
-		//System.out.println("check_out : "+param.getCheck_out());
-		
-		System.out.println("i_user : "+param.getI_user());
-		List<EarnChartVO> list = mapper.selChart(param);
-		
-		for(EarnChartVO dbVO : list) {
-			System.out.println("가격 : "+dbVO.getB_fee());
-		}
 		
 		// 데이터 출력 
 		return mapper.selChart(param);

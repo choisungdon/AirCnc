@@ -16,7 +16,7 @@ public class EarningsSeachVO {
 	}
 	
 	public String getCheck_out() {
-		return check_out;
+		return check_out.trim();
 	}
 	public void setCheck_out(String check_out) {
 		this.check_out = check_out;

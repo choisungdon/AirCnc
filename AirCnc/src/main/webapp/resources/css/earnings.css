@@ -377,10 +377,7 @@ s
 }
 
 
-.ctnt_all > .myChart{
-    flex-grow: 2;
-   
-}
+
 
 .ctnt_all > .cal_button{
     margin-top: 24px !important;

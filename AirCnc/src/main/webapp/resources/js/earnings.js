@@ -1,3 +1,7 @@
+// 차트 담을 변수 
+var myChart
+var ctx
+
 // 사용자 상단 메뉴 
 function viewMenu(){
     var drop_menu = document.querySelector('.drop_menu');
@@ -59,7 +63,7 @@ function chDate(ele){
         arr_date1[1].innerHTML =  Number(arr_date1[1].innerHTML) -1 //left_date > date
         
 		// chart 및 세부 정보 검색 
-		shChart(arr_date1[1].innerHTML);
+		shChart(arr_date1[1].innerHTML.replace(' ',''));
     }else if(ele.className == 'right_date'){
         if(Number(arr_date2[0].innerHTML) > Number(thisYear)) return alert('해당 년도는 알수가 없습니다.')
         
@@ -71,7 +75,7 @@ function chDate(ele){
         arr_cb[1].innerHTML = temp_date; // main_date
 
 		// chart 및 세부 정보 검색 
-		shChart(temp_date);
+		shChart(temp_date.replace(' ',''));
     }
 }
 
@@ -111,18 +115,256 @@ function shearchDate(ele){
 		cpt.innerHTML = getFormatDate(today)+' 세부정보';
 	}
 	
-	shChart(ele.value);
+	shChart(ele.value.replace(' ',''));
 	
 }
 
 // 검색 비동기 
 function shChart(check_out){
+	//chart 태그 비우기 
+	myChart.destroy()  
 	
 	axios.post('/hostManage/earnings', {
     check_out: check_out
   })
   .then(function (res) {
-    console.log(res.data.chart);
+	var b_arr_mon = new Array(0,0,0,0,0,0,0,0,0,0,0,0); // 도표에 들어갈 지급예정 수입 들어갈 변수 
+	var c_arr_mon = new Array(0,0,0,0,0,0,0,0,0,0,0,0); // 도표에 들어갈 지급완료 수입 들어갈 변수 
+	
+   if(res.data.chart.length > 0){
+	// 데이터 담기 
+	res.data.chart.forEach(function(ele){
+		
+		for(var i=0 ; i<b_arr_mon.length; i++){
+			if(i == Number(ele.check_out)-1){ // 해당 월 지급예정 수입 있으면 수입 삽입 
+				b_arr_mon[i] = ele.b_fee;
+			}
+		}
+		
+		for(var i=0 ; i<c_arr_mon.length; i++){
+			if(i == Number(ele.check_out)-1){ // 해당 월 지급완료 수입 있으면 수입 삽입 
+				c_arr_mon[i] = ele.c_fee;
+			}
+		}
+		
+	});
+		
+	//console.log(ele.check_out);
+		myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월','8월','9월','10월','11월','12월'],
+			datasets: [{
+				label: '지급 완료',
+				data: [c_arr_mon[0], c_arr_mon[1], c_arr_mon[2], c_arr_mon[3], c_arr_mon[4], c_arr_mon[5], c_arr_mon[6],c_arr_mon[7],c_arr_mon[8],c_arr_mon[9],c_arr_mon[10],c_arr_mon[11] ],
+				backgroundColor: [
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)',
+					'rgb(0, 132, 137, 0.2)'
+				],
+				borderColor: [
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)',
+					'rgb(0, 132, 137, 1)'
+				],
+				borderWidth: 1
+				
+			}, {
+
+				label: '지급 예정',
+				data: [b_arr_mon[0], b_arr_mon[1], b_arr_mon[2], b_arr_mon[3], b_arr_mon[4], b_arr_mon[5], b_arr_mon[6],b_arr_mon[7],b_arr_mon[8],b_arr_mon[9],b_arr_mon[10],b_arr_mon[11] ],
+				backgroundColor: [
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)',
+					'rgba(132, 210, 203, 0.2)'
+				],
+				borderColor: [
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)',
+					'rgba(132, 210, 203, 1)'
+				],
+				borderWidth: 1
+			
+			}]
+		},
+		options: {
+			legend: { display: false },
+			responsive: true,
+			scales: {
+				yAxes: [{
+					// 좌측 돈 표기 
+					ticks: {
+						beginAtZero: true,
+						userCallback: function(value, index, values) {
+						value = value.toString();
+						value = value.split(/(?=(?:...)*$)/);
+						value = value.join(',');
+						return '￦'+value;
+						}
+					}
+				}]
+			},
+			tooltips: {
+            	callbacks: {
+					label: function(tooltipItem,data) {
+						// 해당 bar 가격 표기 수정 
+						value = tooltipItem.yLabel.toString();
+						value = value.split(/(?=(?:...)*$)/);
+						value = value.join(',');
+						// 가격 표기 + bar 종류 표기 
+						return "￦" + value +" "+data.datasets[tooltipItem.datasetIndex].label ;
+					}
+				}
+        	}
+		},
+	
+	});
+		
+	}else{
+			myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월','8월','9월','10월','11월','12월'],
+				datasets: [{
+					label: '지급 완료',
+					data: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0],
+					backgroundColor: [
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)',
+						'rgb(0, 132, 137, 0.2)'
+					],
+					borderColor: [
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)',
+						'rgb(0, 132, 137, 1)'
+					],
+					borderWidth: 1
+					
+				}, {
+		
+					label: '지급 예정',
+					data: [0, 0, 0, 0, 0, 0, 0,0,0,0,0,0],
+					backgroundColor: [
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)',
+						'rgba(132, 210, 203, 0.2)'
+					],
+					borderColor: [
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)',
+						'rgba(132, 210, 203, 1)'
+					],
+					borderWidth: 1
+				
+				}]
+			},
+			options: {
+				legend: { display: false },
+				responsive: true,
+				scales: {
+					yAxes: [{
+						// 좌측 돈 표기 
+						ticks: {
+							beginAtZero: true,
+							userCallback: function(value, index, values) {
+							value = value.toString();
+							value = value.split(/(?=(?:...)*$)/);
+							value = value.join(',');
+							return '￦'+value;
+							}
+						}
+					}]
+				},
+				tooltips: {
+		        	callbacks: {
+						label: function(tooltipItem,data) {
+							// 해당 bar 가격 표기 수정 
+							value = tooltipItem.yLabel.toString();
+							value = value.split(/(?=(?:...)*$)/);
+							value = value.join(',');
+							// 가격 표기 + bar 종류 표기 
+							return "￦" + value +" "+data.datasets[tooltipItem.datasetIndex].label ;
+						}
+					}
+		    	}
+			},
+		
+		});
+		
+	}
+	
   })
   .catch(function (error) {
     console.log(error);
@@ -131,8 +373,8 @@ function shChart(check_out){
 
 // chart 표기 
 window.onload = function(){
-    var ctx = document.querySelector('.myChart');
-	var myChart = new Chart(ctx, {
+    ctx = document.querySelector('.myChart');
+	myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
 			labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월','8월','9월','10월','11월','12월'],
@@ -207,7 +449,7 @@ window.onload = function(){
 		},
 		options: {
 			legend: { display: false },
-			responsive: false,
+			responsive: true,
 			scales: {
 				yAxes: [{
 					// 좌측 돈 표기 

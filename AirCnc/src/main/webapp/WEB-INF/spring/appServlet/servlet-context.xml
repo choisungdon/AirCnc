@@ -42,8 +42,7 @@
 		<beans:property name="password" value="1234" />
 	</beans:bean>
 
-	<beans:bean id="dataSource"
-		class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	<beans:bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<beans:constructor-arg ref="hikariConfig" />
 	</beans:bean>
 	
