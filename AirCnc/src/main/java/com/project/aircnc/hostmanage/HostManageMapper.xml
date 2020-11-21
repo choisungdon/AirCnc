@@ -408,6 +408,9 @@
 			ON JOIN3.i_host = JOIN4.i_host
 			WHERE JOIN4.i_user = #{i_user}
 			AND JOIN3.reser_state  IS NULL
+			<![CDATA[
+			AND A.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+			]]>
 			GROUP BY DATE_FORMAT(JOIN3.check_out,'%Y-%m')
 		) a
 		left JOIN (
@@ -417,6 +420,9 @@
 			ON JOIN1.i_host = JOIN2.i_host
 			WHERE JOIN2.i_user = #{i_user}
 			AND JOIN1.reser_state  = 'o'
+			<![CDATA[
+			AND A.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+			]]>
 			GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y-%m')
 		) b
 		ON a.check_out = b.check_out

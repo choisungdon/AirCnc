@@ -149,10 +149,11 @@
 			</div>
 		
 			<table>
-				<caption>2020 세부정보</caption>
+				<caption><fmt:formatDate value="${now}" pattern="yyyy" /> 세부정보</caption>
 				<thead>
 				  <tr>
 					<th class="house_info">숙소</th>
+					<th class="data_state">해야할 일</th>
 					<th class="date_info">숙박 일</th>
 					<th class="user_info">유저</th>
 					<th class="gest_qty">게스트</th>
@@ -162,6 +163,7 @@
 				<tbody>
 				  <tr>
 					<td class="house_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
+					<th class="data_state">지급 완료 승인</th>
 					<td class="date_info">2020-10-19 ~ 2020-10-19</td>
 					<td class="user_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
 					<td class="gest_qty">8명</td>
@@ -169,6 +171,7 @@
 				  </tr>
 				  <tr>
 					<td class="house_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
+					<th class="data_state">없음</th>
 					<td class="date_info">2020-10-19 ~ 2020-10-19</td>
 					<td class="user_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
 					<td class="gest_qty">8명</td>
