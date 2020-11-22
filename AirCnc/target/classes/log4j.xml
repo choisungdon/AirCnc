@@ -10,8 +10,9 @@
 		</layout>
 	</appender>
 	
+	
 	<!-- Application Loggers -->
-	<logger name="com.project.aircnc">
+	<logger name="com.project.aircnc" >
 		<level value="info" />
 	</logger>
 	

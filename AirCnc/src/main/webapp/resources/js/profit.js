@@ -32,7 +32,6 @@ function ctnt_menu(ele){
    
     // menu 태그 접근 
     for(var i=0; i<menu_arr.length; i++){
-           
             arr_ele = menu_arr[i].children;
     
             arr_ele[0].style.color ='#EBEBEB'; // 평점  text

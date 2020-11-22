@@ -135,6 +135,14 @@ public class HostManageContoller {
 		return map;
 	}
 	
+	//숙소 숙박 완료 승인 (비동기)
+	@RequestMapping(value = "/upRsv", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> completeRsv(@RequestBody UserRsvChangeVO param , HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.completeRsv(param,hs));
+		return map;
+	}
+		
 	// 숙소 삭제 후 등록한 숙소 데이터 갱신 비동기 
 	@RequestMapping(value = "/shHsotHouse", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> shHsotHouse(@RequestBody HostHouseVO param, HttpSession hs, Model model) {
@@ -142,7 +150,7 @@ public class HostManageContoller {
 		map.put("result", service.selHostHouse(param));
 		return map;
 	}
-	// 
+	// 실적 > 후기 (실제 후기 데이터 출력 ) 동기
 	@RequestMapping(value = "/profit", method = RequestMethod.GET)
 	public String profit(ReviewAvgQtyVO param,HttpSession hs, Model model) {
 		

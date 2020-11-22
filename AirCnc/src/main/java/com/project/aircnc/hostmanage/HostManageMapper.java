@@ -54,6 +54,8 @@ public interface HostManageMapper {
 	public int upRsvCancel(UserRsvCancelVO param);
 	// 숙소 예약 테이블 삭제 (최종 예약 테이블 삭제)
 	public int delRsvCancel(UserRsvCancelVO param);
+	//숙소 숙박 완료 승인 (비동기)
+	public int completeRsv(UserRsvChangeVO param);
 	
 	// 유저 가 등록한 숙소 데이터 들고 오기 
 	public List<HostHouseVO> selHostHouse(HostHouseVO param);

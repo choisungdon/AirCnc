@@ -85,7 +85,7 @@
 		<![CDATA[
 		AND a.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
 		]]>
-		AND  ISNULL(a.reser_state)
+		and (a.reser_state IN ('0') OR a.reser_state IS NULL)
 		ORDER BY a.R_DT DESC
 		
 	</select>
@@ -250,6 +250,15 @@
 		WHERE i_reser = #{i_reser};
 	</delete>
 	
+	<update id="completeRsv" parameterType="UserRsvChangeVO">
+		UPDATE user_reser a
+		INNER JOIN host_user b
+		ON a.i_host = b.i_host 
+		SET a.RESER_STATE = 'o'
+		WHERE a.I_RESER = #{i_reser}
+		AND b.i_user = #{i_user}; 
+	</update>
+	
 	<select id="selHostHouse" parameterType="HostHouseVO" resultType="HostHouseVO">
 		SELECT a.I_HOST, a.i_user, a.COUNTRY, a.ADDR, a.b_room, a.BED_QTY, a.BTH_ROOM,
 		a.ROOM_TITLE, f.img_url ,DATE_FORMAT(a.R_DT,'%Y-%m-%d') as R_DT ,DATE_FORMAT(a.M_DT,'%Y-%m-%d') as M_DT,
@@ -400,34 +409,18 @@
 	</select>
 	
 	<select id="selChart" parameterType="EarningsSeachVO" resultType="EarnChartVO">
-		SELECT SUBSTR(a.check_out,6) as check_out, a.fee AS b_fee, b.fee AS c_fee
-		FROM (
-			SELECT DATE_FORMAT(JOIN3.check_out,'%Y-%m') AS check_out, SUM(JOIN3.total_fee) AS fee
-			FROM user_reser JOIN3
-			INNER JOIN host_user JOIN4
-			ON JOIN3.i_host = JOIN4.i_host
-			WHERE JOIN4.i_user = #{i_user}
-			AND JOIN3.reser_state  IS NULL
-			<![CDATA[
-			AND A.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
-			]]>
-			GROUP BY DATE_FORMAT(JOIN3.check_out,'%Y-%m')
-		) a
-		left JOIN (
-			SELECT DATE_FORMAT(JOIN1.check_out,'%Y-%m') AS check_out, SUM(JOIN1.total_fee) AS fee
-			FROM user_reser JOIN1
-			INNER JOIN host_user JOIN2
-			ON JOIN1.i_host = JOIN2.i_host
-			WHERE JOIN2.i_user = #{i_user}
-			AND JOIN1.reser_state  = 'o'
-			<![CDATA[
-			AND A.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
-			]]>
-			GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y-%m')
-		) b
-		ON a.check_out = b.check_out
-		where a.check_out LIKE  '${check_out}%'
-		ORDER BY DATE_FORMAT(a.check_out,'%Y-%m') ASC
+		SELECT MAX(i_reser) AS i_reser,DATE_FORMAT(JOIN1.check_out,'%m') AS check_out, SUM(JOIN1.total_fee) AS fee,JOIN1.reser_state
+		FROM user_reser JOIN1
+		INNER JOIN host_user JOIN2
+		ON JOIN1.i_host = JOIN2.i_host
+		WHERE (JOIN1.reser_state IN ('o') OR JOIN1.reser_state IS NULL)
+		and JOIN2.i_user = #{i_user}
+		<![CDATA[
+		AND JOIN1.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+		]]>
+		AND JOIN1.check_out LIKE   '${check_out}%'
+		GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y-%m'),JOIN1.reser_state
+		ORDER BY DATE_FORMAT(JOIN1.check_out,'%Y-%m') ASC
 	</select>
 	
 

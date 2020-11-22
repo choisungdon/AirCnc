@@ -172,6 +172,14 @@ public class HostManageService {
 		return result; // 0 : 실패  1 : 성공 
 	}
 	
+	//숙소 숙박 완료 승인 (비동기)
+	public int completeRsv(UserRsvChangeVO param,HttpSession hs) {
+		// 현재 로그인 정보(i_user) 가져오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		
+		return mapper.completeRsv(param);// 0 : 실패  1 : 성공 
+	}
+	
 	// 실적 > 후기 (host_title 출력)
 	public List<HostUserVO> selHost(ReviewAvgQtyVO param){
 		return mapper.selHost(param);

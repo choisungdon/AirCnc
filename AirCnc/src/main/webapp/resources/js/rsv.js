@@ -322,6 +322,8 @@ function complete(ele,i_user){
 		
 	    // forEach문 돌리기 (list 데이터로 받아서 그럽니다.)
 		res.data.result.forEach(function(element){
+			 // tbody 에 들어갈 tr 만들기 
+			var tr = document.createElement("tr");
 		    // tbody 에 들어갈 td 만들기 
 			var td1 = document.createElement("td"); // 숙소 이미지, 제목  담을 태그 
 			td1.setAttribute("class", "loebl7r");
@@ -358,6 +360,8 @@ function complete(ele,i_user){
 			
 			if(element.reser_state == null) {// 예약 날짜가 지났는데  상태 값이 null 이면 해야 할 일 표기 
 				td5.innerHTML = '완료 승인';
+			}else{
+				td5.innerHTML = '없음';
 			}
 			
 			var td6 = document.createElement("td"); // 주소 
@@ -371,12 +375,12 @@ function complete(ele,i_user){
 			var td8 = document.createElement("td"); // 승인 버튼 
 			td8.setAttribute("class", "_n7vhew5");
 			var span3 = document.createElement('span');
-			span3.setAttribute("onclick","rsvComplete('"+element.i_reser+"')");
+			span3.onclick = function() { rsvComplete(element.i_reser,td5,span3)};
 			span3.innerHTML = '승인';
 			if(element.reser_state == null){// 예약 날짜가 지났는데  상태 값이 null 이면  승인 버튼 나오게 
 				td8.appendChild(span3);
 			}
-			var tr = document.createElement("tr");
+			
 			
 			tr.appendChild(td1);
 			tr.appendChild(td2);
@@ -398,8 +402,22 @@ function complete(ele,i_user){
 }
 
  // 예약 완료 승인 버튼 
-function rsvComplete(i_reser){
-	console.log(i_reser)
+function rsvComplete(i_reser,td,btn){
+	axios.post('/hostManage/upRsv', {
+    i_reser: i_reser
+  })
+  .then(function (res) {
+    console.log(res.data.result);
+	if(res.data.result > 0){ // 성공 
+		td.innerHTML = '없음'; // 해야 할 일 문구 태그 내용 변경  
+		btn.remove(); // button 태그 지우기 
+	}else{
+		alert('완료승인  실패 ');
+	}
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 }
 
 
@@ -1003,6 +1021,8 @@ function allView(ele,i_user){
 		
 	    // forEach문 돌리기 (list 데이터로 받아서 그럽니다.)
 		res.data.result.forEach(function(element){
+			//  tbody 에 들어갈 tr 만들기 
+			var tr = document.createElement("tr");
 		    // tbody 에 들어갈 td 만들기 
 			var td1 = document.createElement("td"); // 숙소 이미지, 제목  담을 태그 
 			td1.setAttribute("class", "loebl7r");
@@ -1037,8 +1057,10 @@ function allView(ele,i_user){
 			var td5 = document.createElement("td");
 			td5.setAttribute("class", "prom");
 			
+			//console.log(element.reser_state);
+			
 			switch (element.reser_state) { // 상태 값에 따라 해야 할 일 표시 변경 
-			  case null:
+			  case 'o':
 			    td5.innerHTML = '없음'; 
 			    break;
  			  case 'complete':
@@ -1073,7 +1095,7 @@ function allView(ele,i_user){
 				td8.appendChild(span3);
 			    break;
  			  case 'complete':
-			    span3.setAttribute("onclick","rsvComplete('"+element.i_reser+"')");
+				span3.onclick = function() { rsvComplete(element.i_reser,td5,span3)};
 				span3.innerHTML = '승인';
 				td8.appendChild(span3);
 			    break;
@@ -1094,10 +1116,6 @@ function allView(ele,i_user){
 				td8.appendChild(span4);
 			    break;
 			}
-			
-			
-			
-			var tr = document.createElement("tr");
 			
 			tr.appendChild(td1);
 			tr.appendChild(td2);

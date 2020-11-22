@@ -138,14 +138,20 @@ function shChart(check_out){
 	res.data.chart.forEach(function(ele){
 		
 		for(var i=0 ; i<b_arr_mon.length; i++){
-			if(i == Number(ele.check_out)-1){ // 해당 월 지급예정 수입 있으면 수입 삽입 
-				b_arr_mon[i] = ele.b_fee;
+				if(i == Number(ele.check_out)-1){ // 해당 월 지급예정 수입 있으면 수입 삽입 
+					if(ele.reser_state == null){
+						b_arr_mon[i] = ele.fee;
+					}
+					
+				}
 			}
-		}
-		
+			
 		for(var i=0 ; i<c_arr_mon.length; i++){
 			if(i == Number(ele.check_out)-1){ // 해당 월 지급완료 수입 있으면 수입 삽입 
-				c_arr_mon[i] = ele.c_fee;
+				if(ele.reser_state == 'o'){
+					c_arr_mon[i] = ele.fee;
+				}
+				
 			}
 		}
 		
@@ -393,13 +399,17 @@ window.onload = function(){
 			
 			for(var i=0 ; i<b_arr_mon.length; i++){
 				if(i == Number(ele.check_out)-1){ // 해당 월 지급예정 수입 있으면 수입 삽입 
-					b_arr_mon[i] = ele.b_fee;
+					if(ele.reser_state == null){
+						b_arr_mon[i] = ele.fee;
+					}
 				}
 			}
 			
 			for(var i=0 ; i<c_arr_mon.length; i++){
 				if(i == Number(ele.check_out)-1){ // 해당 월 지급완료 수입 있으면 수입 삽입 
-					c_arr_mon[i] = ele.c_fee;
+					if(ele.reser_state == 'o'){
+						c_arr_mon[i] = ele.fee;
+					}
 				}
 			}
 			

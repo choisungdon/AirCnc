@@ -5,8 +5,8 @@ import org.apache.ibatis.type.Alias;
 @Alias("EarnChartVO")
 public class EarnChartVO {
 	private String check_out; // 검색 월 
-	private int b_fee; // 지급 예정 요금
-	private int c_fee; // 지금 완료 요금
+	private int fee; // 지급 예정 요금
+	private String reser_state;// 상태 값  'o' : 지급 완료  null : 지급 예정
 	
 	public String getCheck_out() {
 		return check_out;
@@ -14,17 +14,16 @@ public class EarnChartVO {
 	public void setCheck_out(String check_out) {
 		this.check_out = check_out;
 	}
-	public int getB_fee() {
-		return b_fee;
+	public int getFee() {
+		return fee;
 	}
-	public void setB_fee(int b_fee) {
-		this.b_fee = b_fee;
+	public void setFee(int fee) {
+		this.fee = fee;
 	}
-	public int getC_fee() {
-		return c_fee;
+	public String getReser_state() {
+		return reser_state;
 	}
-	public void setC_fee(int c_fee) {
-		this.c_fee = c_fee;
+	public void setReser_state(String reser_state) {
+		this.reser_state = reser_state;
 	}
-
 }
