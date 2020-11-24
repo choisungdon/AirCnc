@@ -177,16 +177,19 @@ public class HostManageContoller {
 		return "/hostManage/earnings";
 	}
 	
-	// 실적 > 수입 비동기. 동기(검색)
+	// 실적 > 수입 비동기(검색) chart 
 	@RequestMapping(value = "/earnings", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> selChart(@RequestBody EarningsSeachVO param, HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		
 		map.put("chart", service.selChart(param,hs));
-		map.put("table", 1);
 		return map;
 	}
 	
-
-	
+	// 실적 > 수입 비동기(검색) 월별 통계
+	@RequestMapping(value = "/getTtTable", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selTable(@RequestBody EarningsSeachVO param, HttpSession hs, Model model) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("table", service.selTable(param,hs));
+		return map;
+	}
 }

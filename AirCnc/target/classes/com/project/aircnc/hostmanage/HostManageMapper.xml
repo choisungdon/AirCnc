@@ -423,5 +423,37 @@
 		ORDER BY DATE_FORMAT(JOIN1.check_out,'%Y-%m') ASC
 	</select>
 	
+	<select id="selTable" parameterType="EarningsSeachVO" resultType="EarningsDataVO">
+		SELECT a.i_reser, a.i_user, b.I_HOST, b.ROOM_TITLE, c.img_url,
+		a.check_in, a.check_out,d.NM, d.PRO_IMG, a.GEST_QTY, a.total_FEE, 
+		a.RESER_STATE, e.fee
+		FROM user_reser a
+		INNER JOIN host_user b 
+		ON a.i_host = b.i_host
+		INNER JOIN (
+		SELECT i_host , img_url
+		FROM rooms_img
+		GROUP BY i_host
+		) c
+		ON b.i_host = c.i_host
+		INNER JOIN t_user d
+		ON a.i_user = d.i_user
+		LEFT JOIN (
+		SELECT MAX(i_reser) AS i_reser,DATE_FORMAT(JOIN1.check_out,'%m') AS check_out, SUM(JOIN1.total_fee) AS fee,JOIN1.reser_state
+		FROM user_reser JOIN1
+		INNER JOIN host_user JOIN2
+		ON JOIN1.i_host = JOIN2.i_host
+		GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y-%m'),JOIN1.reser_state
+		) e
+		ON a.i_reser = e.i_reser
+		WHERE b.i_user = #{i_user}
+		AND (a.reser_state IN ('o') OR a.reser_state IS NULL)
+		<![CDATA[
+		AND a.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+		]]>
+		and a.check_out LIKE  '${check_out}%'
+		ORDER BY DATE_FORMAT(a.check_out,'%Y-%m') ASC, a.i_reser asc,a.RESER_STATE ASC
+	</select>
+	
 
 </mapper>

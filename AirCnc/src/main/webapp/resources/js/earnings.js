@@ -66,6 +66,7 @@ function chDate(ele){
         cpt.innerHTML = arr_cb[1].innerHTML+' 세부정보' // 년도 세부 정보 
 		// chart 및 세부 정보 검색 
 		shChart(arr_cb[1].innerHTML.replace(' ',''));
+		getTtTable(arr_cb[1].innerHTML.replace(' ',''));
     }else if(ele.className == 'right_date'){
         if(Number(arr_date2[0].innerHTML) > Number(thisYear)) return alert('해당 년도는 알수가 없습니다.')
         
@@ -78,6 +79,7 @@ function chDate(ele){
 		cpt.innerHTML = temp_date+' 세부정보' // 년도 세부 정보 
 		// chart 및 세부 정보 검색 
 		shChart(temp_date.replace(' ',''));
+		getTtTable(temp_date.replace(' ',''));
     }
 }
 
@@ -118,6 +120,7 @@ function shearchDate(ele){
 	}
 	
 	shChart(ele.value.replace(' ',''));
+	getTtTable(ele.value.replace(' ',''));
 	
 }
 
@@ -379,11 +382,117 @@ function shChart(check_out){
   });
 }
 
+// 숙소 통계 table 생성 함수 
+function getTtTable(check_out){
+		// 데이터 받을 tbody
+		tb = document.querySelector('tbody');
+		tb.innerHTML = ''; // 지우기 
+		
+		axios.post('/hostManage/getTtTable', {
+	     check_out: check_out
+	  })
+	  .then(function (res) {
+	    if(res.data.table.length > 0){
+			res.data.table.forEach(function(ele){
+				var tr = document.createElement('tr');
+				var td1 = document.createElement('td');
+				var td2 = document.createElement('td');
+				var td3 = document.createElement('td');
+				var td4 = document.createElement('td');
+				var td5 = document.createElement('td');
+				var td6 = document.createElement('td');
+				
+				td1.setAttribute('class','house_info');
+				td2.setAttribute('class','data_state');
+				td3.setAttribute('class','date_info');
+				td4.setAttribute('class','user_info');
+				td5.setAttribute('class','gest_qty');
+				td6.setAttribute('class','incom_info');
+				
+				var img1 = document.createElement('img');
+				img1.src = ele.img_url;
+				
+				var span1 = document.createElement('span');
+				span1.innerHTML = ele.room_title;
+				
+				td1.appendChild(img1);
+				td1.appendChild(span1);
+				
+				if(ele.reser_state == null){
+					td2.innerHTML = '지금 완료 승인';
+				}else{
+					td2.innerHTML = '없음';
+				}
+				
+				td3.innerHTML = ele.check_in+' ~ '+ele.check_out;
+				
+				img2 = document.createElement('img');
+				img2.src = ele.pro_img;
+				
+				var span2 = document.createElement('span');
+				span2.innerHTML = ele.nm;
+				
+				td4.appendChild(img2);
+				td4.appendChild(span2);
+				
+				td5.innerHTML= ele.gest_qty+'명';
+				
+				td6.innerHTML = '￦'+ele.total_fee;
+				
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				tr.appendChild(td4);
+				tr.appendChild(td5);
+				tr.appendChild(td6);
+				
+				tb.appendChild(tr);
+				
+				if(ele.fee > 0){
+					var tt_tr = document.createElement('tr');
+					var tt_td1 = document.createElement('td');
+					var tt_td2 = document.createElement('td');
+					
+					tt_td1.setAttribute('class','total');
+					tt_td1.setAttribute('colspan', '5');
+					
+					tt_td1.innerHTML = '합계 : ';
+					
+					tt_td2.setAttribute('class','total_fee');
+					tt_td2.innerHTML = '￦'+ele.fee;
+					
+					tt_tr.appendChild(tt_td1);
+					tt_tr.appendChild(tt_td2);
+					
+					tb.appendChild(tt_tr);
+				}
+				
+			});
+		}else{ // 검색 결과 없으면 '검색 결과가 없습니다.' 문구 삽입 
+			var tr = document.createElement('tr');
+			var td = document.createElement('td');
+			td.setAttribute('class','void_td');
+			td.setAttribute('colspan', '6');
+			td.innerHTML = '검색 결과가 없습니다.';
+			
+			tr.appendChild(td);
+			tb.appendChild(tr);
+		}
+
+		
+	  })
+	  .catch(function (error) {
+	    console.log(error);
+	  });
+}
+
 // chart 표기 
 window.onload = function(){
 	var  check_out = new Date(); // 현재 날짜 
     var check_out = check_out.getFullYear(); // 현재 년도 
-
+	// 숙소 통계 table 생성 함수 실행 
+	getTtTable(check_out);
+	
 	ctx = document.querySelector('.myChart');// chart 담는 태그 
 
 	axios.post('/hostManage/earnings', {
@@ -634,8 +743,6 @@ window.onload = function(){
 	  .catch(function (error) {
 	    console.log(error);
 	  });
-
-    
 
 }
 // 날짜 포맷 바꾸기 

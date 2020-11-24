@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.aircnc.common.EarnChartVO;
-import com.project.aircnc.common.EarnChartVO;
+import com.project.aircnc.common.EarningsDataVO;
 import com.project.aircnc.common.EarningsSeachVO;
 import com.project.aircnc.common.HostHouseVO;
 import com.project.aircnc.common.HostRsvCancelVO;
@@ -225,13 +225,28 @@ public class HostManageService {
 		return mapper.selReviewAvg(param);
 	}
 	
-	// 실적 > 수입 비동기. 동기(검색) 월별 수입 출력 
+	// 실적 > 수입 비동기(검색) chart 
 	public List<EarnChartVO> selChart(EarningsSeachVO param, HttpSession hs) {
 		// 로그인 유저 i_user 가져오기 
 		param.setI_user(MyUtils.getSesstion(hs));
 		
 		// 데이터 출력 
 		return mapper.selChart(param);
+	}
+	
+	// 실적 > 수입 비동기(검색) 월별 통계
+	public List<EarningsDataVO> selTable(EarningsSeachVO param, HttpSession hs){
+		// 로그인 유저 i_user 가져오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		
+		List<EarningsDataVO> list = mapper.selTable(param);
+		
+		for (EarningsDataVO dataVO : list) {
+			dataVO.setPro_img(proImgChange(dataVO.getPro_img(),dataVO.getI_user()));
+			dataVO.setImg_url(imgUrlChange(dataVO.getImg_url(), dataVO.getI_host()));
+		}
+		
+		return list;
 	}
 	
 	// 숙소  이미지 경로 변경 

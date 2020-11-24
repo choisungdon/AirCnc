@@ -162,6 +162,9 @@
 				</thead>
 				<tbody>
 				  <tr>
+					  <td class="void_td" colspan="6">검색 결과가 없습니다.</td>
+				  </tr>
+				  <tr>
 					<td class="house_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
 					<th class="data_state">지급 완료 승인</th>
 					<td class="date_info">2020-10-19 ~ 2020-10-19</td>
@@ -169,20 +172,10 @@
 					<td class="gest_qty">8명</td>
 					<td class="incom_info">$152,551</td>
 				  </tr>
+				  
 				  <tr>
-					<td class="house_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
-					<th class="data_state">없음</th>
-					<td class="date_info">2020-10-19 ~ 2020-10-19</td>
-					<td class="user_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
-					<td class="gest_qty">8명</td>
-					<td class="incom_info">$152,551</td>
-				  </tr>
-	
-				  <tr>
-					  <td class="total" colspan="4">합계 : </td>
-					  <td class="total_fee">
-						  $325,151
-					  </td>
+					  <td class="total" colspan="5">합계 : </td>
+					  <td class="total_fee">$325,151</td>
 				  </tr>
 				 
 				</tbody>

@@ -586,6 +586,17 @@ tbody > tr > .incom_info{
     color: #484848 !important;
 }
 
+.void_td{
+    text-align: center;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    line-height: 1.2857142857142858em !important;
+    color: #484848 !important;
+}
 
 
 
