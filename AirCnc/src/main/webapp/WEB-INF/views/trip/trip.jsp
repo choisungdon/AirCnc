@@ -144,8 +144,6 @@
 				</c:otherwise>
             </c:choose>
 
-                
-
                 <div class="trip_before">
                 <c:choose>
                 	<c:when test="${fn:length(bf_data) != 0}">

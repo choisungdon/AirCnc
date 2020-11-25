@@ -781,14 +781,14 @@ function rsv_cc(ele,i_user){
 }
 // 예약 변경 및 취소 승인 버튼 
 function goRsvCC(i_reser,state){
-	console.log(i_reser);
+	
 	switch (state){
 		case 'ch':
 		  axios.post('/hostManage/exChange', {
 			 i_reser: i_reser// pk
 		  })
 		  .then(function (res) {
-			console.log(res.data.result);
+			//console.log(res.data.result);
 			
 			if(res.data.result > 0){
 				alert("변경 승인 했습니다.");

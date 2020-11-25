@@ -77,4 +77,7 @@ public interface HostManageMapper {
 	// 실적 > 수입 비동기(검색) 월별 통계
 	public List<EarningsDataVO> selTable(EarningsSeachVO param);
 	
+	//해당 숙소 변경 날짜 확인 메소드 (예약 변경날짜가 이미 지났는지 않지났는지)
+	public String checkOutComfirm(UserRsvChangeVO param);
+	
 }

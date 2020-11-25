@@ -1,6 +1,9 @@
 package com.project.aircnc.hostmanage;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -129,13 +132,19 @@ public class HostManageService {
 	
 	// 숙소 변경 승인 비동기
 	public int upRsvChange(UserRsvChangeVO param, HttpSession hs) {
-		int result = mapper.existGestQty(param); // 예약 가능 명수 확인  (1 : 예약 가능 , 0 : 예약 불가능)
+		int result = 0;
+		// 변경 날짜 확인 이미 지난 날짜면 예약 취소 
+		result = checkOutComfirm(param);
+		
+		if(result == 0) {
+			result = 1;
+		}
+		result = mapper.existGestQty(param); // 예약 가능 명수 확인  (1 : 예약 가능 , 0 : 예약 불가능)
 		if(result >= 1) {
 			result = mapper.upRsvChange(param); // 예약 변경 실행 
 			if(result > 0) { // 1이상 이면  update 성공  i_user 보냅니다. 
-				TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
-				return loginUser.getI_user();
-			}else return result; // 0 이면 실패/ return 0 보냅니다. 
+				return MyUtils.getSesstion(hs); 
+			}else return result; // 0 이면 실패 - > return 0 보냅니다. 
 		}else return -1; // 예약 불가능 / 인원 초과 
 	}
 	
@@ -265,6 +274,39 @@ public class HostManageService {
 			pro_img = "/resources/img/pimg.jpg";
 		}
 		return pro_img;
+	}
+	
+	// 해당 숙소 변경 날짜 확인 메소드 (예약 변경날짜가 이미 지났는지 않지났는지)
+	public int checkOutComfirm(UserRsvChangeVO param) { 
+		// table chout 가져오기 
+		String check_out = mapper.checkOutComfirm(param);
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd");
+		// table toDate 오늘 날짜 
+		Calendar cal= Calendar.getInstance();
+	    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	    // 최종 chout,오늘날짜 담을 변수 
+	    Date to = null;
+	    Date toDate = null; 
+	    
+		// 문자열 date 타입이로 형변환 
+		try {
+			to = transFormat.parse(check_out);
+			toDate =transFormat.parse(df.format(cal.getTime()));
+			System.out.println("to : "+to);
+			System.out.println("toDate : "+toDate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		int compare = to.compareTo(toDate);
+		
+		if(compare < 0 ) {  // 오늘 날짜 기준으로 변경 날짜는 지남  
+			return 1;
+		}else { // 변경 날짜가 오늘 날짜보다 미래 
+			return 0;
+		}
+		
 	}
 	
 }

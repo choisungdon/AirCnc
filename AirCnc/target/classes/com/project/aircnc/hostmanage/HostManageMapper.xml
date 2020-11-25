@@ -85,7 +85,7 @@
 		<![CDATA[
 		AND a.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
 		]]>
-		and (a.reser_state IN ('0') OR a.reser_state IS NULL)
+		and (a.reser_state = ('o') OR a.reser_state IS NULL)
 		ORDER BY a.R_DT DESC
 		
 	</select>
@@ -189,7 +189,8 @@
 		a.GEST_QTY 	= b.BE_GEST_QTY,
 		a.total_FEE	= b.BE_TOTAL_FEE
 		WHERE a.i_reser = #{i_reser}
-		AND a.reser_state = 'ch';
+		AND a.reser_state = 'ch'
+		AND b.STATE IS NULL;
 		
 		UPDATE host_user a
 		INNER JOIN user_rsv_change b
@@ -443,6 +444,12 @@
 		FROM user_reser JOIN1
 		INNER JOIN host_user JOIN2
 		ON JOIN1.i_host = JOIN2.i_host
+		WHERE JOIN2.i_user = #{i_user}
+		AND (JOIN1.reser_state IN ('o') OR JOIN1.reser_state IS NULL)
+		<![CDATA[
+		AND JOIN1.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+		]]>
+		and JOIN1.check_out LIKE  '${check_out}%'
 		GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y-%m'),JOIN1.reser_state
 		) e
 		ON a.i_reser = e.i_reser
@@ -453,6 +460,13 @@
 		]]>
 		and a.check_out LIKE  '${check_out}%'
 		ORDER BY DATE_FORMAT(a.check_out,'%Y-%m') ASC, a.i_reser asc,a.RESER_STATE ASC
+	</select>
+	
+	<select id="checkOutComfirm" parameterType="UserRsvChangeVO" resultType="String">
+		SELECT BE_CHOUT
+		FROM user_rsv_change
+		WHERE I_RESER = #{i_reser}
+		AND STATE IS NULL
 	</select>
 	
 
