@@ -50,11 +50,11 @@ public interface HostManageMapper {
 	
 	
 	// 숙소 취소 승인 비동기 삭제  (예약 테이블 빼고)
-	public int RsvCancel(UserRsvCancelVO param);
+	public int RsvCancel(int i_reser);
 	// 숙소 취소 승인 비동기 update 
 	public int upRsvCancel(UserRsvCancelVO param);
 	// 숙소 예약 테이블 삭제 (최종 예약 테이블 삭제)
-	public int delRsvCancel(UserRsvCancelVO param);
+	public int delRsvCancel(int i_reser);
 	//숙소 숙박 완료 승인 (비동기)
 	public int completeRsv(UserRsvChangeVO param);
 	
@@ -80,4 +80,6 @@ public interface HostManageMapper {
 	//해당 숙소 변경 날짜 확인 메소드 (예약 변경날짜가 이미 지났는지 않지났는지)
 	public String checkOutComfirm(UserRsvChangeVO param);
 	
+	// 해당 숙소 변경 날짜 지났으면 숙소 취소 테이블에 정보 입력 
+	public int insRsvCancel(UserRsvChangeVO param);
 }

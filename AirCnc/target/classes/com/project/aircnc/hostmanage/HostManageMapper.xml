@@ -217,7 +217,11 @@
 		);
 	</select>
 	
-	<delete id="RsvCancel" parameterType="UserRsvCancelVO">
+	<delete id="RsvCancel" parameterType="Integer">
+		DELETE FROM USER_RSV_CHANGE
+		WHERE I_RESER = #{i_reser}
+		AND STATE IS NULL;
+		
 		DELETE FROM aircnc_msg 
 		WHERE i_reser = #{i_reser};
 		
@@ -246,7 +250,7 @@
 		AND i_reser  = #{i_reser};
 	</update>
 	
-	<delete id="delRsvCancel" parameterType="UserRsvCancelVO">
+	<delete id="delRsvCancel" parameterType="Integer">
 		DELETE FROM USER_RESER
 		WHERE i_reser = #{i_reser};
 	</delete>
@@ -468,6 +472,13 @@
 		WHERE I_RESER = #{i_reser}
 		AND STATE IS NULL
 	</select>
+	
+	<insert id="insRsvCancel" parameterType="UserRsvChangeVO">
+		INSERT INTO user_rsv_cancel(i_host, i_user, i_reser,reason,state)
+		SELECT i_host, i_user,i_reser, '변경 요청날짜 지남', 'o'
+		FROM user_reser
+		WHERE i_reser = #{i_reser}
+	</insert>
 	
 
 </mapper>

@@ -797,6 +797,9 @@ function goRsvCC(i_reser,state){
 				alert("DB 오류");
 			}else if(res.data.result == -1){
 				alert("현재 숙소의 숙박 인원이 꽉 찼습니다.");
+			}else if(res.data.result == -2){
+				alert("변경 날짜가 지나 예약이 취소 되었습니다.");
+				location.href="/hostManage/rsv";
 			}
 		  })
 		  .catch(function (error) {

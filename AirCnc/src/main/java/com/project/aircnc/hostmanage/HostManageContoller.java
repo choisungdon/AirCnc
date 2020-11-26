@@ -38,7 +38,7 @@ public class HostManageContoller {
 	// 예약(숙소 관리)화면 이동 
 	@RequestMapping(value = "/rsv", method = RequestMethod.GET)
 	public String main(TUserVO param, HttpSession hs, Model model) {
-		model.addAttribute("data", service.selRsv(param));
+		model.addAttribute("data", service.selRsv(param,hs));
 		return "/hostManage/rsv";
 	}
 	// 예약 숙박 내용 확인 
@@ -53,7 +53,7 @@ public class HostManageContoller {
 	@RequestMapping(value = "/rsv", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> selRSV(@RequestBody TUserVO param, HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("result", service.selRsv(param));
+		map.put("result", service.selRsv(param,hs));
 		return map;
 	}
 		
@@ -173,7 +173,6 @@ public class HostManageContoller {
 	// 실적 > 수입 
 	@RequestMapping(value = "/earnings", method = RequestMethod.GET)
 	public String earnings(TUserVO param,HttpSession hs, Model model) {
-		model.addAttribute("rsvCcData", 1); // 예약 변경 및 취소 요청 data 가져오기
 		
 		return "/hostManage/earnings";
 	}
