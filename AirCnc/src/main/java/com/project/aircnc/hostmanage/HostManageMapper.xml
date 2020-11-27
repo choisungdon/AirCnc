@@ -473,12 +473,11 @@
 		AND STATE IS NULL
 	</select>
 	
-	<insert id="insRsvCancel" parameterType="UserRsvChangeVO">
-		INSERT INTO user_rsv_cancel(i_host, i_user, i_reser,reason,state)
-		SELECT i_host, i_user,i_reser, '변경 요청날짜 지남', 'o'
-		FROM user_reser
-		WHERE i_reser = #{i_reser}
-	</insert>
+	<update id="rsvChOverDate" parameterType="UserRsvChangeVO" statementType="CALLABLE">
+			 { 
+			 	call rsvChOverDate(#{i_reser})
+			 }
+	</update>
 	
 
 </mapper>

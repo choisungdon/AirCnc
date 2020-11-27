@@ -137,14 +137,13 @@ public class HostManageService {
 		result = checkOutComfirm(param);
 		
 		if(result == 0) {
-			result = mapper.insRsvCancel(param); // 예약 취소 정보 삽입 
-			result = mapper.RsvCancel(param.getI_reser());
-			result = mapper.delRsvCancel(param.getI_reser());// 예약 정보 삭제 
+			result = mapper.rsvChOverDate(param); // 프로시져 호출  
+			System.out.println("result : "+result);
 			if(result >0) return -2; // 변경 날짜 지남 
 			else return result; // db 오류 
 		}else {
 			result = mapper.existGestQty(param); // 예약 가능 명수 확인  (1 : 예약 가능 , 0 : 예약 불가능)
-			if(result >= 1) {
+			if(result > 0) {
 				result = mapper.upRsvChange(param); // 예약 변경 실행 
 				if(result > 0) { // 1이상 이면  update 성공  i_user 보냅니다. 
 					return MyUtils.getSesstion(hs); 
@@ -299,8 +298,6 @@ public class HostManageService {
 		try {
 			to = transFormat.parse(check_out);
 			toDate =transFormat.parse(df.format(cal.getTime()));
-			System.out.println("to : "+to);
-			System.out.println("toDate : "+toDate);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

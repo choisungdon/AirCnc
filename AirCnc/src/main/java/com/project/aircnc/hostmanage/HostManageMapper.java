@@ -81,5 +81,5 @@ public interface HostManageMapper {
 	public String checkOutComfirm(UserRsvChangeVO param);
 	
 	// 해당 숙소 변경 날짜 지났으면 숙소 취소 테이블에 정보 입력 
-	public int insRsvCancel(UserRsvChangeVO param);
+	public int rsvChOverDate(UserRsvChangeVO param);
 }
