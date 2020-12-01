@@ -138,7 +138,7 @@ public class HostManageService {
 		
 		if(result == 0) {
 			result = mapper.rsvChOverDate(param); // 프로시져 호출  
-			System.out.println("result : "+result);
+			//System.out.println("result : "+result);
 			if(result >0) return -2; // 변경 날짜 지남 
 			else return result; // db 오류 
 		}else {

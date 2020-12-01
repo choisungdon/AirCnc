@@ -65,33 +65,7 @@ function goSearch(){
 	location.href = "/search/searchMain?addr="+addr+"&chin="+chin+"&chout="+chout+"&qty="+qty;
 }
 
-// dropDown 메뉴 함수 
-function myMenu() {
-	display = document.getElementById("menuctnt").style.display;
-	if(display == 'block'){
-		document.getElementById("menuctnt").style.display='none';
-	}else{
-		document.getElementById("menuctnt").style.display='block';
-	}
-}
 
-// 주소 검색 
-function goAddr(){
-	axios.get('/index/search', {
-    params: {
-      s_addr: s_addr.value
-    }
-  })
-  .then(function (res) {
-	//console.log(res);
-	res.data.result.forEach(function(element, index, array){
-    //console.log(`${element.addr}`);
-		
-	});
-
-  })
-
-}
 
 //회원가입 창 팝업, 닫기
 function popupJoin() {
@@ -301,7 +275,86 @@ function goTrb(){
 	location.href="/trip/trip";
 }
 
+// dropDown 메뉴 함수 
+function myMenu() {
+	var menuctnt = document.querySelector('.menuctnt');
+	
+	if(menuctnt.style.display == 'block'){
+		menuctnt.style.display='none';
+	}else{
+		menuctnt.style.display='block';
+	}
+}
 
+//연관 주소 list 뽑기   
+function goAddr(){
+	// 서브 주소 list 태그  
+	var drop_addr = document.querySelector('.drop_addr');
+	
+	drop_addr.innerHTML = '';
+	
+	// 검색 내용이 없으면 list 창 숨기기 있으면 나타내기 
+	if(s_addr.value == ''){ 
+		drop_addr.style.display='none';
+		return false;
+	}else{
+		drop_addr.style.display='block';
+	}
+	 // 연관 주소  출력 
+	axios.get('/index/search', {
+    params: {
+      s_addr: s_addr.value
+    }
+  })
+  .then(function (res) {
+	if(res.data.result.length < 1 ){
+		drop_addr.style.display = 'none';
+	}else{
+		res.data.result.forEach(function(element){
+			// list 태그 안에 들어갈 태그 
+			var div  = document.createElement('div');
+			div.setAttribute( 'class', 'addr_item' );
+			
+			// div 태그 안에 들어갈 태그 (이모지,주소 내용)
+			var i = document.createElement('i');
+			i.setAttribute( 'class', 'fas fa-map-marker-alt' );
+			
+			var span = document.createElement('span');
+			span.innerHTML = element.hidden_addr;
+			
+			div.onclick =  function() { insAddr(element.addr)};
+			
+			// 태그 삽입 
+			div.appendChild(i);
+			div.appendChild(span);
+			
+    		drop_addr.appendChild(div);
+		});
+	}
+	
+
+  })
+
+}
+
+// 주소 검색창에 삽입  삽입 함수  
+function insAddr(ele){
+	s_addr.value = ele;
+	searchin.focus();
+}
+
+// dropDown menu , 연관 주소 list 아닌 태그 클릭시 숨기기 
+window.onclick = function(event) {
+	var menuctnt = document.querySelector('.menuctnt');
+	var drop_addr = document.querySelector('.drop_addr');
+	//dropDown 메뉴
+	if(event.target.className != 'menubutton' &&  event.target.className != 'ham' && event.target.className != 'profile'){
+		menuctnt.style.display = 'none';
+	}
+	
+	//연관 주소 list
+	drop_addr.style.display='none';
+}
 
 
 

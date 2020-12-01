@@ -59,7 +59,10 @@
             <span class="sch_items">
                 <span class="local">
                     <div class="sch_font">위치</div>
-                    <input type="text" id="s_addr" value="${sData.addr}" placeholder="어디로 여행가세요?">
+                    <input type="text" id="s_addr" value="${sData.addr}" onKeyUp="goAddr()" placeholder="어디로 여행가세요?">
+                    <div class="drop_addr">
+                    	
+                    </div>
                 </span>
                 <span>
                     <div class="sch_font">체크인</div>

@@ -126,16 +126,16 @@
          <li class="menuli">체험</li>
          <li class="menuli">온라인 체험</li>
       </div>
-      <div id="menubutton" onclick="myMenu()">
-         <div>
-            <img id="ham" src="/resources/img/bars-solid.svg">
+      <div id="menubutton" class="menubutton" onclick="myMenu()">
+         <div class="ham">
+            <img id="ham" class="ham"  src="/resources/img/bars-solid.svg">
          </div>
-         <div id="profile">
-            <img src="${loginUser.my_profile != null ? loginUser.my_profile : '/resources/img/pimg.jpg'}">
+         <div id="profile" class="profile">
+            <img class="profile" src="${loginUser.my_profile != null ? loginUser.my_profile : '/resources/img/pimg.jpg'}">
          </div>
       </div>
       
-      <div id="menuctnt">
+      <div  class="menuctnt">
      	 <c:if test="${loginUser.i_user == null}">
          <li class="b" onclick="popupJoin()">회원가입</li>
 		 <li class="b" onclick="popupLogin()">로그인</li>
@@ -158,11 +158,16 @@
          <li class="sli">
          <label>위치
                <div>
-                  <input id="s_addr" class="searchin" type="text" onkeyup="goAddr()"
-                     placeholder="어디로 여행가세요?">
+                  <input id="s_addr" class="searchin" type="text" onKeyUp="goAddr()" placeholder="어디로 여행가세요?">
                </div>
          </label>
+         
+         <div class="drop_addr">
+         	
+         </div>
+         
          </li>
+	       
          <li class="sli"><label>체크인
                <div>
                   <input id="searchin" class="searchin" type="text" value=""

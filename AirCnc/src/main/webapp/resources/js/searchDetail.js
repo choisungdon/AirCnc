@@ -70,23 +70,6 @@ $(function() {
 
 });
 
-// 주소 검색 
-function goAddr(){
-	axios.get('/index/search', {
-    params: {
-      s_addr: s_addr.value
-    }
-  })
-  .then(function (res) {
-	//console.log(res);
-	res.data.result.forEach(function(element, index, array){
-    //console.log(`${element.addr}`);
-		
-	});
-
-  })
-
-}
 
 // 검색
 function goSearch(){
@@ -425,7 +408,7 @@ function goComfirm(){
     }
   })
   .then(function (res) {
-	console.log(res.data.result);
+	//console.log(res.data.result);
     if(res.data.result != 'o'){
 		erro.innerHTML = res.data.result; // 오류 메시지 
 		submit.disabled='true';// 예약 버튼 비활성화
@@ -436,6 +419,78 @@ function goComfirm(){
 		
 	}
   })
+}
+
+
+//연관 주소 list 뽑기   
+function goAddr(){
+	// 서브 주소 list 태그  
+	var drop_addr = document.querySelector('.drop_addr');
+	
+	drop_addr.innerHTML = '';
+	
+	// 검색 내용이 없으면 list 창 숨기기 있으면 나타내기 
+	if(s_addr.value == ''){ 
+		drop_addr.style.display='none';
+		return false;
+	}else{
+		drop_addr.style.display='block';
+	}
+	 // 연관 주소  출력 
+	axios.get('/index/search', {
+    params: {
+      s_addr: s_addr.value
+    }
+  })
+  .then(function (res) {
+	if(res.data.result.length < 1 ){
+		drop_addr.style.display = 'none';
+	}else{
+		res.data.result.forEach(function(element){
+			// list 태그 안에 들어갈 태그 
+			var div  = document.createElement('div');
+			div.setAttribute( 'class', 'addr_item' );
+			
+			// div 태그 안에 들어갈 태그 (이모지,주소 내용)
+			var i = document.createElement('i');
+			i.setAttribute( 'class', 'fas fa-map-marker-alt' );
+			
+			var span = document.createElement('span');
+			span.innerHTML = element.hidden_addr;
+			
+			div.onclick =  function() { insAddr(element.addr)};
+			
+			// 태그 삽입 
+			div.appendChild(i);
+			div.appendChild(span);
+			
+    		drop_addr.appendChild(div);
+		});
+	}
+	
+
+  })
+
+}
+
+// 주소 검색창에 삽입  삽입 함수  
+function insAddr(ele){
+	s_addr.value = ele;
+	searchin.focus();
+}
+
+
+// dropDown menu , 연관 주소 list 아닌 태그 클릭시 숨기기 
+window.onclick = function(event) {
+	var drop_menu = document.querySelector('.drop_menu');
+	var drop_addr = document.querySelector('.drop_addr');
+	//dropDown 메뉴
+	if(event.target.className != 'top_menu' &&  event.target.className != 'hamMenu' && event.target.className != 'my_profile'){
+		drop_menu.style.display = 'none';
+	}
+	
+	//연관 주소 list
+	drop_addr.style.display='none';
 }
 
 

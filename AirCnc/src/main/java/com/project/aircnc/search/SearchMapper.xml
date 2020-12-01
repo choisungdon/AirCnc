@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.aircnc.search.SearchMapper">
 	<select id="searchList" parameterType="String" resultType="AddSchVO">
-		SELECT addr
+		SELECT if(LENGTH(addr)>=8,CONCAT(left(addr, 12),'...'),CONCAT(left(addr, 5),'...')) AS hidden_addr, left(addr, 12) as addr
 		FROM host_user
 		WHERE ADDR LIKE '%${s_addr}%'; 
 	</select>

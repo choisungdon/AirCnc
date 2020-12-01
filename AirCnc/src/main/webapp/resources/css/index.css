@@ -220,7 +220,7 @@ header {
 }
 
  /*js myMenu()함수에서  display = 'block' 으로 바뀜*/
-#core #menuctnt {
+#core .menuctnt {
    display: none;
     background-color: white;
     border-radius: 13px;
@@ -233,14 +233,14 @@ header {
     
 }
 
-#core #menuctnt li {
+#core .menuctnt li {
     list-style: none;
     padding: 10px 15px;
 }
-#core #menuctnt .b {
+#core .menuctnt .b {
    font-weight: bold;
 }
-#core #menuctnt .line {
+#core .menuctnt .line {
     color: #e5e5e5;
 }
 
@@ -261,6 +261,46 @@ header {
     float: left;
     padding-left: 35px;
     border-right: lightgray solid 1px;
+}
+
+.drop_addr{
+	display: none;
+    background-color: white;
+    padding: 20px 0px;
+    overflow: hidden;
+    position: absolute;
+    width:500px;
+    top: 160px;
+    border-radius:15px;
+    z-index: 1;
+}
+
+.drop_addr > .addr_item{
+	padding: 8px 16px 8px 32px;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	flex-grow: 1;
+	cursor: pointer;
+}
+
+.drop_addr > .addr_item:hover{
+	background-color: #F7F7F7;
+}
+
+.fa-map-marker-alt{
+	flex-grow:1;
+	background-color: rgb(241, 241, 241) !important;
+    border: 1px solid rgba(176, 176, 176, 0.2) !important;
+    border-radius: 8px !important;
+    padding: 15px;
+    margin-right:10px;
+    text-align: center;
+   
+}
+.addr_item > span{
+	padding-top:10px;
+	flex-grow:9;
 }
 #core #search .sli:nth-child(4) {
     border-right: none;
@@ -341,7 +381,7 @@ input:focus {
 #core #menubutton:hover {
     cursor: pointer;
 }
-#core #menuctnt li:hover {
+#core .menuctnt li:hover {
     cursor: pointer;
     background-color: #e5e5e5;
 }

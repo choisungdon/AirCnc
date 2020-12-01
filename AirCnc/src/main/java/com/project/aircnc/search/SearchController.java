@@ -23,7 +23,7 @@ public class SearchController {
 	@Autowired
 	private SearchSearvice service;
 	
-	// 검색창 자동 완성 메소드 구현중 
+	// 검색창 자동 완성  
 	@RequestMapping(value = "/index/search", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> goAddr(@RequestParam String s_addr) {// @ResponseBody 모든 객체 데이터
 		Map<String, Object> map = new HashMap<String, Object>();

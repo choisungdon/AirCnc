@@ -19,7 +19,14 @@ public class UserRsvChangeVO {
 	private String state;
 	private String r_dt;
 	private String m_dt;
+	private int returnVal;//프로시져  실행 리턴 값
 	
+	public int getReturnVal() {
+		return returnVal;
+	}
+	public void setReturnVal(int returnVal) {
+		this.returnVal = returnVal;
+	}
 	public int getI_change() {
 		return i_change;
 	}

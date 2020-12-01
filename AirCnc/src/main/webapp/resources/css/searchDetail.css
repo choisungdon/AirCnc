@@ -1110,7 +1110,48 @@ body > .rule_popup{
 }
 
 
-/*********************************************************/
+/*연관 주소 list 태그 */
+.drop_addr{
+	display: none;
+    background-color: white;
+    padding: 20px 0px;
+    overflow: hidden;
+    position: absolute;
+    width:500px;
+    top: 120px;
+    border-radius:15px;
+    z-index: 1;
+    box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+
+.drop_addr > .addr_item{
+	padding: 8px 16px 8px 32px;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	flex-grow: 1;
+	cursor: pointer;
+}
+
+.drop_addr > .addr_item:hover{
+	background-color: #F7F7F7;
+}
+
+.fa-map-marker-alt{
+	flex-grow:1;
+	background-color: rgb(241, 241, 241) !important;
+    border: 1px solid rgba(176, 176, 176, 0.2) !important;
+    border-radius: 8px !important;
+    padding: 15px;
+    margin-right:10px;
+    text-align: center;
+   
+}
+.addr_item > span{
+	padding-top:10px;
+	flex-grow:9;
+}
+
 
 
 
@@ -1119,5 +1160,16 @@ img{
     object-fit: cover;
     vertical-align: middle;
 }
+/*****input number up down 버튼 지우기******/
 
-/********************************************************************/
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

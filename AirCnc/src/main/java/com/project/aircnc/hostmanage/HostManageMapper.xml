@@ -105,8 +105,8 @@
 		ON a.i_host = c.i_host
 		INNER JOIN t_user d
 		ON b.i_user = d.I_USER
-		WHERE a.I_USER = ${i_user}
-		AND b.STATE = 'o';
+		WHERE a.I_USER = #{i_user}
+		AND b.STATE = 'o'
 	</select>
 	
 	<select id="selrsvCcData" parameterType="TUserVO" resultType="RsvVO">
@@ -473,9 +473,11 @@
 		AND STATE IS NULL
 	</select>
 	
+	
+	
 	<update id="rsvChOverDate" parameterType="UserRsvChangeVO" statementType="CALLABLE">
 			 { 
-			 	call rsvChOverDate(#{i_reser})
+			 	call rsvChOverDate(#{i_reser},#{returnVal})
 			 }
 	</update>
 	
