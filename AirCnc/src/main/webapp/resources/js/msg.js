@@ -194,7 +194,7 @@ function msgOut(i_mlist,my_i_user,ele){
 // 소켓 연결 
 function connect(i_mlist){
 	// 소켓 연결 uri
-	var ws = new WebSocket("ws://59.23.163.234:8090/echo?i_mlist="+i_mlist);
+	var ws = new WebSocket("ws://www.aircnc.co.kr:8090/echo?i_mlist="+i_mlist);
 	socket = ws;
 	
 	ws.onopen = function () {

@@ -57,6 +57,10 @@ function goHome(){
 }
 
 function goHostReview(i_host,i_reser){
-	
+	console.log(i_host+','+i_reser);
+}
+
+function goReviewUpdate(i_host,i_reser){
+	console.log(i_host+','+i_reser);
 }
 

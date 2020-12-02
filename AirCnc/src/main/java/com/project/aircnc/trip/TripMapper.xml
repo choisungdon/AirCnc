@@ -19,7 +19,7 @@
 		WHERE a.i_user = #{i_user}
 		AND a.check_out >= DATE_FORMAT(NOW(),'%Y-%m-%d')
 		or a.reser_state in('cc','ch')
-		ORDER BY a.R_DT ASC
+		ORDER BY a.R_DT asc
 	</select>
 	
 	<select id="selBfReser" parameterType="TUserVO" resultType="TripVO">
@@ -46,6 +46,6 @@
 		AND a.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
 		]]>
 		AND (a.reser_state = 'o' OR a.reser_state IS null)
-		ORDER BY a.R_DT ASC
+		ORDER BY a.R_DT ASC, IFNULL(e.I_CONTENTS,0) asc
 	</select>
 </mapper>

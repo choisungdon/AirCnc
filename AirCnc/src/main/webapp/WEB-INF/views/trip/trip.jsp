@@ -186,15 +186,27 @@
 		                                <span>총 합계 : </span>
 		                                <span><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${item.total_fee}" /></span>
 		                            </div>
-		                          
-		                            <c:if test="${item.review_state eq 0 }">
-			                            <div class="tb_items_btn" onclick="goHostReview(${item.i_host},${item.i_reser})">
-			                            	<i class="fas fa-user-edit"></i>
-			                            	<span>
-			                            		후기 쓰기 
-			                            	</span>
-			                            </div>
-		                            </c:if>
+		                            
+		                            
+									<c:choose>
+									    <c:when test="${item.review_state eq 0 }">
+									        <div class="tb_items_btn" onclick="goHostReview(${item.i_host},${item.i_reser})">
+				                            	<i class="fas fa-user-edit"></i>
+				                            	<span>
+				                            		후기 쓰기 
+				                            	</span>
+				                            </div>
+									    </c:when>
+									    
+									    <c:otherwise>
+									        <div class="tb_items_btn" onclick="goReviewUpdate(${item.i_host},${item.i_reser})">
+				                            	<i class="fas fa-user-edit"></i>
+				                            	<span>
+				                            		후기 수정
+				                            	</span>
+				                            </div>
+									    </c:otherwise>
+									</c:choose>
 		
 		                        </div>
 		
