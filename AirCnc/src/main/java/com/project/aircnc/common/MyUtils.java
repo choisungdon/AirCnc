@@ -31,10 +31,17 @@ public class MyUtils {
 	public static String hashPassword(String pw, String salt) {
 		return BCrypt.hashpw(pw, salt);
 	}
-	// text 문자열 줄바꿈 변환 
+	// text 문자열 줄바꿈 변환  \n -> <br>
 	public static String getSTRFilter(String str) {
 		
 		String returnStr = str.replaceAll("\n", "<br>");
+				
+		return returnStr;
+	}
+	
+	// text 문자열 줄바꿈 변환  <br> -> \n 
+	public static String setStrFilter(String str) {
+		String returnStr = str.replaceAll("<br>", "\n");
 				
 		return returnStr;
 	}

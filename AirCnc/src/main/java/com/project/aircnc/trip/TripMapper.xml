@@ -48,4 +48,38 @@
 		AND (a.reser_state = 'o' OR a.reser_state IS null)
 		ORDER BY a.R_DT ASC, IFNULL(e.I_CONTENTS,0) asc
 	</select>
+	
+	<select id="comfirmReview" parameterType="HostReviewVO" resultType="Integer">
+		SELECT EXISTS(
+			SELECT *
+			FROM host_review
+			WHERE i_host = #{i_host}
+			AND i_reser = #{i_reser}
+			AND i_user = #{i_user}
+		)
+	</select>
+	
+	<insert id="insHostReview" parameterType="HostReviewVO">
+		INSERT INTO host_review
+		(i_host,i_reser,i_user,contents,evaluate_val)
+		VALUES(#{i_host}, #{i_reser}, #{i_user}, #{contents}, #{evaluate_val})
+	</insert>
+	
+	<update id="upHostReview" parameterType="HostReviewVO">
+		UPDATE host_review
+		SET contents = #{contents},
+		evaluate_val = #{evaluate_val},
+		m_dt = NOW()
+		WHERE	i_host 	= #{i_host}
+		AND 	i_reser	= #{i_reser}
+		AND 	i_user 	= #{i_user}
+	</update>
+	
+	<select id="selReview" parameterType="HostReviewVO" resultType="HostReviewVO">
+		SELECT i_contents, i_host, i_reser, i_user, contents, evaluate_val
+		FROM host_review
+		WHERE i_host = #{i_host}
+		AND i_reser = #{i_reser}
+		AND i_user = #{i_user}
+	</select>
 </mapper>

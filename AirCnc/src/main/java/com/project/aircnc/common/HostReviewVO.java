@@ -12,7 +12,7 @@ public class HostReviewVO {
 	private String contents; // 후기 글
 	private String r_dt;
 	private String m_dt;
-	private float evaluate_val;
+	private int evaluate_val;
 	private String pro_img; // 댓글 단 유저 이미지 
 	private String cmt_user_poto; // 이미지 경로 
 	private String nm; // 댓글 단 유저 이름
@@ -96,9 +96,14 @@ public class HostReviewVO {
 	public float getEvaluate_val() {
 		return evaluate_val;
 	}
-	public void setEvaluate_val(float evaluate_val) {
+	public void setEvaluate_val(int evaluate_val) {
 		this.evaluate_val = evaluate_val;
 	}
 	
-
+	@Override
+	public String toString() {
+		return "HostReviewVO [i_host=" + i_host + ", i_reser=" + i_reser + ", contents=" + contents + ", evaluate_val="
+				+ evaluate_val + "]";
+	}
+	
 }

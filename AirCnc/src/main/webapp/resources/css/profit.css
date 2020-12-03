@@ -441,7 +441,7 @@ header > .sub_header{
     flex-grow: 0.1;
     border: 0.5px solid #EBEBEB ;
     border-radius: 3px ;
-    height: 153px ;
+    flex-flow: 0.1;
     width: 100% ;
     box-shadow: 2px 2px 2px 2px rgba(109, 108, 108, 0.2);
 
@@ -463,6 +463,7 @@ header > .sub_header{
 .host_review {
     display: flex;
     flex-direction: column;
+    flex-flow: 1;
    
 }
 
@@ -470,6 +471,7 @@ header > .sub_header{
     display: flex;
     flex-direction: row;
     margin-bottom: 16px;
+    flex-flow: 1;
 }
 
 
@@ -495,6 +497,10 @@ header > .sub_header{
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
     font-weight: 400 !important;
     font-size: 14px !important;
+}
+
+.host_review > .contents{
+	flex-flow: 9;
 }
 
 

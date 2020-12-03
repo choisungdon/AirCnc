@@ -11,8 +11,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/resources/css/trip.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script type="text/javascript" src="/resources/js/trip.js"></script>
-    
     <title>trip</title>
 </head>
 <body>
@@ -190,7 +190,7 @@
 		                            
 									<c:choose>
 									    <c:when test="${item.review_state eq 0 }">
-									        <div class="tb_items_btn" onclick="goHostReview(${item.i_host},${item.i_reser})">
+									        <div class="tb_items_btn" onclick="hostReview(${item.i_host},${item.i_reser},${item.review_state})">
 				                            	<i class="fas fa-user-edit"></i>
 				                            	<span>
 				                            		후기 쓰기 
@@ -199,7 +199,7 @@
 									    </c:when>
 									    
 									    <c:otherwise>
-									        <div class="tb_items_btn" onclick="goReviewUpdate(${item.i_host},${item.i_reser})">
+									        <div class="tb_items_btn" onclick="hostReview(${item.i_host},${item.i_reser},${item.review_state})">
 				                            	<i class="fas fa-user-edit"></i>
 				                            	<span>
 				                            		후기 수정
@@ -240,6 +240,42 @@
             </div>
 
         </section>
+    </div>
+    <!--숙소 후기 popup창 -->
+    <div class="review_pop">
+        <div class="pop_main">
+
+            <div class="close-modal" onclick="close_modal(this)">
+                <img src="/resources/img/aircncLog.png">
+                <span>X</span>
+            </div>
+            
+            <div class="reText">
+                <div class="re_title">이 숙소에 후기를 남겨주세요.</div> 
+                <div class="re_score">
+                  <div class="re_score_title">숙소의 총 평점을 선택해주세요.</div> 
+                  <label><input type="checkbox" class="score" value="1" onclick="reviewCheck(this)">1점</label>
+                  <label><input type="checkbox" class="score" value="2" onclick="reviewCheck(this)">2점</label>
+                  <label><input type="checkbox" class="score" value="3" onclick="reviewCheck(this)">3점</label>
+                  <label><input type="checkbox" class="score" value="4" onclick="reviewCheck(this)">4점</label>
+                  <label><input type="checkbox" class="score" value="5" onclick="reviewCheck(this)">5점</label>
+                </div>
+                <div class="re_text_main">
+                    <div class="re_text_main_title">
+                        	구체적인 후기 내용을 남겨주세요.
+                    </div>
+                  
+                   <textarea id="contents" name="contents"></textarea>
+                </div>
+                        
+            
+            </div>
+            
+            <div class="re_btn">
+                <span class="re_btn_main">후기 작성 완료</span>
+            </div>
+         
+        </div>
     </div>
     <footer>
 
