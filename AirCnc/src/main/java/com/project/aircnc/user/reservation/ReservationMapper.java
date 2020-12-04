@@ -2,6 +2,8 @@ package com.project.aircnc.user.reservation;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.aircnc.common.AircncMsg;
@@ -42,5 +44,7 @@ public interface ReservationMapper {
 	public int existInOut(SearchVO param);
 	public int existInOutDate(SearchVO param);
 	public int existRvation(SearchVO param);
+	// 기존 예약  숙박 일 . 인원 출력 (submit 확인용)
+	public RsvChangeVO checkData(RsvChangeVO param);
 	
 }

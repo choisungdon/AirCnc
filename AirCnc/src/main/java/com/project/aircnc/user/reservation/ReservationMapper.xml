@@ -231,4 +231,13 @@
 		)
 	</select>
 	
+	<select id="checkData" parameterType="RsvChangeVO" resultType="RsvChangeVO">
+		SELECT i_reser, i_host, i_user,
+		check_in AS chin, check_out AS chout, gest_qty AS qty 
+		FROM user_reser
+		WHERE I_RESER = #{i_reser}
+		AND I_HOST = #{i_host}
+		AND I_USER = #{i_user}
+	</select>
+	
 </mapper>

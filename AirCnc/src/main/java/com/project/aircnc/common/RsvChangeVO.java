@@ -33,5 +33,11 @@ public class RsvChangeVO extends TripVO {
 	public void setFee(int fee) {
 		this.fee = fee;
 	}
+	@Override
+	public String toString() {
+		return "RsvChangeVO [getChin()=" + getChin() + ", getChout()=" + getChout() + ", getQty()=" + getQty() + "]";
+	}
+	
+	
 	
 }

@@ -267,8 +267,7 @@
                   
                    <textarea id="contents" name="contents"></textarea>
                 </div>
-                        
-            
+                       
             </div>
             
             <div class="re_btn">

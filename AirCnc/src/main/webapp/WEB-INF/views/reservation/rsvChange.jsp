@@ -54,7 +54,7 @@
             </span>
         </div>
     </header>
-    <form action="/reservation/rsvChange" method="post" class="container">
+    <form id="frm" action="/reservation/rsvChange"  onsubmit="return checkData();" method="post" class="container">
         <div class="ctn_main">
 
             <div class="ctnt1">

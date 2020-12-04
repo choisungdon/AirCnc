@@ -170,6 +170,32 @@ function goComfirm(){
   })
 }
 
+function checkData(){
+	var val // 조건문 쓰일 변수  0,1
+	
+	axios.post('/reservation/checkData', {
+    i_host	:	i_host.value,
+	i_reser : 	i_reser.value,
+	chin	:	chin.value,
+	chout	:	chout.value,
+	qty		:	gest_qty.value
+  })
+  .then(function (res) {
+	if(res.data.result > 0){
+		var frm = document.querySelector('#frm');
+		frm.submit();
+	}else{
+		alert('변경된 내용이 없습니다.');
+	}
+	 
+  })
+  .catch(function (error) {
+    
+  });
+
+	return false;
+}
+
 function cancel(){
 	window.history.back();
 }

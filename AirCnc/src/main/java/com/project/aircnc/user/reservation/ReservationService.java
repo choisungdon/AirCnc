@@ -208,5 +208,21 @@ public class ReservationService {
 		
 	}
 	
+	// 기존 예약  숙박 일 . 인원 출력 (submit 확인용)
+	public int checkData(RsvChangeVO param, HttpSession hs) {
+		// user pk 받아오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		
+		RsvChangeVO dbVO = mapper.checkData(param);
+		
+		System.out.println("param -> "+param);
+		System.out.println("dbVO -> "+dbVO);
+		
+		if(dbVO.getChin().equals(param.getChin())  && dbVO.getChout().equals(param.getChout())  && dbVO.getQty() == param.getQty()) {
+			return 0; // 변경 내용 없음 
+		}
+		return 1; // 변경 내용 있음 
+	}
+	
 	
 }

@@ -8,12 +8,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.aircnc.common.ReservationVO;
+import com.project.aircnc.common.RsvChangeVO;
 import com.project.aircnc.common.SearchVO;
 import com.project.aircnc.common.UserRsvCancelVO;
 import com.project.aircnc.common.UserRsvChangeVO;
@@ -88,6 +90,16 @@ public class ReservationController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("result", service.selExist(i_host,i_reser,chin,chout,date,qty));
+		
+		return map;
+	}
+	
+	// 기존 예약  숙박 일 . 인원 출력 (submit 확인용) 
+	@RequestMapping(value="/checkData", method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> checkData (@RequestBody RsvChangeVO param, Model model, HttpSession hs){
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.checkData(param,hs));
 		
 		return map;
 	}
