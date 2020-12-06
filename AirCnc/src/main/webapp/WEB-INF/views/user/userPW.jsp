@@ -4,93 +4,132 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<style type="text/css">
-   	.m_ctnt{
-		display : none;
-	} 
-</style>
-<title>Insert title here</title>
+<title>userPW</title>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/resources/css/userPW.css">
+<script type="text/javascript" src="/resources/js/userPW.js"></script>
 </head>
 <body>
-	<h2>로그인 및 보안</h2>
-	<p>로그인</p>
-	<div class="ctnt">비밀번호 <button type="button" onclick="upPW()">업데이트</button></div>
-	<div class="m_ctnt">
-		<span>비밀번호 </span> <button type="button" onclick="csPW()">취소</button>
-		<div>현재 비밀번호</div>
-		<input type="password" value="" id="c_pw" name="c_pw"> <span id="pw_ck"></span>
-		<div>새 비밀번호</div>
-		<input type="password" value="" id="r_pw" name="r_pw">
-		<div>비밀번호 확인</div>
-		<input type="password" value="" id="ck_pw" name="ck_pw">
-		<div><button type="button" onclick="pwCahnge()">비밀번호 변경 </button></div>
-	</div>
-</body>
-<script type="text/javascript">
+	<header>
+        <div class="head_main">
+            <a href="/" class="logo"> 
+                <span>
+                    <img src="/resources/img/aircncLog.png">
+                </span>
+            </a>
+            <span class="top_menu" onclick="viewMenu()">
+                <img class="hamMenu" src="/resources/img/bars-solid.svg"  height="16px" width="16px">
+            	<img class="my_profile" src="${loginUser.my_profile}" height="30px" width="30px">
+    
+                <div class="drop_menu" id="drop_menu">
+                    <div class="main_menu">
+    
+                        <div class="menu_item">
+                            <div>메시지</div>
+                            <div>저장 목록</div>
+                        </div>
+    
+                        <div class="menu_item">
+                            <div>숙소 관리</div>
+                            <div>계정</div>
+                        </div>
+    
+                        <div class="menu_item">
+                          <div>로그아웃</div>
+                        </div>
+    
+                    </div>
+                </div>
+            </span>
+        </div>
+    </header>
 
-	function upPW(){
-		var ctnt 	= document.getElementsByClassName("ctnt")[0];
-		var m_ctnt	= document.getElementsByClassName("m_ctnt")[0];
-		// div 태그 style 변경 
-		ctnt.style.display= "none";
-		m_ctnt.style.display = "block";
-	}
-	
-	function csPW(){
-		var ctnt 	= document.getElementsByClassName("ctnt")[0];
-		var m_ctnt	= document.getElementsByClassName("m_ctnt")[0];
-		// div 태그 style 변경  
-		ctnt.style.display= "block";
-		m_ctnt.style.display = "none";
-	}
-	
-	function pwCahnge(){
-	
-		switch(c_pw.value){
-		case '' :
-			alert("기존 PW를 기입 하시오.");
-			return false;
-		default :
-			if(r_pw.value != ''){
-				if(r_pw.value != ck_pw.value){
-					alert("변경 PW와 확인 PW가 서로 맞지 않습니다.");
-					return false;
-				}else{
-					// PW 변경 
-					axios.get('/user/userPWCahnge', {
-				    params: {
-				    	c_pw : c_pw.value,
-				    	r_pw : r_pw.value
-				    }
-				  })
-				  .then(function (res) {
-				    console.log(res.data.result);
-				    switch (res.data.result) {
-					case 1:
-						res = "PW 변경 완료";
-						location.href="/logOut";
-						break;
-					case 2:
-						res = "이전 패스워드가 정확하지 않습니다. 다시 입력해 주세요.";
-						alert(res);
-						c_pw.value="";
-						break;
-					default:
-						res = "DB 오류";
-						alert(res);
-						break;
-					}
-				  })
-				}
-				break;
-			}else{
-				alert("변경 PW를 기입하시오.");
-				 return false;
-			}
-		}
-		
-		
-	}
-</script>
+    <div class="container">
+        <div class="set_title">
+            <div class="setLinck">
+                <a class="linckPro" href="/#">계정</a>
+                <span class="aroow">></span>
+                <span class="pro_text">로그인 및 보안</span>
+            </div>
+
+            <h1 class="setTitleMain">
+                	로그인 및 보안
+            </h1>
+        </div>
+
+
+        <div class="ctnt_main">
+            <div class="ctnt_items">
+
+                <div class="ctnt_item_title">
+                    <div class="title_main">
+                        	로그인 
+                    </div>
+                </div>
+
+                <h1>로그인</h1>
+
+                <div class="ctnt_item">
+                    
+                    <div class="item1">
+                        <span class="item1_text">비밀번호</span>
+                        <button type="button" class="item_btn" onclick="dropData(this)">업데이트</button>
+                    </div>
+
+                    <div class="itme3">
+                        <div class="itme3_title">
+                            	현재 비밀번호
+                        </div>
+                        
+                        <div class="itme3_data">    
+                            <input type="password"  id="c_pw" value="" >
+                            <a href="#" class="pwAtag">비밀번호를 새로 설정하시겠어요?</a>
+                        </div>
+
+                        <div class="itme3_title">
+                            	새 비밀번호
+                        </div>
+
+                        <div class="itme3_data">
+                            <input type="password"  id="r_pw" value="" >
+                        </div>
+
+                        <div class="itme3_title">
+                           	 비밀번호 확인
+                        </div>
+
+                        <div class="itme3_data">
+                            <input type="password"  id="ck_pw" value="" >
+                        </div>
+
+                        <div class="itme3_data_btn">
+                            <span class="data_btn_main" onclick="saveEmail(this)">
+                                	비밀번호 변경  
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="item2">
+                        	최종 수정일: 2020-12-06
+                    </div>
+                    
+                </div>
+
+                
+            </div>
+
+            
+            <div class="ctnt_item_text">
+                <div class="tagEmoge"><i class="fas fa-shield-alt fa-2x"></i></div>
+                <div class="itemTitle">계정 보안 유지</div>
+                <div class="itemText">에어비앤비는 최고의 보안을 위해 계정을 정기적으로 검토합니다. <br>계정 보안을 강화할 수 있는 조치가 더 있다면 알려드리겠습니다.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+
+    </footer>
+</body>
 </html>
