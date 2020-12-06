@@ -17,9 +17,15 @@ public class TUserVO {
 	private String ph;
 	private String r_dt;
 	private String m_dt;
+	private String key; // 개인 정보 수정할때 (수정 keyWord)
 	
 	
-	
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
 	public int getI_host() {
 		return i_host;
 	}

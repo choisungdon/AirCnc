@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>userInfo</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/resources/css/userInfo.css">
 <script type="text/javascript" src="/resources/js/userInfo.js"></script>

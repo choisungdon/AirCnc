@@ -132,9 +132,39 @@ public class UserService {
 		// 로그인 유저 정보수정 
 		hs.setAttribute("loginUser", loginUser);
 	}
-	
-	public int upUserVO(TUserVO param) {
-		return mapper.upUserVO(param);
+	// user 개인 수정 비동기  
+	public int upUserVO(TUserVO param, HttpSession hs) {
+		// 기존 로그인 유저 받아오기 
+		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
+		// i_user pk 받아오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		int result = mapper.upUserVO(param);
+		if(result > 0) { // update 성공시 
+			// 변경 정보에 따라 기존 정보 변경 
+			switch (param.getKey()) {
+			case "nm":
+				loginUser.setNm(param.getNm());
+				break;
+				
+			case "e_mail":
+				loginUser.setE_mail(param.getE_mail());	
+				break;
+				
+			case "bir_day":
+				loginUser.setBir_day(param.getBir_day());
+				break;
+				
+			case "ph":
+				loginUser.setPh(param.getPh());
+				break;
+			}
+			// 기존 login 정보 삭제 
+			hs.removeAttribute("loginUser");
+			// 변경 login 정보 삽입  
+			hs.setAttribute("loginUser", loginUser);
+		}
+		
+		return result;
 	}
 	
 	public int upUserPW(@RequestParam String c_pw ,@RequestParam String r_pw, HttpSession hs){

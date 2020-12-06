@@ -57,6 +57,14 @@ public class UserController {
 	public String userInfo (Model model, HttpSession hs) {
 		return "/user/userInfo";
 	}
+	// 개인정보 수정 비동기 
+	@RequestMapping(value="/user/info", method=RequestMethod.POST)
+	public @ResponseBody Map<String,Object> upInfo(@RequestBody TUserVO param , Model model, HttpSession hs){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.upUserVO(param,hs));
+		return map;
+	}
+	/*
 	@RequestMapping(value="/user/info", method=RequestMethod.POST)
 	public String upinfo(TUserVO param,Model model, HttpSession hs){
 		int result = service.upUserVO(param);
@@ -65,6 +73,7 @@ public class UserController {
 		}
 		return "redirect: /aircnc";
 	}
+	*/
 	// 프로필 수정 페이지 이동 
 	@RequestMapping(value="/user/userProfile", method=RequestMethod.GET)
 	public String userProfile (Model model, HttpSession hs) {

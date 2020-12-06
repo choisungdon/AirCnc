@@ -56,10 +56,18 @@
 	
 	<update id="upUserVO" parameterType="TUserVO">
 		UPDATE t_user
-		SET NM = #{nm},
-		PH	= #{ph},
-		BIR_DAY = #{bir_day},
-		M_DT = NOW()
+		<if test="key == 'nm'">
+			SET NM = #{nm}
+		</if>
+		<if test="key == 'ph'">
+			SET PH	= #{ph}
+		</if>
+		<if test="key == 'bir_day'">
+			SET BIR_DAY = #{bir_day}
+		</if>
+		<if test="key == 'email'">
+			SET e_mail = #{e_mail}
+		</if>
 		WHERE I_USER = #{i_user}
 	</update>
 	

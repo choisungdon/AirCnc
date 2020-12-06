@@ -14,6 +14,7 @@ public interface UserMapper {
 	public int checkEmail(TUserVO param);
 	public TUserVO login (TUserVO param);
 	public int upUserPro(TUserVO param);
+	// user 개인 수정 비동기  
 	public int upUserVO(TUserVO param);
 	public TUserVO selTUserVO(TUserVO param);
 	public int upUserPW(TUserVO param);
