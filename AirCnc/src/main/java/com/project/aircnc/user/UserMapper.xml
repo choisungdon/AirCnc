@@ -86,4 +86,22 @@
 		AND I_HOST = #{i_host}
 	</delete>
 	
+	<select id="selUserMd" parameterType="TUserVO" resultType="TUserVO">
+		SELECT DATE_FORMAT(m_dt,'%Y년 %m월 %d일') AS m_dt
+		FROM t_user
+		WHERE i_user = #{i_user}
+	</select>
+	
+	<select id="selUsePro" parameterType="TUserVO" resultType="UserShowVO">
+		SELECT DATE_FORMAT(r_dt,'%Y') AS join_date, IFNULL(e_mail,NULL) as emailConfirm,IFNULL(ph,NULL) AS phConfirm, ifnull(b.count,0) AS count
+		FROM t_user a
+		left JOIN (
+		SELECT i_user,COUNT(*) as count
+		FROM host_review
+		GROUP BY i_user
+		) b
+		ON a.i_user = b.i_user
+		WHERE a.i_user = #{i_user}
+	</select>
+	
 </mapper>

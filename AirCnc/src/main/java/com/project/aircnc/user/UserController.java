@@ -50,6 +50,7 @@ public class UserController {
 	// 프로필 이동  페이지 
 	@RequestMapping(value="/user/userShow", method=RequestMethod.GET)
 	public String userShow (Model model, HttpSession hs) {
+		model.addAttribute("data", service.selUsePro(hs));
 		return "/user/userShow";
 	}
 	// 개인 정보 수정 페이지 
@@ -64,16 +65,7 @@ public class UserController {
 		map.put("result", service.upUserVO(param,hs));
 		return map;
 	}
-	/*
-	@RequestMapping(value="/user/info", method=RequestMethod.POST)
-	public String upinfo(TUserVO param,Model model, HttpSession hs){
-		int result = service.upUserVO(param);
-		if(result == 1) {
-			hs.removeAttribute("loginUser");
-		}
-		return "redirect: /aircnc";
-	}
-	*/
+	
 	// 프로필 수정 페이지 이동 
 	@RequestMapping(value="/user/userProfile", method=RequestMethod.GET)
 	public String userProfile (Model model, HttpSession hs) {
@@ -96,10 +88,11 @@ public class UserController {
 	// 로그인 보안(PW 변경) 페이지 
 	@RequestMapping(value="/user/userPW", method=RequestMethod.GET)
 	public String userPW (Model model, HttpSession hs) {
+		model.addAttribute("data",service.selUserMd(hs));
 		return "/user/userPW";
 	}
 	
-	// 로그인 보안(PW 변경) 페이지 
+	// 로그인 보안(PW 변경) 페이지 비동기 
 	@RequestMapping(value="/user/userPWCahnge", method=RequestMethod.GET)
 	public @ResponseBody Map<String, Object> userPWCahnge (@RequestParam String c_pw ,@RequestParam String r_pw, 
 															Model model, HttpSession hs) 

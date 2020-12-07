@@ -4,13 +4,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.TUserVO;
 import com.project.aircnc.common.UserLListVO;
 import com.project.aircnc.common.UserLikeVO;
+import com.project.aircnc.common.UserShowVO;
 
 @Service
 public class UserService {
@@ -132,6 +132,7 @@ public class UserService {
 		// 로그인 유저 정보수정 
 		hs.setAttribute("loginUser", loginUser);
 	}
+	
 	// user 개인 수정 비동기  
 	public int upUserVO(TUserVO param, HttpSession hs) {
 		// 기존 로그인 유저 받아오기 
@@ -167,10 +168,22 @@ public class UserService {
 		return result;
 	}
 	
-	public int upUserPW(@RequestParam String c_pw ,@RequestParam String r_pw, HttpSession hs){
+	// 로그인 보안(PW) 페이지 
+	public TUserVO selUserMd(HttpSession hs) {
+		// user pk 가져오기 
+		TUserVO loginUser = new TUserVO();
+		loginUser.setI_user(MyUtils.getSesstion(hs));
+		// pw 수정날짜  가져오기
+		return mapper.selUserMd(loginUser);
+	}
+	// 로그인 보안(PW 변경) 페이지 비동기
+	public int upUserPW(String c_pw , String r_pw, HttpSession hs){
+		int result = 0;
+		// 변경  pw 정보 담기 
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		loginUser.setC_pw(c_pw);
 		loginUser.setR_pw(r_pw);
+		
 		//(암호화) salt 값 가져오기 
 		TUserVO	dbVO = mapper.login(loginUser);
 		String pw = MyUtils.hashPassword(loginUser.getC_pw(), dbVO.getSalt());
@@ -183,6 +196,7 @@ public class UserService {
 			String hashPw = MyUtils.hashPassword(loginUser.getR_pw(), salt);
 			loginUser.setC_pw(hashPw);
 			loginUser.setSalt(salt);
+			// 변경 실행 
 			return mapper.upUserPW(loginUser);
 		}else {
 			return 2;
@@ -235,5 +249,11 @@ public class UserService {
 		likeVO.setI_list(i_list);
 		
 		return mapper.insLikeUser(likeVO);
+	}
+	
+	// 프로필 이동  페이지 
+	public UserShowVO selUsePro(HttpSession hs) {
+		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
+		return mapper.selUsePro(loginUser);
 	}
 }
