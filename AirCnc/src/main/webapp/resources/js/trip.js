@@ -151,6 +151,9 @@ function goHostReview(i_host,i_reser){
 		if(res.data.result > 0){
 			alert('후기작성 완료');
 			window.location.reload();
+			 // 후기 팝업창 숨기기 
+		    var review_pop = document.querySelector('.review_pop');
+		    review_pop.style.display='none';
 		}
 		
 	  })
@@ -158,12 +161,6 @@ function goHostReview(i_host,i_reser){
 	    console.log(error);
 	  });
 		
-      
-
-    
-    // 후기 팝업창 숨기기 
-    var review_pop = document.querySelector('.review_pop');
-    review_pop.style.display='none';
 }
 
 

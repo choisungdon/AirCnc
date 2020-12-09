@@ -82,7 +82,7 @@
                 <h2><i class="fas fa-star"></i> 후기 ${data.count}개</h2>
             </div>
             <div class="review_linck">
-                <a href="/">내가 작성한 후기 </a>
+                <a href="/user/userReview">내가 작성한 후기 </a>
             </div>
         </div>
     </div>

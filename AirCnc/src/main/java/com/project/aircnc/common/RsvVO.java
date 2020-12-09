@@ -4,14 +4,28 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("RsvVO")
 public class RsvVO extends ReservationVO{
+	private String row_num; // 레코드 번호 
 	private String reser_state; // 예약 정보 확인 (호스팅 유저가 완료하면 매출에 잡힘 )  o(숙박 완료)/ch(change)/cc(cancel)/NULL(예정 숙박)'
 	private String img_url; // 숙소 사진 URL
 	private String room_title;// 숙소 title
 	private String addr; // 숙소 주소 
-	private String r_dt;// 예약 날짜
+	private String nm; // 숙소 주인 이름 
+	private String r_dt;// 예약한 날짜
 	private String m_dt;
 	
 	
+	public String getRow_num() {
+		return row_num;
+	}
+	public void setRow_num(String row_num) {
+		this.row_num = row_num;
+	}
+	public String getNm() {
+		return nm;
+	}
+	public void setNm(String nm) {
+		this.nm = nm;
+	}
 	public String getAddr() {
 		return addr;
 	}

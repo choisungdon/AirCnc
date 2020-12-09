@@ -1,5 +1,7 @@
 package com.project.aircnc.user;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.aircnc.common.MyUtils;
+import com.project.aircnc.common.ProfitReviewVO;
+import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.TUserVO;
 import com.project.aircnc.common.UserLListVO;
 import com.project.aircnc.common.UserLikeVO;
@@ -255,5 +259,47 @@ public class UserService {
 	public UserShowVO selUsePro(HttpSession hs) {
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		return mapper.selUsePro(loginUser);
+	}
+	
+	// 나의 프로필 > 내가 작성한 후기 (내가 작성할 후기)
+	public List<RsvVO> writeReview(HttpSession hs) {
+		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
+		return mapper.writeReview(loginUser);
+	}
+	
+	// 나의 프로필 > 내가 작성한 후기 (내가 작성한 후기)
+	public List<ProfitReviewVO> beWriteReview(HttpSession hs){
+		// 로그인 유저 정보 받아오기 
+		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
+		// 내가 작성한 후기 list로 받아오기  
+		List<ProfitReviewVO> dbVO = mapper.beWriteReview(loginUser);
+		
+		// 이미지 경로 변경 
+		for (ProfitReviewVO profitReviewVO : dbVO) {
+			profitReviewVO.setPro_img(proImgChange(profitReviewVO.getPro_img(),profitReviewVO.getI_user()));
+			profitReviewVO.setImg_url(imgUrlChange(profitReviewVO.getImg_url(),profitReviewVO.getI_host()));
+			// 후기 내용 (줄바꿈) 
+			profitReviewVO.setContents(MyUtils.setStrFilter(profitReviewVO.getContents()));
+		}
+		return dbVO;
+	}
+	
+	
+	// 숙소  이미지 경로 변경 
+	public String imgUrlChange(String url,int i_host) {
+		String room_poto = "/resources/room_img/host" + i_host + "/" + url;
+		if(url== null|| url.equals("")) { // 이미지 파일이 없으면 기본 이미지 출력
+			room_poto = "/resources/room_img/roomDfault.png";
+		}
+		return room_poto;
+	}
+	
+	// 유저   이미지 경로 변경 
+	public String proImgChange(String url,int i_user) {
+		String pro_img = "/resources/user_img/user" + i_user + "/" + url;
+		if(url== null|| url.equals("")) {// 이미지 파일이 없으면 기본 이미지 출력
+			pro_img = "/resources/img/pimg.jpg";
+		}
+		return pro_img;
 	}
 }

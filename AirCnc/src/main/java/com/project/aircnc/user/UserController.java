@@ -128,4 +128,14 @@ public class UserController {
 		map.put("result", service.delLikeUser(i_host,hs));
 		return map;
 	}
+	
+	// 나의 프로필 > 내가 작성한 후기 
+	@RequestMapping(value="/user/userReview", method=RequestMethod.GET)
+	public String hostReview (Model model, HttpSession hs) 
+	{
+		// 내가 작성할 후기 , 내가 작성한 후기 
+		model.addAttribute("writeReview",service.writeReview(hs));
+		model.addAttribute("upReview",service.beWriteReview(hs));
+		return "/user/userReview";
+	}
 }

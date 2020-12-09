@@ -1,7 +1,12 @@
 package com.project.aircnc.user;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+
+import com.project.aircnc.common.ProfitReviewVO;
+import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.TUserVO;
 import com.project.aircnc.common.UserLListVO;
 import com.project.aircnc.common.UserLikeVO;
@@ -25,6 +30,12 @@ public interface UserMapper {
 	public int insLikeList(UserLListVO param);
 	public int insLikeUser(UserLikeVO param);
 	public int delLikeUser(UserLikeVO param);
+	
+	// 나의 프로필 > 내가 작성한 후기 (내가 작성할 후기)
+	public List<RsvVO> writeReview(TUserVO param);
+	
+	// 나의 프로필 > 내가 작성한 후기 (내가 작성한 후기)
+	public List<ProfitReviewVO> beWriteReview(TUserVO param);
 }
 
 
