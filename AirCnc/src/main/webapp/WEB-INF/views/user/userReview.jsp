@@ -88,7 +88,7 @@
 		                                 <td class="host_date">${data.chin} ~ ${data.chout}</td>
 		                                 <td class="host_qty">${data.qty}명</td>
 		                                 <td class="host_btn">
-		                                     <span class="insReview" onclick ="hostReview(${data.i_host},${i_reser})">후기쓰기</span>
+		                                     <span class="insReview" onclick ="hostReview(${data.i_host},${data.i_reser},this)">후기쓰기</span>
 		                                 </td>
 		                             </tr>
 								 </c:forEach>
@@ -129,7 +129,7 @@
 		                                </div>
 		                                
 		                                <span class="upReview">
-		                                    <span onclick ="hostReview(${data.i_host},${data.i_reser},${data.i_contents})">후기 수정</span>
+		                                    <span onclick ="reviewUpdate(${data.i_contents},this)">후기 수정</span>
 		                                </span>
 		                            </div>
 		                           

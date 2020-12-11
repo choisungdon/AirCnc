@@ -1,6 +1,8 @@
 package com.project.aircnc.user;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.aircnc.common.HostReviewVO;
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.ProfitReviewVO;
 import com.project.aircnc.common.RsvVO;
@@ -284,6 +287,58 @@ public class UserService {
 		return dbVO;
 	}
 	
+	// 프로필 > 후기 페이지 후기 수정 삽입  (비동기)
+	public Map<String, Object> ctrUserReview(ProfitReviewVO param, HttpSession hs) {
+		// 유저 pk 받아오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		Map<String, Object> map = new HashMap<String, Object>();
+		// db결과 값 
+		int reviewResult = 0;
+		
+		if(param.getI_contents() > 0) { //후기 수정
+			reviewResult = mapper.upUserReview(param);
+			// 후기 수정 성공시  
+			if(reviewResult > 0) {
+				// 후기 내용 받기 
+				ProfitReviewVO dbVO = mapper.selUserReview(param);
+				// 숙소  이미지 경로 변경 ,유저   이미지 경로 변경
+				dbVO.setPro_img(proImgChange(dbVO.getPro_img(),dbVO.getI_user()));
+				dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(),dbVO.getI_host()));
+				//후기 내용 적기 
+				dbVO.setContents(MyUtils.setStrFilter(dbVO.getContents()));
+				map.put("reviewResult", dbVO);
+			}else map.put("reviewResult", 0); // 후기 수정 실패시
+			
+		}else { // 후기 삽입 
+			reviewResult = mapper.insUserReview(param);
+			// 후기 수정 성공시
+			if(reviewResult > 0) {
+				// 후기 내용 받기 
+				ProfitReviewVO dbVO = mapper.selUserReview(param);
+				// 숙소  이미지 경로 변경 ,유저   이미지 경로 변경
+				dbVO.setPro_img(proImgChange(dbVO.getPro_img(),dbVO.getI_user()));
+				dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(),dbVO.getI_host()));
+				//후기 내용 적기 
+				dbVO.setContents(MyUtils.setStrFilter(dbVO.getContents()));
+				map.put("reviewResult", dbVO);
+			}else map.put("reviewResult", 0);// 후기 수정 실패시
+		}
+		
+		return map;
+	}
+	
+	public ProfitReviewVO selUserReview(ProfitReviewVO param, HttpSession hs) {
+		// 유저 pk 받아오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		// 후기 내용 받기 
+		ProfitReviewVO dbVO = mapper.selUserReview(param);
+		// 숙소  이미지 경로 변경 ,유저   이미지 경로 변경 
+		dbVO.setPro_img(proImgChange(dbVO.getPro_img(),dbVO.getI_user()));
+		dbVO.setImg_url(imgUrlChange(dbVO.getImg_url(),dbVO.getI_host()));
+		//후기 내용 적기 
+		dbVO.setContents(MyUtils.setStrFilter(dbVO.getContents()));
+		return dbVO;
+	}
 	
 	// 숙소  이미지 경로 변경 
 	public String imgUrlChange(String url,int i_host) {

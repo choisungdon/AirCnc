@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.aircnc.common.HostReviewVO;
+import com.project.aircnc.common.ProfitReviewVO;
 import com.project.aircnc.common.TUserVO;
 
 @Controller
@@ -137,5 +139,23 @@ public class UserController {
 		model.addAttribute("writeReview",service.writeReview(hs));
 		model.addAttribute("upReview",service.beWriteReview(hs));
 		return "/user/userReview";
+	}
+	
+	// 프로필 > 후기 (기존 후기 추출)
+	@RequestMapping(value="/user/selUserReview", method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> selUserReview (@RequestBody ProfitReviewVO param, Model model, HttpSession hs) 
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.selUserReview(param,hs));
+		return map;
+	}
+		
+	// 프로필 > 후기 페이지 후기 수정 삽입  (비동기)
+	@RequestMapping(value="/user/ctrUserReview", method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> ctrUserReview (@RequestBody ProfitReviewVO param, Model model, HttpSession hs) 
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("result", service.ctrUserReview(param, hs));
+		return map;
 	}
 }
