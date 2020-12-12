@@ -1,5 +1,8 @@
 package com.project.aircnc.common;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("CheckInOutVO")
 public class CheckInOutVO {
 	private int i_ck; // pk
 	private int i_host;

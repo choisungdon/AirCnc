@@ -37,22 +37,34 @@ public class HostService {
 		param.setI_user(loginUser.getI_user());
 		return mapper.getDuplicate(param);
 	}
-	
+	// 등록중 숙소 
 	public List<CheckHostingVO> selHosting(HttpSession hs){
-		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
+		// user pk 받아오기 
 		CheckHostingVO param = new CheckHostingVO();
-		param.setI_user(loginUser.getI_user());
-		List<CheckHostingVO> list = new ArrayList<CheckHostingVO>();
-		list = mapper.selHosting(param);
+		param.setI_user(MyUtils.getSesstion(hs));
+		// 숙소 이미지 경로 변경 
+		List<CheckHostingVO> list = mapper.selHosting(param);
+		for (CheckHostingVO checkHostingVO : list) {
+			checkHostingVO.setImg_url(imgUrlChange(checkHostingVO.getImg_url(), checkHostingVO.getI_host()));
+			
+		}
+		
 		return list;
 	}
 	// 등록 완료 숙소 select 
 	public List<CheckHostingVO> selComplHosting(HttpSession hs){
-		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
+		// user pk 받아오기 
 		CheckHostingVO param = new CheckHostingVO();
-		param.setI_user(loginUser.getI_user());
+		param.setI_user(MyUtils.getSesstion(hs));
+		
+		// 숙소 이미지 경로 변경 
+		List<CheckHostingVO> list = mapper.selComplHosting(param);
+		for (CheckHostingVO checkHostingVO : list) {
+			checkHostingVO.setImg_url(imgUrlChange(checkHostingVO.getImg_url(), checkHostingVO.getI_host()));
+			
+		}
 	
-		return mapper.selComplHosting(param);
+		return list;
 	}
 	
 	public HostUserVO selHostUserVO(HostUserVO param){
@@ -239,7 +251,7 @@ public class HostService {
 		for (RoomIMGVO roomIMGVO : vo) {
 			String realPath = hs.getServletContext().getRealPath("/"); 
 			String imgFolder = realPath + "/resources/room_img/host" + roomIMGVO.getI_user();
-			//기존 이미지가 있으면 삭제 처리
+			//해당 이미지가 있으면 삭제 처리
 			if(!"".equals(param.getImg_url())) { 
 				String imgPath = imgFolder + "/" + roomIMGVO.getImg_url();
 				MyUtils.deleteFile(imgPath);
@@ -321,6 +333,16 @@ public class HostService {
 		return mapper.delRoomImg(param);
 	}
 	//
+	
+	// 숙소 이미지 경로 지정 
+	public String imgUrlChange(String url,int i_host) {
+		
+		String room_poto = "/resources/room_img/host" + i_host + "/" + url;
+		if(url== null|| url.equals("")) { // 이미지 파일이 없으면 기본 이미지 출력
+			room_poto = "/resources/room_img/roomDfault.png";
+		}
+		return room_poto;
+	}
 	
 
 }

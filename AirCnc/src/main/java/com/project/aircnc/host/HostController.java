@@ -54,8 +54,6 @@ public class HostController {
 		return "/host/duplicate";
 	}
 	
-	
-	
 	// 숙소 등록 1단계 get 방식 
 	@RequestMapping(value = "/hostSave", method = RequestMethod.GET)
 	public String save (HostUserVO param,HttpSession hs, Model model) {

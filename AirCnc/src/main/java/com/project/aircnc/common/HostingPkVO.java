@@ -1,5 +1,8 @@
 package com.project.aircnc.common;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("HostingPkVO")
 public class HostingPkVO {
 	
 	private int i_host;

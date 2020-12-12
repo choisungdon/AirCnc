@@ -2,36 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.aircnc.host.HostMapper">
 	<select id="selHosting" parameterType="CheckHostingVO" resultType="CheckHostingVO">
-		SELECT DISTINCT a.i_host AS host_user, a.ROOM_TITLE,  b.i_host AS build_type, c.i_host AS facilite,d.i_host AS safe_plant,e.i_host AS gest_space,
-		f.i_host AS space_info,g.i_host AS room_rule,h.i_host AS room_dt_rule,i.i_host AS check_inout,j.i_host AS room_fee,
-		k.i_host AS workplace_ph,l.i_host AS dtl_rule,m.i_host AS rooms_img
-		FROM HOST_USER a 
-		left JOIN Build_type b
-		ON a.i_host = b.I_HOST
-		left JOIN	FACILITE c
-		ON a.i_host	= c.I_HOST
-		left JOIN 	SAFE_PLANT d
-		ON a.I_HOST = d.i_host
-		left JOIN	GEST_SPACE e
-		ON a.i_host = e.I_HOST
-		left JOIN	SPACE_INFO f
-		ON a.i_host = f.i_host
-		left JOIN 	room_rule g
-		ON a.i_host = g.i_host
-		left JOIN 	room_dt_rule h
-		ON a.i_host = h.i_host
-		left JOIN 	CHECK_INOUT i
-		ON a.i_host = i.i_host
-		left JOIN 	ROOM_FEE j
-		ON a.i_host = j.i_host
-		left JOIN 	Workplace_ph k
-		ON a.i_host = k.i_host
-		left JOIN 	DTL_RULE l
-		ON a.i_host = l.i_host
-		left JOIN 	ROOMS_IMG m
-		ON a.i_host = m.i_host
+		SELECT a.i_host,a.room_title,b.img_url
+		FROM   host_user a
+		left JOIN (
+		SELECT i_host, img_url
+		FROM  rooms_img
+		GROUP BY i_host
+		) b
+		ON a.I_HOST = b.i_host
 		WHERE a.i_user = #{i_user}
-		AND a.i_host NOT IN (
+		and a.i_host NOT IN(
 		SELECT  hs.i_host 
 		FROM HOST_USER hs 
 		inner JOIN Build_type bt
@@ -54,44 +34,53 @@
 		ON hs.i_host = rf.i_host
 		inner JOIN 	Workplace_ph wp
 		ON hs.i_host = wp.i_host
-		inner JOIN 	DTL_RULE dr
+		left JOIN 	DTL_RULE dr
 		ON hs.i_host = dr.i_host
 		inner JOIN 	ROOMS_IMG ri
 		ON hs.i_host = ri.i_host
 		WHERE hs.i_user = #{i_user}
-		); 
+		)
 	</select>
 	
 	<select id="selComplHosting" parameterType="CheckHostingVO" resultType="CheckHostingVO">
-		SELECT DISTINCT a.i_host AS host_user, a.ROOM_TITLE,  b.i_host AS build_type, c.i_host AS facilite,d.i_host AS safe_plant,e.i_host AS gest_space,
-		f.i_host AS space_info,g.i_host AS room_rule,h.i_host AS room_dt_rule,i.i_host AS check_inout,j.i_host AS room_fee,
-		k.i_host AS workplace_ph,l.i_host AS dtl_rule,m.i_host AS rooms_img
-		FROM HOST_USER a 
-		inner JOIN Build_type b
-		ON a.i_host = b.I_HOST
-		inner JOIN	FACILITE c
-		ON a.i_host	= c.I_HOST
-		inner JOIN 	SAFE_PLANT d
-		ON a.I_HOST = d.i_host
-		inner JOIN	GEST_SPACE e
-		ON a.i_host = e.I_HOST
-		inner JOIN	SPACE_INFO f
-		ON a.i_host = f.i_host
-		inner JOIN 	room_rule g
-		ON a.i_host = g.i_host
-		inner JOIN 	room_dt_rule h
-		ON a.i_host = h.i_host
-		inner JOIN 	CHECK_INOUT i
-		ON a.i_host = i.i_host
-		inner JOIN 	ROOM_FEE j
-		ON a.i_host = j.i_host
-		inner JOIN 	Workplace_ph k
-		ON a.i_host = k.i_host
-		inner JOIN 	DTL_RULE l
-		ON a.i_host = l.i_host
-		inner JOIN 	ROOMS_IMG m
-		ON a.i_host = m.i_host
-		WHERE a.i_user = #{i_user};
+		SELECT a.i_host,a.room_title,b.img_url
+		FROM   host_user a
+		left JOIN (
+		SELECT i_host, img_url
+		FROM  rooms_img
+		GROUP BY i_host
+		) b
+		ON a.I_HOST = b.i_host
+		WHERE a.i_user = #{i_user}
+		and a.i_host  IN(
+		SELECT  hs.i_host 
+		FROM HOST_USER hs 
+		inner JOIN Build_type bt
+		ON hs.i_host = bt.I_HOST
+		inner JOIN	facilite fc
+		ON hs.i_host	= fc.I_HOST
+		inner JOIN 	SAFE_PLANT sp
+		ON hs.I_HOST = sp.i_host
+		inner JOIN	GEST_SPACE gs
+		ON hs.i_host = gs.I_HOST
+		inner JOIN	SPACE_INFO si
+		ON hs.i_host = si.i_host
+		inner JOIN 	room_rule rr
+		ON hs.i_host = rr.i_host
+		inner JOIN 	room_dt_rule rdr
+		ON hs.i_host = rdr.i_host
+		inner JOIN 	CHECK_INOUT ci
+		ON hs.i_host = ci.i_host
+		inner JOIN 	ROOM_FEE rf
+		ON hs.i_host = rf.i_host
+		inner JOIN 	Workplace_ph wp
+		ON hs.i_host = wp.i_host
+		left JOIN 	DTL_RULE dr
+		ON hs.i_host = dr.i_host
+		inner JOIN 	ROOMS_IMG ri
+		ON hs.i_host = ri.i_host
+		WHERE hs.i_user = #{i_user}
+		);
 	</select>
 	
 	<select id="getDuplicate" parameterType="HostingPkVO" resultType="HostingPkVO">
@@ -464,23 +453,32 @@
 	</update>
 	<!-- delete 메시지 테이블 안지웠음  -->
 	<delete id="delHost" parameterType="RoomIMGVO">
-		        DELETE FROM rooms_img		WHERE I_HOST = #{i_host};
-				DELETE FROM workplace_ph	WHERE I_HOST = #{i_host};
-				DELETE FROM room_fee 		WHERE I_HOST = #{i_host};
-				DELETE FROM check_inout 	WHERE I_HOST = #{i_host};
-				DELETE FROM room_dt_rule 	WHERE I_HOST = #{i_host};
-				DELETE FROM DTL_RULE 		WHERE I_HOST = #{i_host};
-				DELETE FROM room_rule 		WHERE I_HOST = #{i_host};
-				DELETE FROM space_info 		WHERE I_HOST = #{i_host};
-				DELETE FROM gest_space 		WHERE I_HOST = #{i_host};
-				DELETE FROM safe_plant 		WHERE I_HOST = #{i_host};
-				DELETE FROM facilite 		WHERE I_HOST = #{i_host};
-				DELETE FROM build_type 		WHERE I_HOST = #{i_host};
-				DELETE FROM AIRPORT_INFO 	WHERE I_HOST = #{i_host};
-				DELETE FROM USER_RESER 		WHERE I_HOST = #{i_host};
-				DELETE FROM user_like 		WHERE I_HOST = #{i_host};
-				DELETE FROM HOST_REVIEW 	WHERE I_HOST = #{i_host};
-		        DELETE FROM HOST_USER 		WHERE I_HOST = #{i_host};
+		        DELETE FROM rooms_img			WHERE I_HOST = #{i_host};
+				DELETE FROM workplace_ph		WHERE I_HOST = #{i_host};
+				DELETE FROM room_fee 			WHERE I_HOST = #{i_host};
+				DELETE FROM check_inout 		WHERE I_HOST = #{i_host};
+				DELETE FROM room_dt_rule 		WHERE I_HOST = #{i_host};
+				DELETE FROM DTL_RULE 			WHERE I_HOST = #{i_host};
+				DELETE FROM room_rule 			WHERE I_HOST = #{i_host};
+				DELETE FROM space_info 			WHERE I_HOST = #{i_host};
+				DELETE FROM gest_space 			WHERE I_HOST = #{i_host};
+				DELETE FROM safe_plant 			WHERE I_HOST = #{i_host};
+				DELETE FROM facilite 			WHERE I_HOST = #{i_host};
+				DELETE FROM build_type 			WHERE I_HOST = #{i_host};
+				<!--유저 예약 정보 지우기 -->
+				DELETE  FROM USER_RSV_CHANGE 	WHERE I_HOST = #{i_host};
+				DELETE  FROM USER_RSV_CANCEL	WHERE I_HOST = #{i_host};
+				
+				<!-- 톡방 내용 지우기  -->
+				DELETE  FROM aircnc_msg			WHERE I_HOST = #{i_host};
+				DELETE  FROM aircnc_msgUsers	WHERE I_HOST = #{i_host};
+				DELETE  FROM aircnc_msglist		WHERE I_HOST = #{i_host};
+				DELETE FROM HOST_REVIEW 		WHERE I_HOST = #{i_host};
+				
+				DELETE FROM USER_RESER 			WHERE I_HOST = #{i_host};
+				DELETE FROM user_like 			WHERE I_HOST = #{i_host};
+					
+		        DELETE FROM HOST_USER 			WHERE I_HOST = #{i_host};
 	</delete>
 	<!-- 숙소 사진 -->
 	<insert id="insRoomImg" parameterType="RoomIMGVO">

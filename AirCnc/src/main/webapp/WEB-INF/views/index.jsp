@@ -14,7 +14,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<!--달력 css & js https://www.daterangepicker.com/ 라이브러리  -->
 <script type="text/javascript" src="/resources/js/index.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <title>Document</title>
@@ -28,7 +27,7 @@
                <div class="joinClose" onclick="joinClose()">
                   <i class="fas fa-times"></i>
                </div>
-               회원 가입
+              	 회원 가입
             </div>
             <div class="joinCore" id="showJoin">
                <div class="joinCtnt">카카오 계정으로 회원가입</div>
@@ -38,7 +37,7 @@
                </div>
                <div class="line">――――――――――――――――――――――――――――――――――</div>
                <div class="joinFooter">
-                  이미 에어비앤비 계정이 있나요? <span class="jToL"> 로그인</span>
+                  	이미 에어비앤비 계정이 있나요? <span class="jToL" onclick="loginChildBtn()"> 로그인</span>
                </div>
             </div>
 
@@ -75,7 +74,7 @@
 							
 							<div class="line">――――――――――――――――――――――――――――――――――</div>
 							<div class="joinFooter">
-								이미 에어비앤비 계정이 있나요? <span class="jToL"> 로그인</span>
+								이미 에어비앤비 계정이 있나요? <span class="jToL" onclick="loginChildBtn()"> 로그인</span>
 							</div>
 						</div>
 					</div>
@@ -83,6 +82,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<div id="login">
 		<div class="flex">
 			<div class="popup">
@@ -97,19 +97,20 @@
 					<div class="line">―――――――――――――――― 또는 ―――――――――――――――</div>
 					<div>
 						<div class="joinCtnt">
-							<input type="text" id="e_mail" placeholder="이메일 주소"> 
-							<input type="password" id="c_pw" placeholder="비밀번호"> 
+							<input type="text" id="e_mail" placeholder="이메일 주소" onkeypress="loginEnter()"> 
+							<input type="password" id="c_pw" placeholder="비밀번호" onkeypress="loginEnter()"> 
 							<button type="button" class="mailJoin" onclick="login()">로그인</button>
 						</div>
 						<div class="erro1"></div>
 					</div>
 					<div class="line">――――――――――――――――――――――――――――――――――</div>
 					<div>
-						에어비앤비 계정이 없으세요? <span class="jToL">회원 가입</span>
+						에어비앤비 계정이 없으세요? <span class="jToL" onclick="joinChildBtn()">회원 가입</span>
 					</div>
 				</div>
 			</div>
 		</div>
+		
 	</div>
 	<header>
 		<div>에어비앤비의 코로나19 대응 방안에 대한 최신 정보를 확인하세요.</div>

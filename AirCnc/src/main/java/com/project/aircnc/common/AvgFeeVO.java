@@ -1,5 +1,8 @@
 package com.project.aircnc.common;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("AvgFeeVO")
 public class AvgFeeVO {
 	private int max_fee;
 	private int min_fee;

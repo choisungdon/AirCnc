@@ -115,6 +115,27 @@ function loginClose() {
 	}
 }
 
+// 파업창 안에 있는 회원 가입 버튼  
+function joinChildBtn(){
+	// login 팝업창 숨기기 
+	var login = document.getElementById("login");
+	login.style.display = 'none';
+	// 이메일 회원가입 창 뛰우기 
+	var join = document.getElementById("join");
+	join.style.display = 'block';
+}
+// 팝업창 안에 있는 로그인 버튼 
+function loginChildBtn(){
+	var login = document.getElementById("login");
+	var join = document.getElementById("join");
+	
+	// login 팝업창 숨기기 
+	join.style.display = 'none';
+	// 이메일 회원가입 창 뛰우기 
+	login.style.display = 'block';
+}
+
+
 function login(){
 	erro1 = document.querySelector('.erro1');
 	
@@ -148,6 +169,15 @@ function login(){
 	    console.log(error);
 	  });
 }
+
+// 로그인중 엔터키 클릭시 
+function loginEnter(){
+	if ( window.event.keyCode == 13 ) {
+			// 로그인 함수 실행 
+	        login();
+	    }
+}
+
 // 회원 가입 함수 
 function join(){
 	erro = document.querySelector('.erro');
@@ -188,6 +218,8 @@ function join(){
 	    console.log(error);
 	  });
 }
+
+
 // e_mail 체크 
 function chkEmail(str) {
     var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -337,11 +369,13 @@ function goAddr(){
 
 }
 
-// 주소 검색창에 삽입  삽입 함수  
+// 주소 검색창에  선택 주소 삽입 함수  
 function insAddr(ele){
 	s_addr.value = ele;
 	searchin.focus();
 }
+
+
 
 // dropDown menu , 연관 주소 list 아닌 태그 클릭시 숨기기 
 window.onclick = function(event) {
