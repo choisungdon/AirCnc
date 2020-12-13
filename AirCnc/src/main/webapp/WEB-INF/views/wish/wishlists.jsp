@@ -29,6 +29,7 @@
         <div id="menuctnt">
             <c:if test="${loginUser.i_user != null}">
 		         <li class="b" onclick="goMsg()">메시지</li>
+		         <li class="b" onclick="goTrb()">여행</li>
 		         <li class="b" onclick="goWish()">저장 목록</li>
 		         <div class="line">――――――――――――――――</div>
 		         <li class="b" onclick="goHost()">숙소 관리</li>

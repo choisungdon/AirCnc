@@ -8,6 +8,33 @@ function viewMenu(){
     }
 }
 
+
+// 메시지 화면 이동
+function goMsg() {
+	location.href = '/message/message';
+}
+// 여행 
+function goTrb(){
+	location.href="/trip/trip";
+}
+// 메뉴-저장 목록으로 이동
+function goWish() {
+	location.href = '/wishlists';
+}
+// 숙소 관리 
+function goHost(){
+	location.href='/hostManage/manage';
+}
+// 계정 
+function goUser(){
+	location.href="/user/userSetting";
+}
+// 로그아웃 
+function goLogOut(){
+	location.href="/logOut";
+}
+
+
 function mButton(ele){
     var btn_1 = document.querySelector(".btn_1");
     var btn_2 = document.querySelector(".btn_2");
@@ -162,6 +189,3 @@ function goHostReview(i_host,i_reser){
 	  });
 		
 }
-
-
-

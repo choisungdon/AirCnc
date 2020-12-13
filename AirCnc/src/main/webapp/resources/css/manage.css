@@ -162,6 +162,7 @@ header > .sub_header{
     border: solid 1px #DDDDDD;
 }
 
+
 .userMenu > .drop_menu{
     position: absolute;
     right: 80px;
@@ -190,34 +191,30 @@ header > .sub_header{
     flex-grow: 1;
 }
 
-.main_menu > .menu_item{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    flex-grow: 1;
-    border-bottom:  1px solid #DDDDDD !important;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 15px;
-    padding-left: 15px;
-}
 
-.menu_item > div{
+ .menu_item1,.menu_item2,.menu_item3,.menu_item4,.menu_item5,.menu_item6{
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 15px;
+    padding-left: 15px;
 }
-
-.menu_item > div:hover{
-    border-radius: 1em;
-    border-top-left-radius: 1em;
-    border-top-right-radius: 1em;
-    border-bottom-left-radius: 1em;
-    border-bottom-right-radius: 1em;
+ .menu_item1:hover,.menu_item2:hover,.menu_item3:hover,.menu_item4:hover,.menu_item5:hover,.menu_item6:hover{
     background-color: #e5e5e5;
 }
 
+.menu_item3{
+    border-bottom: 1px solid #DDDDDD !important;
+}
+
+.menu_item5{
+    border-bottom: 1px solid #DDDDDD !important;
+}
 /**********container***************/
 
 .container{

@@ -64,6 +64,48 @@
             <beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
         </websocket:handshake-interceptors>
     </websocket:handlers>
+    
+    <interceptors>
+		<interceptor>
+			<mapping path="/user/*"/>
+			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/reservation/*"/>
+			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/wishlists/*"/>
+			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/trip/*"/>
+			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/search/*"/>
+			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/message/*"/>
+			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/hostManage/*"/>
+			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/host/*"/>
+			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
    
 </beans:beans>
 

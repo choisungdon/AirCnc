@@ -41,21 +41,12 @@
 
                     <div class="drop_menu" >
                         <div class="main_menu">
-    
-                            <div class="menu_item">
-                                <div>메시지</div>
-                                <div>저장 목록</div>
-                            </div>
-    
-                            <div class="menu_item">
-                                <div>숙소 관리</div>
-                                <div>계정</div>
-                            </div>
-    
-                            <div class="menu_item">
-                              <div>로그아웃</div>
-                            </div>
-    
+							<div class="menu_item1" onclick="goMsg()">메시지</div>
+							<div class="menu_item2" onclick="goTrb()">여행</div>
+							<div class="menu_item3" onclick="goWish()">저장 목록</div>
+							<div class="menu_item4" onclick="goHost()">숙소 관리</div>
+							<div class="menu_item5" onclick="goUser()">계정</div>
+							<div class="menu_item6" onclick="goLogOut()">로그아웃</div>
                         </div>
                     </div>
                 </span>

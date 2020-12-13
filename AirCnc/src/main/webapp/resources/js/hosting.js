@@ -2,8 +2,8 @@
 // 숙소 선택 다음 
 function next(){
     var radio_box = document.querySelector('input[name="hosting"]:checked');
-    
-	if(radio_box.id == 'next_host'){ // 새로운숙소 등록하기
+  	// 새로운숙소 등록하기
+	if(radio_box.id == 'new_host'){ 
 		location.href="/host/hostSave?i_user="+radio_box.value;
 	}else{ // 등록중 숙소, 등록완료 숙소 수정페이지 이동  
 		location.href="/host/duplicate?i_host="+radio_box.value;

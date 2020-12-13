@@ -53,6 +53,10 @@ function goWish() {
 function goMsg() {
 	location.href = '/aircnc/message';
 }
+// 여행 
+function goTrb(){
+	location.href="/trip/trip";
+}
 // 숙소 관리 
 function goHost(){
 	location.href='/hostManage/manage';

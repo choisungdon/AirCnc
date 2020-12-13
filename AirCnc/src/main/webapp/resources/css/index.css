@@ -376,7 +376,7 @@ input:focus {
     cursor: pointer;
 }
 #core #menu:hover {
-    cursor: pointer;
+    cursor: default;
 }
 #core #menubutton:hover {
     cursor: pointer;
