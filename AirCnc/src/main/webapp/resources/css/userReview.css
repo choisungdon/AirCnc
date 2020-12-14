@@ -210,10 +210,15 @@ header {
     padding-right: 8px;
     text-align: center;
     font-size: 15px;
+    text-overflow:ellipsis;
 }
 
 .text_main {
     border-bottom: 1px solid #DDDDDD;
+}
+
+.host_btn {
+	width: 80px;
 }
 
 .host_btn > .insReview{

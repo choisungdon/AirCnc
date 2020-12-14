@@ -71,7 +71,7 @@ function saveImg(){
 }
 
 function delImg(el,pk){
-	var img = document.getElementById("poto"+pk);
+	var img_tag = el.previousSibling.previousSibling ;
 	// db 삭제 및 파일 삭제 
 	axios.get('/host/delRoomImg', {
 	    params: {
@@ -81,11 +81,14 @@ function delImg(el,pk){
 	    }
 	  })
 	  .then(function (res) {
-	    console.log(res.data.result);
+		  // 성공시  img,버튼 태그 삭제 
+	    if(res.data.result > 0){
+	    	img_tag.remove();
+	    	el.remove();
+	    }
 	  })
-	// img 버튼 태그 삭제 
-	img.remove();
-	el.remove();
+	
+	
 }
 
 	

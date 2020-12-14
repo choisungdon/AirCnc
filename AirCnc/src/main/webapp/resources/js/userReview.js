@@ -140,6 +140,7 @@ function reviewUpdate(i_contents,ele){
      var review_score = 0;
      // 후기 내용 
      var contents = document.querySelector('#contents');
+	// void_upReview 작성 후기 없을때 나오는 태그 
  
      // 선택 점수 받아오기 
      score.forEach(element => {
@@ -171,6 +172,10 @@ function reviewUpdate(i_contents,ele){
 
 		// 데이터가 삽입 수정 성공했을때 
 		if(res.data.result.reviewResult != 0 ){
+			// 아직 후기를 남기지 않으셨습니다. 태그 지우기 
+			if(void_upReview != null){
+				void_upReview.remove();
+			} 
 			  // 후기 작성이면 해당 태그 삭제 
 		    if(ctr_tag.className == 'text_main'){
 		        ctr_tag.remove();
