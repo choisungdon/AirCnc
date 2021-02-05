@@ -313,10 +313,11 @@ public class HostService {
 		return mapper.insRoomImg(param);// DB 저장 
 	}
 	
-	public int delRoomImg(int i_host,int i_user, int i_img, HttpSession hs) {
+	public int delRoomImg(int i_host, int i_img, HttpSession hs) {
+		
 		RoomIMGVO param = new RoomIMGVO();
 		param.setI_host(i_host); // 숙소 pk
-		param.setI_user(i_user); // 유저 pk
+		param.setI_user(MyUtils.getSesstion(hs)); // 유저 pk
 		param.setI_img(i_img); // 이미지 pk
 		//db 파일 이름 저장 
 		param = mapper.delGetImg(param);

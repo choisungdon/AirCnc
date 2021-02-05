@@ -372,10 +372,10 @@ public class HostController {
 	// 숙소 이미지 삭제 
 	@RequestMapping(value = "/delRoomImg", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> delRoomImg(@RequestParam int i_host,
-			@RequestParam int i_img, @RequestParam int i_user,  HttpSession hs, Model model) {
+			@RequestParam int i_img,  HttpSession hs, Model model) {
 		
 		Map<String, Object> map = new HashMap();
-		map.put("result", service.delRoomImg(i_host, i_user, i_img, hs)); // 이미지  삭제 
+		map.put("result", service.delRoomImg(i_host, i_img, hs)); // 이미지  삭제 
 		
 		return map;
 	}
