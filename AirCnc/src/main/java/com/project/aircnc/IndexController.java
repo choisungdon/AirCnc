@@ -19,6 +19,7 @@ public class IndexController {
 	
 	@RequestMapping(value = "/", method=RequestMethod.GET)
 	public String index (@RequestParam(value="interceptor", defaultValue="true") Boolean interceptor, HttpServletResponse response) {
+		System.out.println("누군가 접속했습니다.");
 		if(interceptor) { // 정상 접속
 			return "index";
 		}else  { // 로그인 interceptor 걸렸을때 
