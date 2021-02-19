@@ -16,7 +16,7 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 	<!-- 달력 -->
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYMK6J-N5yiDhf8Z3Bipzewlm5bOzs_iU&callback=initMap&libraries=&v=weekly" defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBA5JUTsSB7h9_YaHu00RdgVxJAssRbO0M&callback=initMap&libraries=&v=weekly" defer></script>
     <script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="/resources/css/searchDetail.css">
