@@ -515,7 +515,9 @@ function getTtTable(check_out){
 
 // chart 표기 
 window.onload = function(){
+	
 	var  check_out = new Date(); // 현재 날짜 
+	
     var check_out = check_out.getFullYear(); // 현재 년도 
 	// 숙소 통계 table 생성 함수 실행 
 	getTtTable(check_out);
@@ -531,12 +533,15 @@ window.onload = function(){
 		
 	   if(res.data.chart.length > 0){
 		// 데이터 담기 
+		
 		res.data.chart.forEach(function(ele){
 			
 			for(var i=0 ; i<b_arr_mon.length; i++){
+				
 				if(i == Number(ele.check_out)-1){ // 해당 월 지급예정 수입 있으면 수입 삽입 
 					if(ele.reser_state == null){
 						b_arr_mon[i] = ele.fee;
+						
 					}
 				}
 			}

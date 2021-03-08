@@ -23,7 +23,7 @@
 <jsp:useBean id="now" class="java.util.Date" />
 <fmt:formatDate value="${now}" pattern="yyyy-MM" var="today" />
 <%
-	Calendar mon = Calendar.getInstance(); // 현재 날짜 객체 
+	Calendar mon = Calendar.getInstance(); // 현재 날짜 객체()
 %>
 <body>
 	<header>
@@ -102,7 +102,7 @@
 			
 			<div class="month_fee">
 				<h1>₩0</h1>
-				<div>2020년 예약 수입</div>
+				<div><fmt:formatDate value="${now}" pattern="yyyy" />년 예약 수입</div>
 			</div>
 		
 			<div class="fee_state">
@@ -124,17 +124,23 @@
 		
 			
 			<canvas class="myChart" ></canvas>
-			
-			<div class="cal_button">
+				<% 
+					mon.add(Calendar.YEAR , -2); // 11개월 빼기 
+					String Year = new java.text.SimpleDateFormat("yyyy").format(mon.getTime());// 날짜 포맷 설정 
+				%>
+				<div class="cal_button">
 				<div class="left_date" onclick="chDate(this)">
 					<i class="fas fa-angle-left"></i>
-					<span class="date">2019</span>
+					<span class="date"><%=Year %></span>
 				</div>
 		
-				<div class="main_date">2020</div>
-		
+				<div class="main_date"><fmt:formatDate value="${now}" pattern="yyyy" /></div>
+				<%
+					mon.add(Calendar.YEAR , 1); // 11개월 빼기 
+					Year = new java.text.SimpleDateFormat("yyyy").format(mon.getTime());// 날짜 포맷 설정 
+				%>
 				<div class="right_date" onclick="chDate(this)">
-					<span class="date">2021</span> 
+					<span class="date"><%=Year %></span> 
 					<i class="fas fa-angle-right"></i>
 				</div>
 			</div>
@@ -156,10 +162,10 @@
 					  <td class="void_td" colspan="6">검색 결과가 없습니다.</td>
 				  </tr>
 				  <tr>
-					<td class="house_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
+					<td class="house_info"><img  src="./img/profile.jpg"  > <span></span></td>
 					<th class="data_state">지급 완료 승인</th>
 					<td class="date_info">2020-10-19 ~ 2020-10-19</td>
-					<td class="user_info"><img  src="./img/profile.jpg"  > <span>바르셀로나</span></td>
+					<td class="user_info"><img  src="./img/profile.jpg"  > <span></span></td>
 					<td class="gest_qty">8명</td>
 					<td class="incom_info">$152,551</td>
 				  </tr>

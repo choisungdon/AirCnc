@@ -173,7 +173,7 @@ public class HostManageContoller {
 	// 실적 > 수입 
 	@RequestMapping(value = "/earnings", method = RequestMethod.GET)
 	public String earnings(TUserVO param,HttpSession hs, Model model) {
-		
+		model.addAttribute("shData", param); 
 		return "/hostManage/earnings";
 	}
 	

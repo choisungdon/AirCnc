@@ -362,9 +362,7 @@ public class HostController {
 			@RequestParam("i_host") int i_host,HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap();
 		if(!photo.isEmpty()) {// 이미지 파일이 없으면 실행 안됨 
-			int reuslt = service.insRoomImg(photo,i_host ,hs); // 이미지 저장 
-			RoomIMGVO data = service.getRoomImg(i_host ,hs); // 최근 이미지 저장 파일 불러오기 
-			map.put("result", data);// return 데이터 
+			map.put("result", service.insRoomImg(photo,i_host ,hs));// return 데이터 
 		}
 		
 		return map;

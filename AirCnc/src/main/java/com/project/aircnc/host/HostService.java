@@ -297,7 +297,7 @@ public class HostService {
 		return param;// 이미지 return  
 	}
 	
-	public int insRoomImg(MultipartFile photo,int i_host,HttpSession hs) {
+	public RoomIMGVO insRoomImg(MultipartFile photo,int i_host,HttpSession hs) {
 		RoomIMGVO param = new RoomIMGVO(); //mapper로 보낼 데이터 
 		
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser"); // 유저 정보 
@@ -310,7 +310,13 @@ public class HostService {
 		String fileNm = MyUtils.saveFile(imgFolder, photo);// 이미지 저장 및 폴더 생성 
 		param.setImg_url(fileNm);// 파일 이름 
 		
-		return mapper.insRoomImg(param);// DB 저장 
+		int result = 0;
+		result	= mapper.insRoomImg(param);
+		if(result > 0) { // 저장 성공 했으면 해당 이미지 정보 가져오기 
+			param	= mapper.selRoomOne(param.getI_img()); 
+			param.setImg_url(imgUrlChange(param.getImg_url(), param.getI_host())); 
+		}
+		return param;
 	}
 	
 	public int delRoomImg(int i_host, int i_img, HttpSession hs) {

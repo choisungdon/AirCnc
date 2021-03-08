@@ -486,7 +486,16 @@
 		VALUES(
 		#{i_host}, #{i_user},#{img_url}
 		)
+			<selectKey keyProperty="i_img" resultType="int" order="AFTER">
+				SELECT LAST_INSERT_ID()
+			</selectKey>
 	</insert>
+	
+	<select id="selRoomOne" parameterType="int" resultType="RoomIMGVO">
+		select *
+		from ROOMS_IMG
+		WHERE I_IMG = #{i_img}
+	</select>
 	
 	<select id="getRoomImg" parameterType="RoomIMGVO" resultType="RoomIMGVO">
 		SELECT a.i_img, a.I_HOST, a.I_USER, a.IMG_URL

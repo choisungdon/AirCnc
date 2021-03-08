@@ -78,4 +78,7 @@ public interface HostMapper {
 	public int insDtlRule(DTLRuleVO param); 
 	public DTLRuleVO lastDtlRule(DTLRuleVO param);
 	public int delDtlRule(DTLRuleVO param);
+	
+	// 저장 이미지 하나 출력 
+	public RoomIMGVO selRoomOne(int i_img);
 }
