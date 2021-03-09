@@ -240,6 +240,19 @@ public class HostManageService {
 		return mapper.selReviewAvg(param);
 	}
 	
+	// 실적 > 수입 비동기(검색)  년도 총 수입 및 지급완료 , 예정 수입  
+	public List<EarningsSeachVO> selProfitData(EarningsSeachVO param, HttpSession hs) {
+		// 로그인 유저 i_user 가져오기 
+		param.setI_user(MyUtils.getSesstion(hs));
+		
+		// 데이터 출력 
+		List<EarningsSeachVO> list = mapper.selProfit0(param);
+		list.add(mapper.selProfit1(param));
+		
+		return list;
+	}
+	
+	
 	// 실적 > 수입 비동기(검색) chart 
 	public List<EarnChartVO> selChart(EarningsSeachVO param, HttpSession hs) {
 		// 로그인 유저 i_user 가져오기 

@@ -481,5 +481,33 @@
 			 }
 	</update>
 	
+	<select id="selProfit0" parameterType="EarningsSeachVO" resultType="EarnChartVO">
+		SELECT DATE_FORMAT(JOIN1.check_out,'%Y') AS check_out, SUM(JOIN1.total_fee) AS fee,JOIN1.reser_state
+		FROM user_reser JOIN1
+		INNER JOIN host_user JOIN2
+		ON JOIN1.i_host = JOIN2.i_host
+		WHERE (JOIN1.reser_state IN ('o') OR JOIN1.reser_state IS NULL)
+		and JOIN2.i_user = #{i_user}
+		<![CDATA[
+		AND JOIN1.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+		]]>
+		AND JOIN1.check_out LIKE   '${check_out}%'
+		GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y'),JOIN1.reser_state;
+	</select>
+	
+	<select id="selProfit1" parameterType="EarningsSeachVO" resultType="EarnChartVO"> 
+		SELECT DATE_FORMAT(JOIN1.check_out,'%Y') AS check_out, SUM(JOIN1.total_fee) AS fee, 'total' AS reser_state
+		FROM user_reser JOIN1
+		INNER JOIN host_user JOIN2
+		ON JOIN1.i_host = JOIN2.i_host
+		WHERE (JOIN1.reser_state IN ('o') OR JOIN1.reser_state IS NULL)
+		and JOIN2.i_user = #{i_user}
+		<![CDATA[
+		AND JOIN1.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
+		]]>
+		AND JOIN1.check_out LIKE   '${check_out}%'
+		GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y');
+	</select>
+	
 
 </mapper>

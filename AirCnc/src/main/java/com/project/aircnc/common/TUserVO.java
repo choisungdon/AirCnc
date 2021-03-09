@@ -108,7 +108,7 @@ public class TUserVO {
 	
 	@Override
 	public String toString() {
-		return "i_user : "+i_user+"/ nm : "+nm+"/ bir_day : "+bir_day+" /ph : "+ph;
+		return "i_user : "+this.i_user+"/ nm : "+nm+"/ bir_day : "+bir_day+" /ph : "+ph;
 	}
 	
 

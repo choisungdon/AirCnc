@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 public class EarnChartVO {
 	private String check_out; // 검색 월 
 	private int fee; // 지급 예정 요금
-	private String reser_state;// 상태 값  'o' : 지급 완료  null : 지급 예정
+	private String reser_state;// 상태 값  'o' : 지급 완료  null : 지급 예정, 년 예약 수입 total
 	
 	public String getCheck_out() {
 		return check_out;

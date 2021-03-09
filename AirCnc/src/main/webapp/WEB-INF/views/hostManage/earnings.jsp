@@ -125,7 +125,7 @@
 			
 			<canvas class="myChart" ></canvas>
 				<% 
-					mon.add(Calendar.YEAR , -2); // 11개월 빼기 
+					mon.add(Calendar.YEAR , -2); // 1년 추가 
 					String Year = new java.text.SimpleDateFormat("yyyy").format(mon.getTime());// 날짜 포맷 설정 
 				%>
 				<div class="cal_button">
@@ -136,7 +136,7 @@
 		
 				<div class="main_date"><fmt:formatDate value="${now}" pattern="yyyy" /></div>
 				<%
-					mon.add(Calendar.YEAR , 1); // 11개월 빼기 
+					mon.add(Calendar.YEAR , 2); // 1년 추가
 					Year = new java.text.SimpleDateFormat("yyyy").format(mon.getTime());// 날짜 포맷 설정 
 				%>
 				<div class="right_date" onclick="chDate(this)">

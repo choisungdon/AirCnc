@@ -173,7 +173,6 @@ public class HostManageContoller {
 	// 실적 > 수입 
 	@RequestMapping(value = "/earnings", method = RequestMethod.GET)
 	public String earnings(TUserVO param,HttpSession hs, Model model) {
-		model.addAttribute("shData", param); 
 		return "/hostManage/earnings";
 	}
 	
@@ -181,7 +180,8 @@ public class HostManageContoller {
 	@RequestMapping(value = "/earnings", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> selChart(@RequestBody EarningsSeachVO param, HttpSession hs, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("chart", service.selChart(param,hs));
+		map.put("chart", service.selChart(param,hs)); // 그래프 데이터 
+		map.put("data",service.selProfitData(param,hs));// 년도 총 수입 및 지급완료 , 예정 수입 
 		return map;
 	}
 	

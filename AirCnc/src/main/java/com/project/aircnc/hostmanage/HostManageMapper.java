@@ -82,4 +82,8 @@ public interface HostManageMapper {
 	
 	// 해당 숙소 변경 날짜 지났으면 숙소 취소 테이블에 정보 입력 
 	public int rsvChOverDate(UserRsvChangeVO param);
+	
+	// 실적 > 수입 비동기(검색)  년도 총 수입 및 지급완료 , 예정 수입 
+	public List<EarningsSeachVO> selProfit0(EarningsSeachVO param);
+	public EarningsSeachVO selProfit1(EarningsSeachVO param);
 }
