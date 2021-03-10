@@ -506,7 +506,7 @@
 		AND JOIN1.check_out < DATE_FORMAT(NOW(),'%Y-%m-%d')
 		]]>
 		AND JOIN1.check_out LIKE   '${check_out}%'
-		GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y');
+		GROUP BY DATE_FORMAT(JOIN1.check_out,'%Y')
 	</select>
 	
 
