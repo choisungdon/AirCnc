@@ -22,7 +22,7 @@
             <span>사진</span>
         </span>
         
-        <a href="/host/hostSaveEight" class="his_back">  
+        <a href="/" class="his_back">  
             나가기 
         </a>
     </header>
@@ -39,7 +39,6 @@
         <span class="step10"></span>
     </div>
     <div class="container">
-    	<input type="hidden" id="i_host" value="${i_host}">
         <div class="ctnt_img">
             <section class="img_ctnt_main">
                 <div class="img_title">
@@ -109,11 +108,11 @@
 				    </c:otherwise>
 				
 				</c:choose>
-
-                <div class="nepre_tag">
+				<form action="/host/duplicate" method="get" class="nepre_tag">
+					<input type="hidden" id="i_host" name="i_host" value="${i_host}">
                     <span class="previous"><i class="fas fa-chevron-left"></i> 뒤로</span>
                     <span class="next">저장</span>
-                </div>
+                </form>
                  
             </section>
         </div>

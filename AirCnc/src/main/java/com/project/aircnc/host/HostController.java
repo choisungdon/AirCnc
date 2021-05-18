@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Default;
 import com.project.aircnc.common.BuildTypeVO;
 import com.project.aircnc.common.CheckInOutVO;
 import com.project.aircnc.common.DTLRuleVO;
@@ -77,7 +75,7 @@ public class HostController {
 			model.addAttribute("i_host",service.insHostSaveOne(param));
 			break;
 		default : // update
-			int reult = service.upHostSaveOne(param);
+			int result = service.upHostSaveOne(param);
 			model.addAttribute("i_host",param.getI_host());
 			BuildTypeVO vo = new BuildTypeVO();
 			vo.setI_host(param.getI_host());
