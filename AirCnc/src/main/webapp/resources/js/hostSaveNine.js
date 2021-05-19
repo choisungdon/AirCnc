@@ -224,9 +224,8 @@ function createAddImg(){
 }
 
 
-
+// 저장 , 뒤로 버튼 이벤트 삽입 
 window.onload = function(){
-	// 저장 , 뒤로 버튼 이벤트 삽입 
 	var previous	=	document.querySelector('.previous');
 	var next		=	document.querySelector('.next');
 	var nepre_tag	=	document.querySelector('.nepre_tag');

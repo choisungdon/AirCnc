@@ -35,6 +35,10 @@ public class HostService {
 	public HostingPkVO getDuplicate(HostingPkVO param,HttpSession hs){
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		param.setI_user(loginUser.getI_user());
+		
+//		HostingPkVO tset = mapper.getDuplicate(param);
+//		System.out.println("-> "+tset.toString());
+		
 		return mapper.getDuplicate(param);
 	}
 	// 등록중 숙소 

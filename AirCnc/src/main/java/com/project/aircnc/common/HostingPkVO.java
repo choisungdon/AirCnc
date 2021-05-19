@@ -91,5 +91,11 @@ public class HostingPkVO {
 	public void setI_ph(int i_ph) {
 		this.i_ph = i_ph;
 	}
+	@Override
+	public String toString() {
+		return "HostingPkVO [i_host=" + i_host + ", i_user=" + i_user + ", i_build=" + i_build + ", i_fct=" + i_fct
+				+ ", i_spt=" + i_spt + ", i_gest=" + i_gest + ", i_sinfo=" + i_sinfo + ", i_rule=" + i_rule + ", i_dtr="
+				+ i_dtr + ", i_ck=" + i_ck + ", i_fee=" + i_fee + ", i_ph=" + i_ph + "]";
+	}
 	
 }

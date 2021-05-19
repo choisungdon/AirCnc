@@ -1,0 +1,107 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width:100%; 
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.main{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    margin-left: 49.5px;
+    margin-right: 49.5px;
+}
+
+.main > .host_list{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.host_list > .hl_ctn{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-top: 58px;
+    margin-bottom: 100px;
+    margin-left: 100px;
+    margin-right: 93.500px;
+}
+
+.hl_ctn > h2{
+    font-size: 32px;
+    font-weight: normal;
+    line-height: 1.1;
+    text-rendering: optimizelegibility;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    margin: 0px;
+    margin-bottom: 15px;
+}
+
+p{
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-size: 16px;
+    color: #767676;
+    margin-top: 12px;
+    margin-bottom: 45px;
+}
+
+.path{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 15px;
+}
+
+.path > i{
+    padding-top: 3px;
+    padding-right: 16px;
+}
+
+.path > .path_text{
+    cursor: pointer;
+    margin: 0px ;
+    overflow-wrap: break-word ;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
+    font-size: 16px ;
+    font-weight: 600 ;
+    line-height: 1.375em ;
+    color: inherit ;
+}
+
+.path > .path_text:hover{
+    color: #008489;
+    
+}
+
+.fa-check{
+    color: #008489;
+}
+
+.null_path{
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 15px;
+}
+
+.null_path > .path_text{
+    color: rgb(118, 118, 118) ;
+}
+
+.main > .back_img{
+    flex-grow: 1;
+    padding-left: 6px;
+    padding-right: 6px;
+}
