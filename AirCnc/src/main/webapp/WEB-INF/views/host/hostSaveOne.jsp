@@ -18,7 +18,6 @@
 		<div>
 			<p>건물 유형을 선택하세요</p>
 			<select name="typ">
-				<option value="" >하나를 선택하세요.</option>
 				<option value="apt" ${vo.typ eq 'apt' ? 'selected="selected"' : ''} >아파트</option>
 				<option value="outbuild" ${vo.typ eq 'outbuild' ? 'selected="selected"' : ''} >별채</option>
 			</select>
