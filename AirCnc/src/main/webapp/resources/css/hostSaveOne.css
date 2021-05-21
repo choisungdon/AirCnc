@@ -1,0 +1,377 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width:100%; 
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+
+/****************************header**********************************/
+header{
+    flex-grow: 0.49;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.log_img > .logo{
+    text-decoration: none;
+    color: black;
+}
+
+header > .log_img > span{
+    padding-left: 19px;
+    padding-right: 19px;
+    font-size: 18px ;
+    font-weight: 400 ;
+    line-height: 1.44444em ;
+    color: rgb(72, 72, 72) ;
+}
+
+header > .his_back{
+    text-decoration: none;
+    color : rgb(0, 132, 137);
+}
+/***************ctnt_step***************/
+.ctnt_step{
+    flex-grow: 0.01;
+    display: flex;
+    flex-direction: row;
+}
+
+.ctnt_step > .step01{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color: rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step02{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step03{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step04{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step05{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step06{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step07{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step08{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step09{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+
+.ctnt_step > .step10{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+/******************container*******************/
+.container{
+    flex-grow: 9.5;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container > .ctnt_host{
+    flex-grow: 1;
+    padding-left: 258px;
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.host_title{
+    border-bottom: 0px ;
+    padding-top: 32px ;
+    padding-bottom: 24px ;
+}
+
+.title_text{
+    margin: 0px ;
+    overflow-wrap: break-word ;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
+    font-size: 24px ;
+    font-weight: 800 ;
+    line-height: 1.25em ;
+    color: rgb(72, 72, 72) ;
+    padding-top: 2px ;
+    padding-bottom: 2px ;
+}
+
+.title07{
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px ;
+    font-weight: 600 ;
+    line-height: 1.375em ;
+    color: rgb(72, 72, 72) ;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.b_room{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+/*개발자 select box */
+.SelTypeMain{
+    display: flex;
+    flex-direction: row;
+    color: var(--font-form-element-color, #484848) ;
+    padding-top: var(--spacing-form-element-vertical, 11px) ;
+    padding-bottom: var(--spacing-form-element-vertical, 11px) ;
+    font-weight: var(--font-light-font-weight, normal) ;
+    background-color: var(--color-clear, transparent) ;
+    padding-left: var(--spacing-form-element-horizontal, 11px) ;
+    padding-right: var(--spacing-form-element-horizontal, 11px);
+    width: 100%;
+    height: auto;
+    border: 1px solid rgb(216, 214, 214);
+    border-radius: 5px;
+    padding: 11px;
+    cursor: pointer;
+
+}
+
+.SelTypeMain:hover{
+    outline: none ;
+    border:1px solid rgb(0, 137, 46);
+}
+
+.selText{
+    flex-grow: 1;
+}
+
+.drop_select{
+    position: absolute;
+    left: 490px;
+    top: 363px;
+    width: 500px;
+    border: 1px solid #DDDDDD ;
+    border-radius: 5px;
+    display: none;
+    background-color: white;
+    z-index: 100000;
+
+}
+
+.main_select{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.select_item{
+    padding: 11px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.yn551:hover {
+    background-color: #e5e5e5;
+}
+
+.yn551 > .item_title{
+    font-size: 16px ;
+    line-height: 20px ;
+    font-weight: 600 ;
+}
+
+.yn551 > .item_remark{
+    font-size: 14px ;
+    line-height: 18px ;
+}
+/**************************************************************/
+
+
+.drop_select01{
+    position: absolute;
+    left: 490px;
+    top: 470px;
+    width: 500px;
+    border: 1px solid #DDDDDD ;
+    border-radius: 5px;
+    display: none;
+    background-color: white;
+    z-index: 100000;
+
+}
+
+.main_select01{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.select_item01{
+    padding: 11px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.yn55101:hover {
+    background-color: #e5e5e5;
+}
+
+.yn55101 > .item_title{
+    font-size: 16px ;
+    line-height: 20px ;
+    font-weight: 600 ;
+}
+
+.yn55101 > .item_remark{
+    font-size: 14px ;
+    line-height: 18px ;
+}
+
+
+.nepre_tag{
+    position: sticky;
+    z-index: 109 ;
+    left: 0px ;
+    bottom: 0px ;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    max-height: 50px;
+    padding-top: 20px;
+    padding-left: 20px;
+    border-top:  solid 1px rgb(216, 214, 214) ;
+    background-color: white;
+    z-index: 1000;
+    clear:both;
+    margin-top: 15px;
+}
+
+.nepre_tag > .previous{
+    color: #008489;
+    cursor: pointer;
+}
+
+.nepre_tag > .next{
+    border-radius:  4px ;
+    font-size:  16px;
+    padding-top:  10px;
+    padding-bottom:10px;
+    font-weight:  800;
+    border-width: 2px;
+    padding-left:  22px;
+    padding-right:  22px;
+    background-color:  #008489;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+
+
+.container > .ctnt_exp{
+    background-color: rgb(250, 250, 250) ;
+    flex-grow: 1;
+    padding-right: 258px;
+    padding-top: 70px;
+}
+
+.ctnt_exp > .exp_main{
+    margin: 60px 30px 0px ;
+    border: 1px solid rgb(220, 224, 224) ;
+    border-radius: 4px ;
+    background-color: rgb(255, 255, 255) ;
+    max-width: 254px;
+}
+
+.exp_main > .exp_ctnt{
+    position: relative ;
+    padding: 26px ;
+}
+
+
+._1p3joamp { 
+    margin-top: 16px;
+    font-size: 16px ;
+    font-weight: 600 ;
+    line-height: 1.375em ;
+    color: rgb(72, 72, 72) ;
+}
+
+.help-panel__text > .exp{
+    margin-top: 16px;
+    font-size: 16px ;
+    font-weight: 400 ;
+    line-height: 1.375em ;
+    color: rgb(118, 118, 118) 
+}
+
+
+/********************기타******************/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    cursor:none;
+}
+
