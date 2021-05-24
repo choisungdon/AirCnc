@@ -2,8 +2,6 @@ package com.project.aircnc.host;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.aircnc.common.BuildTypeVO;
@@ -20,6 +18,7 @@ import com.project.aircnc.common.RoomRuleVO;
 import com.project.aircnc.common.Room_Dt_RuleVO;
 import com.project.aircnc.common.SafePlantVO;
 import com.project.aircnc.common.SpaceInfoVO;
+import com.project.aircnc.common.TUserVO;
 import com.project.aircnc.common.WorkplacePhVO;
 
 @Mapper

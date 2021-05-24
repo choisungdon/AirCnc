@@ -47,8 +47,8 @@ public class HostController {
 	// 숙소 등록중 수정 페이지 
 	@RequestMapping(value = "/duplicate", method = RequestMethod.GET)
 	public String duplicate(HostingPkVO param,HttpSession hs, Model model) {
-		
-		model.addAttribute("data", service.getDuplicate(param,hs));
+		// 호스팅 숙소 pk 정보들 세션에 저장 
+		hs.setAttribute("hostingPkVo", service.getDuplicate(hs,param.getI_host()));
 		return "/host/duplicate";
 	}
 	
@@ -72,7 +72,7 @@ public class HostController {
 		switch(param.getI_host()) {
 		// insert
 		case 0:
-			model.addAttribute("i_host",service.insHostSaveOne(param));
+			model.addAttribute("i_host",service.insHostSaveOne(param,hs));
 			break;
 		default : // update
 			int result = service.upHostSaveOne(param);
@@ -113,7 +113,7 @@ public class HostController {
 		int result = 0;
 		switch(param.getI_build()) {
 		case 0: // BuildType insert
-			result = service.insHostSaveTwo(param);
+			result = service.insHostSaveTwo(param,hs);
 			break;
 		default : // BuildType update
 			result = service.upBuildType(param);
@@ -143,12 +143,12 @@ public class HostController {
 		
 		int result = 0;
 		if(param1.getI_fct() == 0) {
-			result = service.insHostSaveThree(param1); // insert
+			result = service.insHostSaveThree(param1,hs); // insert
 		}else {
 			result = service.upFacilite(param1); //update
 		}
 		if(param2.getI_spt() == 0) {
-			result = service.insHostSaveThree1(param2); //insert
+			result = service.insHostSaveThree1(param2,hs); //insert
 		}else {
 			result = service.upSafePlant(param2); // update
 		}
@@ -172,7 +172,7 @@ public class HostController {
 		int result = 0;
 		switch(param.getI_gest()) {
 		case 0:
-			result = service.insHostSaveFour(param); //insert
+			result = service.insHostSaveFour(param,hs); //insert
 			break;
 		default :
 			result = service.upGestSpace(param); // update
@@ -212,7 +212,7 @@ public class HostController {
 		int result = 0;
 		switch(param.getI_sinfo()) {
 		case 0:
-			result = service.insHostSaveFive(param); // insert
+			result = service.insHostSaveFive(param,hs); // insert
 			break;
 		default :
 			result = service.upSpaceInfo(param); // update
@@ -255,12 +255,12 @@ public class HostController {
 		model.addAttribute("vo",service.selCheckInOut(param));
 		int restult =0;
 		if(param1.getI_rule() == 0) {
-			restult = service.insRoomRule(param1); // insert
+			restult = service.insRoomRule(param1,hs); // insert
 		}else {
 			restult = service.upRoomRule(param1); // update
 		}
 		if(param2.getI_dtr() == 0) {
-			restult = service.insRoom_Dt_Rule(param2); // insert
+			restult = service.insRoom_Dt_Rule(param2,hs); // insert
 		}else {
 			restult = service.upRoom_Dt_Rule(param2); // update
 		}
@@ -285,7 +285,7 @@ public class HostController {
 		
 		switch(param.getI_ck()) {
 		case 0 :
-			result = service.insCheckInOut(param); // insert
+			result = service.insCheckInOut(param,hs); // insert
 			break;
 		default :
 			result = service.upCheckInOut(param); // update
@@ -314,7 +314,7 @@ public class HostController {
 		
 		switch(param.getI_fee()) {
 		case 0 :
-			result = service.insRoomFee(param); // insert
+			result = service.insRoomFee(param,hs); // insert
 			break;
 		default:
 			result = service.upRoomFee(param); //update
@@ -343,7 +343,7 @@ public class HostController {
 		
 		switch(param.getI_ph()) {
 		case 0:
-			result = service.inWorkplacePh(param); //insert
+			result = service.inWorkplacePh(param,hs); //insert
 			break;
 		default:
 			result = service.upWorkplacePh(param); // update

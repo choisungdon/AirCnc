@@ -24,10 +24,10 @@
                 </p>
 				<c:choose>
 				
-					<c:when test="${data.i_host > 0}">
+					<c:when test="${hostingPkVo.i_host > 0}">
 						<div class="path" id="path01">
 						    <i class="fas fa-check fa-lg"></i>
-						    <a class="path_text" href="/host/hostSave?i_host=${data.i_host}"> 
+						    <a class="path_text" href="/host/hostSave?i_host=${hostingPkVo.i_host}"> 
 						    	1단계(등록하시려는 숙소의 유형을 선택하세요.)
 							</a>
 						</div>
@@ -46,10 +46,10 @@
 
 				<c:choose>
 
-					<c:when test="${data.i_build > 0}">
+					<c:when test="${hostingPkVo.i_build > 0}">
 						<div class="path" id="path02">
 							<i class="fas fa-check fa-lg"></i> 
-							<a class="path_text" href="/host/hostSaveOne?i_host=${data.i_host}&i_build=${data.i_build}"> 
+							<a class="path_text" href="/host/hostSaveOne?i_host=${hostingPkVo.i_host}&i_build=${hostingPkVo.i_build}"> 
 								2단계(등록하실 숙소 종류는 무엇인가요?) 
 							</a>
 						</div>
@@ -66,10 +66,10 @@
 
 				<c:choose>
 
-					<c:when test="${data.i_spt > 0 and data.i_fct > 0}">
+					<c:when test="${hostingPkVo.i_spt > 0 and hostingPkVo.i_fct > 0}">
 						<div class="path" id="path03">
 							<i class="fas fa-check fa-lg"></i> 
-							<a class="path_text" href="/host/hostSaveTwo?i_host=${data.i_host}&i_fct=${data.i_fct}&i_spt=${data.i_spt}">
+							<a class="path_text" href="/host/hostSaveTwo?i_host=${hostingPkVo.i_host}&i_fct=${hostingPkVo.i_fct}&i_spt=${hostingPkVo.i_spt}">
 								3단계(어떤 편의시설을 제공하시나요?) 
 							</a>
 						</div>
@@ -86,11 +86,11 @@
 
 				<c:choose>
 
-					<c:when test="${data.i_gest > 0}">
+					<c:when test="${hostingPkVo.i_gest > 0}">
 						<div class="path" id="path04">
 							<i class="fas fa-check fa-lg"></i> 
 							<a class="path_text"
-								href="/host/hostSaveThree?i_host=${data.i_host}&i_gest=${data.i_gest}">
+								href="/host/hostSaveThree?i_host=${hostingPkVo.i_host}&i_gest=${hostingPkVo.i_gest}">
 								4단계(게스트가 어떤 공간을 사용할 수 있나요?) </a>
 						</div>
 					</c:when>
@@ -106,10 +106,10 @@
 
 				<c:choose>
 
-					<c:when test="${data.i_sinfo > 0}">
+					<c:when test="${hostingPkVo.i_sinfo > 0}">
 						<div class="path" id="path05">
 							<i class="fas fa-check fa-lg"></i> <a class="path_text"
-								href="/host/hostSaveFour?i_host=${data.i_host}&i_sinfo=${data.i_sinfo}">
+								href="/host/hostSaveFour?i_host=${hostingPkVo.i_host}&i_sinfo=${hostingPkVo.i_sinfo}">
 								5단계(게스트에게 숙소에 대해 설명해주세요.) </a>
 						</div>
 					</c:when>
@@ -125,10 +125,10 @@
 
 				<c:choose>
 
-					<c:when test="${data.i_rule > 0 or data.i_dtr > 0}">
+					<c:when test="${hostingPkVo.i_rule > 0 or hostingPkVo.i_dtr > 0}">
 						<div class="path" id="path06">
 							<i class="fas fa-check fa-lg"></i> <a class="path_text"
-								href="/host/hostSaveFive?i_host=${data.i_host}&i_rule=${data.i_rule}&i_dtr=${data.i_dtr}">
+								href="/host/hostSaveFive?i_host=${hostingPkVo.i_host}&i_rule=${hostingPkVo.i_rule}&i_dtr=${hostingPkVo.i_dtr}">
 								6단계(게스트가 지켜야 할 숙소 이용규칙을 정하세요.) </a>
 						</div>
 					</c:when>
@@ -144,12 +144,11 @@
 
 				<c:choose>
 
-					<c:when test="${data.i_ck > 0}">
-						<div class="null_path" id="path07">
-							<i></i>
-							<div class="path_text"
-								href="/host/hostSaveSix?i_host=${data.i_host}&i_ck=${data.i_ck}">
-								7단계(체크인 가능 시간을 선택해 주세요.)</div>
+					<c:when test="${hostingPkVo.i_ck > 0}">
+						<div class="path" id="path07">
+							<i class="fas fa-check fa-lg"></i> <a class="path_text"
+								href="/host/hostSaveSix?i_host=${hostingPkVo.i_host}&i_ck=${hostingPkVo.i_ck}">
+								7단계(체크인 가능 시간을 선택해 주세요.) </a>
 						</div>
 					</c:when>
 
@@ -165,10 +164,10 @@
 				
 				<c:choose>
 
-					<c:when test="${data.i_fee > 0}">
+					<c:when test="${hostingPkVo.i_fee > 0}">
 						<div class="path" id="path08">
                     <i class="fas fa-check fa-lg"></i>
-                     <a class="path_text" href="/host/hostSaveSeven?i_host=${data.i_host}&i_fee=${data.i_fee}"> 
+                     <a class="path_text" href="/host/hostSaveSeven?i_host=${hostingPkVo.i_host}&i_fee=${hostingPkVo.i_fee}"> 
                         8단계(숙소 요금을 지정해주세요.)
                     </a>
                 </div>
@@ -185,10 +184,10 @@
 
 				<c:choose>
 
-					<c:when test="${data.i_ph > 0}">
+					<c:when test="${hostingPkVo.i_ph > 0}">
 						<div class="path" id="path09">
 							<i class="fas fa-check fa-lg"></i> <a class="path_text"
-								href="/host/hostSaveEight?i_host=${data.i_host}&i_ph=${data.i_ph}">
+								href="/host/hostSaveEight?i_host=${hostingPkVo.i_host}&i_ph=${hostingPkVo.i_ph}">
 								9단계(숙소 연락처를 지정하세요.) </a>
 						</div>
 					</c:when>
@@ -204,10 +203,10 @@
 
 				<c:choose>
 
-					<c:when test="${data.i_host > 0}">
+					<c:when test="${hostingPkVo.i_host > 0}">
 						<div class="path" id="path10">
 							<i class="fas fa-check fa-lg"></i> <a class="path_text"
-								href="/host/hostSaveNine?i_host=${data.i_host}"> 10단계(숙소 사진을
+								href="/host/hostSaveNine?i_host=${hostingPkVo.i_host}"> 10단계(숙소 사진을
 								지정하세요.) </a>
 						</div>
 					</c:when>

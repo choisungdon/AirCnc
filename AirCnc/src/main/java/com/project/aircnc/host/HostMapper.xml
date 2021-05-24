@@ -133,7 +133,10 @@
 	</select>
 	
 	<select id="selFacilite" parameterType="FaciliteVO" resultType="FaciliteVO">
-		SELECT *
+		SELECT I_FCT,I_HOST,I_USER,SAMPOO,HITER
+				,IN_HITER,WIFI,BREAKFAST,HANGER,IRON
+				,HIAR_DRY,PLACE_LATTOP,TV,BABY_BAD,BABY_CHAIRS,SELF_CHECKIN
+				,SELF_BTH_ROOM,PIANO,door,R_DT,M_DT,REQUIER,AIRCON
 		FROM facilite
 		WHERE I_HOST = #{i_host}
 		<if test="i_fct != 0">
@@ -142,7 +145,8 @@
 	</select>
 	
 	<select id="selSafePlant" parameterType="SafePlantVO" resultType="SafePlantVO">
-		SELECT *
+		SELECT	I_SPT,I_HOST,I_USER,FIRE_EMBLE,Carbon_ALARM
+				,MADIC_KIT,FIRE_EXTING,BAD_LOCK,R_DT,M_DT
 		FROM safe_plant
 		WHERE I_HOST = #{i_host}
 		<if test="i_spt != 0">
@@ -151,7 +155,9 @@
 	</select>
 	
 	<select id="selGestSpace" parameterType="GestSpaceVO" resultType="GestSpaceVO">
-		SELECT *
+		SELECT i_gest,I_HOST,I_USER,LIVIROOM,cooking
+				,WACHING,DRYING,PAKING,GYM,SWIM_POOL,JACUZZI
+				,R_DT,M_DT
 		FROM gest_space
 		WHERE I_HOST = #{i_host}
 		<if test="i_gest != 0">
@@ -160,7 +166,8 @@
 	</select>
 	
 	<select id="selSpaceInfo" parameterType="SpaceInfoVO" resultType="SpaceInfoVO">
-		SELECT *
+		SELECT 	I_SINFO,I_HOST,I_USER,EXPA,Room_info
+				,loca_info,TRAF_INFO,R_DT,M_DT	
 		FROM space_info
 		WHERE I_HOST = #{i_host}
 		<if test="i_sinfo != 0">
@@ -169,7 +176,8 @@
 	</select>
 	
 	<select id="selDTLRule" parameterType="DTLRuleVO" resultType="DTLRuleVO">
-		SELECT *
+		SELECT I_DRULE,I_HOST,I_USER,RULE
+		,R_DT,M_DT
 		FROM  DTL_RULE
 		WHERE I_HOST = #{i_host}
 		<if test="i_drule != 0">
@@ -178,7 +186,7 @@
 	</select>
 	
 	<select id="selRoomRule" parameterType="RoomRuleVO" resultType="RoomRuleVO">
-		SELECT *
+		SELECT i_RULE,I_HOST,I_USER,child_ok,y_ch_ok,SMOKING,PARTY,R_DT,M_DT,animal_ok
 		FROM  room_rule
 		WHERE I_HOST = #{i_host}
 		<if test="i_rule != 0">
@@ -187,7 +195,7 @@
 	</select>
 	
 	<select id="selRoom_Dt_Rule" parameterType="Room_Dt_RuleVO" resultType="Room_Dt_RuleVO">
-		SELECT *
+		SELECT I_DTR,I_HOST,I_USER,stairs,NOISE,ANIMAL,IN_PKING,PUBLIC_SPACE,PLANT,CCTV,WEAPON,DENGER_DOG,R_DT,M_DT
 		FROM  room_dt_rule
 		WHERE I_HOST = #{i_host}
 		<if test="i_dtr != 0">
@@ -196,7 +204,7 @@
 	</select>
 	
 	<select id="selCheckInOut" parameterType="CheckInOutVO" resultType="CheckInOutVO">
-		SELECT *
+		SELECT I_CK,I_HOST,I_USER,CHECKIN_T,FINICH_T,Ieast_DAY,max_DAY,reser_DATE,reser_END_T,R_DT,M_DT
 		FROM  check_inout
 		WHERE I_HOST = #{i_host}
 		<if test="i_ck != 0">
@@ -205,7 +213,7 @@
 	</select>
 	
 	<select id="selRoomFee" parameterType="RoomFeeVO" resultType="RoomFeeVO">
-		SELECT *
+		SELECT I_FEE,I_HOST,I_USER,FEE,Sale,W_SALE,M_SALE,R_DT,M_DT
 		FROM  room_fee
 		WHERE I_HOST = #{i_host}
 		<if test="i_fee != 0">
@@ -214,7 +222,7 @@
 	</select>
 	
 	<select id="selWorkplacePh" parameterType="WorkplacePhVO" resultType="WorkplacePhVO">
-		SELECT *
+		SELECT i_ph,I_HOST,I_USER,WP_PH,GEST_OK,R_DT,M_DT
 		FROM  workplace_ph
 		WHERE I_HOST = #{i_host}
 		<if test="i_ph != 0">
@@ -223,7 +231,7 @@
 	</select>
 	
 	<select id="selRoomIMG" parameterType="RoomIMGVO" resultType="RoomIMGVO">
-		SELECT *
+		SELECT I_IMG,I_HOST,I_USER,IMG_URL,R_DT,M_DT
 		FROM  rooms_img
 		WHERE I_HOST = #{i_host}
 		<if test="i_img != 0">
