@@ -197,6 +197,7 @@ public class HostController {
 	//등록 5단계 - > 6단계
 	@RequestMapping(value = "/hostSaveFive", method = RequestMethod.POST)
 	public String saveFive (SpaceInfoVO param,HttpSession hs, Model model) {
+		// 6단계 에서 출력 되야할 정보 
 		DTLRuleVO param1 		= new DTLRuleVO();
 		RoomRuleVO param2		= new RoomRuleVO();
 		Room_Dt_RuleVO param3	= new Room_Dt_RuleVO();
@@ -207,8 +208,9 @@ public class HostController {
 		model.addAttribute("vo1",service.selDTLRule(param1));
 		model.addAttribute("vo2",service.selRoomRule(param2));
 		model.addAttribute("vo3",service.selRoom_Dt_Rule(param3));
+		/////////////////////////////////////
 		
-		
+		// 5 단계 숙소 정보 저장 
 		int result = 0;
 		switch(param.getI_sinfo()) {
 		case 0:

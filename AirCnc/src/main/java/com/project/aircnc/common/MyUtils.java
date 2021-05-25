@@ -42,6 +42,21 @@ public class MyUtils {
 	// text 문자열 줄바꿈 변환  <br> -> \n 
 	public static String setStrFilter(String str) {
 		String returnStr = str.replaceAll("<br>", "\n");
+		
+		returnStr = returnStr.replaceAll("&gt;", ">");
+
+		returnStr = returnStr.replaceAll("&lt;", "<");
+
+		returnStr = returnStr.replaceAll("&quot;", "\"");
+
+		returnStr = returnStr.replaceAll("&nbsp;", " ");
+
+		returnStr = returnStr.replaceAll("&amp;", "&");
+
+		returnStr = returnStr.replaceAll("&#34;", "\"");
+
+
+		
 				
 		return returnStr;
 	}

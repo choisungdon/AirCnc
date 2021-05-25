@@ -106,7 +106,17 @@ public class HostService {
 	}
 
 	public SpaceInfoVO selSpaceInfo(SpaceInfoVO param) {
-		return mapper.selSpaceInfo(param);
+		
+		// 숙소 정보 출력 
+		SpaceInfoVO resulParam =  mapper.selSpaceInfo(param);
+		
+		// 특수 문자 치환  text 문자열 줄바꿈 변환  <br> -> \n 
+		resulParam.setExpa(MyUtils.setStrFilter(resulParam.getExpa()));
+		resulParam.setLoca_info(MyUtils.setStrFilter(resulParam.getLoca_info()));
+		resulParam.setRoom_info(MyUtils.setStrFilter(resulParam.getRoom_info()));
+		resulParam.setTraf_info(MyUtils.setStrFilter(resulParam.getTraf_info()));
+		
+		return resulParam;
 	}
 
 	public List<DTLRuleVO> selDTLRule(DTLRuleVO param) {
@@ -186,6 +196,7 @@ public class HostService {
 		// 숙소 정보 등록 성공시 숙소 정보 pk들 세션에 갱신
 		HostingPkVO hostingPkVo = getDuplicate(hs,param.getI_host());
 		hs.setAttribute("hostingPkVo", hostingPkVo);
+		/////////////////////////////////////////////
 		return mapper.insHostSaveFour(param);
 	}
 
