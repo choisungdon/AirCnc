@@ -110,12 +110,6 @@ public class HostService {
 		// 숙소 정보 출력 
 		SpaceInfoVO resulParam =  mapper.selSpaceInfo(param);
 		
-		// 특수 문자 치환  text 문자열 줄바꿈 변환  <br> -> \n 
-		resulParam.setExpa(MyUtils.setStrFilter(resulParam.getExpa()));
-		resulParam.setLoca_info(MyUtils.setStrFilter(resulParam.getLoca_info()));
-		resulParam.setRoom_info(MyUtils.setStrFilter(resulParam.getRoom_info()));
-		resulParam.setTraf_info(MyUtils.setStrFilter(resulParam.getTraf_info()));
-		
 		return resulParam;
 	}
 
@@ -202,12 +196,6 @@ public class HostService {
 
 	public int insHostSaveFive(SpaceInfoVO param, HttpSession hs) {
 
-		// 문자열 치환
-		param.setExpa(MyUtils.getSTRFilter(param.getExpa()));
-		param.setLoca_info(MyUtils.getSTRFilter(param.getLoca_info()));
-		param.setRoom_info(MyUtils.getSTRFilter(param.getRoom_info()));
-		param.setTraf_info(MyUtils.getSTRFilter(param.getTraf_info()));
-
 		// 숙소 정보 등록 성공시 숙소 정보 pk들 세션에 갱신
 		HostingPkVO hostingPkVo = getDuplicate(hs,param.getI_host());
 		hs.setAttribute("hostingPkVo", hostingPkVo);
@@ -273,12 +261,7 @@ public class HostService {
 	}
 
 	public int upSpaceInfo(SpaceInfoVO param) {
-		// 문자열 치환
-		param.setExpa(MyUtils.getSTRFilter(param.getExpa()));
-		param.setLoca_info(MyUtils.getSTRFilter(param.getLoca_info()));
-		param.setRoom_info(MyUtils.getSTRFilter(param.getRoom_info()));
-		param.setTraf_info(MyUtils.getSTRFilter(param.getTraf_info()));
-
+		
 		return mapper.upSpaceInfo(param);
 	}
 
@@ -333,6 +316,7 @@ public class HostService {
 		// db 저장
 		mapper.insDtlRule(param);
 		// 저장한 값
+		
 		return mapper.lastDtlRule(param);
 	}
 

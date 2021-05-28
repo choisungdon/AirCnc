@@ -537,21 +537,21 @@
 	
 	<!-- 추가 규칙 -->
 	<select id="lastDtlRule" parameterType ="DTLRuleVO" resultType="DTLRuleVO">
-		SELECT *
-		FROM  dtl_rule a
-		INNER JOIN (
-		SELECT MAX(I_DRULE) AS I_DRULE
-		FROM dtl_rule
-		WHERE i_host = #{i_host}
-		AND i_user = #{i_user}
-		) b 
-		ON a.I_DRULE = b.I_DRULE
+		SELECT i_drule, i_host, i_user, rule,
+		r_dt, m_dt
+		FROM  dtl_rule
+		WHERE  i_drule = #{i_drule}
 	</select>
 	
 	<insert id="insDtlRule" parameterType="DTLRuleVO">
 		INSERT INTO DTL_RULE
 		(i_host, i_user, RULE)
 		VALUES(#{i_host}, #{i_user}, #{rule})
+		
+		<selectKey resultType="integer" keyProperty="i_drule" order="AFTER" >
+			SELECT LAST_INSERT_ID()
+		</selectKey> 
+		
 	</insert>
 	
 	<delete id="delDtlRule" parameterType="DTLRuleVO">

@@ -40,7 +40,7 @@ public class TripService {
 	// 후기 작성 비동기(수정,삽입 )
 	public int goReview(HostReviewVO param, HttpSession hs) {
 		// 후기 text 문자열 줄바꿈 변환 , 유저 pk 받기 
-		param.setContents(MyUtils.getSTRFilter(param.getContents()));
+		param.setContents(MyUtils.setStrFilter(param.getContents()));
 		param.setI_user(MyUtils.getSesstion(hs));
 		
 		int result = mapper.comfirmReview(param);

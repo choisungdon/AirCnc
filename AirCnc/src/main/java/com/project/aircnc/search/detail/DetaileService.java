@@ -31,6 +31,11 @@ public class DetaileService {
 		
 		SearchDetaileVO dbVO= mapper.selDetaile(param); // DB 데이터 가져오기 
 		
+		dbVO.setExpa(MyUtils.setStrFilter(dbVO.getExpa()));
+		dbVO.setLoca_info(MyUtils.setStrFilter(dbVO.getLoca_info()));
+		dbVO.setRoom_info(MyUtils.setStrFilter(dbVO.getRoom_info()));
+		dbVO.setTraf_info(MyUtils.setStrFilter(dbVO.getTraf_info()));
+		
 		// host 유저 profile(이미지) 경로 수정 
 		String profileImg = dbVO.getPro_img();
 		
@@ -42,7 +47,7 @@ public class DetaileService {
 		dbVO.setMy_profile(profileImg);
 		//
 		
-		// room IMG 경로 수정,HostReviewVO cmt_user_poto 수정 및 추가 규칙,HostReviewVO(후기) select
+		// room IMG 경로 수정,HostReviewVO cmt_user_poto 수정 및 추가 규칙,HostReviewVO(후기) select 및 저장 
 		dbVO.setRoomImgList(mapper.selRoomImg(param));
 		dbVO.setDtlRuleList(mapper.selDtRule(param));
 		dbVO.setHostReviewList(mapper.selHostReview(param));

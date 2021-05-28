@@ -58,8 +58,6 @@ public class ReservationService {
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		param.setI_user(loginUser.getI_user());
 		
-		param.setCmt(MyUtils.getSTRFilter(param.getCmt()));// text 변환 
-		
 		int result = 0;
 		result = mapper.inserRSV(param);
 		

@@ -32,34 +32,15 @@ public class MyUtils {
 		return BCrypt.hashpw(pw, salt);
 	}
 	// text 문자열 줄바꿈 변환  \n -> <br>
-	public static String getSTRFilter(String str) {
+	public static String setStrFilter(String str) {
 		
-		String returnStr = str.replaceAll("\n", "<br>");
-				
+		String	returnStr =str.replaceAll("\n", "<br>");
+				returnStr =returnStr.replaceAll(" ", "&nbsp;");
+		
 		return returnStr;
 	}
 	
-	// text 문자열 줄바꿈 변환  <br> -> \n 
-	public static String setStrFilter(String str) {
-		String returnStr = str.replaceAll("<br>", "\n");
-		
-		returnStr = returnStr.replaceAll("&gt;", ">");
-
-		returnStr = returnStr.replaceAll("&lt;", "<");
-
-		returnStr = returnStr.replaceAll("&quot;", "\"");
-
-		returnStr = returnStr.replaceAll("&nbsp;", " ");
-
-		returnStr = returnStr.replaceAll("&amp;", "&");
-
-		returnStr = returnStr.replaceAll("&#34;", "\"");
-
-
-		
-				
-		return returnStr;
-	}
+	
 	
 	// 로그인 유저 i_user 가져오기 
 	public static int getSesstion(HttpSession hs) {
