@@ -1,0 +1,483 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width:100%; 
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+
+/****************************header**********************************/
+header{
+    flex-grow: 0.49;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.log_img > .logo{
+    text-decoration: none;
+    color: black;
+}
+
+header > .log_img > span{
+    padding-left: 19px;
+    padding-right: 19px;
+    font-size: 18px ;
+    font-weight: 400 ;
+    line-height: 1.44444em ;
+    color: rgb(72, 72, 72) ;
+}
+
+header > .his_back{
+    text-decoration: none;
+    color : rgb(0, 132, 137);
+}
+/***************ctnt_step***************/
+.ctnt_step{
+    flex-grow: 0.01;
+    display: flex;
+    flex-direction: row;
+}
+
+.ctnt_step > .step01{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color: rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step02{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step03{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step04{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step05{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step06{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step07{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step08{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step09{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+
+.ctnt_step > .step10{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+/******************container*******************/
+.container{
+    flex-grow: 9.5;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container > .ctnt_host{
+    flex-grow: 1;
+    padding-left: 258px;
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.host_title{
+    border-bottom: 0px ;
+    padding-top: 32px ;
+    padding-bottom: 24px ;
+}
+
+.title_text{
+    margin: 0px ;
+    overflow-wrap: break-word ;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
+    font-size: 24px ;
+    font-weight: 800 ;
+    line-height: 1.25em ;
+    color: rgb(72, 72, 72) ;
+    padding-top: 2px ;
+    padding-bottom: 2px ;
+}
+
+.text_arr{
+    margin-top: 20px;
+    margin: 0px ;
+    word-wrap: break-word ;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif ;
+    font-size: 16px ;
+    font-weight: 400 ;
+    line-height: 1.375em ;
+    color: #484848 ;
+}
+
+.title07{
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px ;
+    font-weight: 600 ;
+    line-height: 1.375em ;
+    color: rgb(72, 72, 72) ;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    
+}
+ /* 체크인 가능 시간을 선택해주세요. */
+.title_sub01{
+    line-height: 1.43;
+    color: #484848;
+    font-size: 19px ;
+}
+/* 숙소 정보 메인 태그  */
+.ctnt_main{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* cntnt_main 경계선 */
+
+.border_line{
+    flex-grow: 1;
+    margin-top: 36px;
+    margin-bottom: 36px;
+}
+
+.border_line > .border_light{
+    flex-grow: 1;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: 0;
+    border-top: 1px solid #dce0e0;
+}
+
+/* 체크인 시간 태크  */
+
+.time_input_main{
+    display: flex;
+    flex-direction: row;
+}
+
+.start{
+    margin-bottom: 12px;
+    padding-right: 12px;
+}
+
+.stop{
+    margin-bottom: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.start_title{
+    font-size: 16px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    color: #767676;
+}
+
+.stop_title{
+    font-size: 16px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+    color: #767676;
+}
+/* 최소 최대 숙소 일수  */
+
+.ieast_items{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    margin-top: 12px;
+    border-radius: 5px;
+    border: 1px solid rgb(216, 214, 214); /**/
+    font-size: 19px;
+    width: 50%;
+    height: 44px;
+}
+
+input[id="ieast_day"]{
+border: none;
+font-size: 19px;
+padding-left: 10px;
+}
+
+input[id="ieast_day"]:focus{
+    outline: none;
+}
+    
+
+input[id="max_day"]{
+    border: none;
+    font-size: 19px;
+    padding-left: 10px;
+    flex-grow: 0.1;
+}
+
+input[id="max_day"]:focus{
+    outline: none;
+}
+
+
+.date_sub_text{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    color: #767676;
+}
+
+.up_count{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left: 1px solid rgb(216, 214, 214);
+    cursor: pointer;
+}
+
+.down_count{
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-left: 1px solid rgb(216, 214, 214);
+    cursor: pointer;
+}
+
+.max_itmes{
+    margin-top: 12px;
+    border-radius: 5px;
+    border: 1px solid rgb(216, 214, 214);
+    font-size: 19px;
+    width: 50%;
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+}
+
+.erro_ctnt{
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 50%;
+    height: auto;
+    background-color: rgb(255, 209, 196) ;
+    border-color: rgb(255, 209, 196) ;
+    border-bottom-left-radius: 2px ;
+    border-bottom-right-radius: 2px ;
+    border-radius: 5px;
+    font-size: 18px ;
+    font-weight: 400 ;
+    line-height: 1.44444em ;
+    color: rgb(72, 72, 72) ;
+
+}
+
+.fa-exclamation-triangle{
+    margin-right: 50px;
+}
+
+
+/* 예약 가능 마감 날짜  */
+
+#reser_end_t{
+    outline: none;
+    height: 56px ;
+    width: 100% ;
+    margin: 0px ;
+    background-color: transparent ;
+    border: 1px solid rgb(216, 214, 214); /**/
+    color: inherit ;
+    font-family: inherit ;
+    font-size: inherit ;
+    font-weight: inherit ;
+    line-height: inherit ;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+
+#reser_date{
+    outline: none;
+    height: 56px ;
+    width: 100% ;
+    margin: 0px ;
+    background-color: transparent ;
+    border: 1px solid rgb(216, 214, 214); /**/
+    color: inherit ;
+    font-family: inherit ;
+    font-size: inherit ;
+    font-weight: inherit ;
+    line-height: inherit ;
+    border-radius: 5px;
+    padding-left: 20px;
+}
+
+
+
+/* 뒤로 가기 다음 버튼  */
+
+.nepre_tag{
+    position: sticky;
+    z-index: 109 ;
+    left: 0px ;
+    bottom: 0px ;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    
+    max-height: 50px;
+    padding-top: 20px;
+    padding-left: 20px;
+    border-top:  solid 1px rgb(216, 214, 214) ;
+    background-color: white;
+    z-index: 1000;
+    clear:both;
+    margin-top: 15px;
+}
+
+.nepre_tag > .previous{
+    color: #008489;
+    cursor: pointer;
+}
+
+.nepre_tag > .next{
+    border-radius:  4px ;
+    font-size:  16px;
+    padding-top:  10px;
+    padding-bottom:10px;
+    font-weight:  800;
+    border-width: 2px;
+    padding-left:  22px;
+    padding-right:  22px;
+    background-color:  #008489;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+
+
+.container > .ctnt_exp{
+    background-color: rgb(250, 250, 250) ;
+    flex-grow: 1;
+    padding-right: 258px;
+    padding-top: 70px;
+}
+
+.ctnt_exp > .exp_main{
+    margin: 60px 30px 0px ;
+    border: 1px solid rgb(220, 224, 224) ;
+    border-radius: 4px ;
+    background-color: rgb(255, 255, 255) ;
+    max-width: 254px;
+}
+
+.exp_main > .exp_ctnt{
+    position: relative ;
+    padding: 26px ;
+}
+
+
+._1p3joamp { 
+    margin-top: 16px;
+    font-size: 16px ;
+    font-weight: 600 ;
+    line-height: 1.375em ;
+    color: rgb(72, 72, 72) ;
+}
+
+.help-panel__text > .exp{
+    margin-top: 16px;
+    font-size: 16px ;
+    font-weight: 400 ;
+    line-height: 1.375em ;
+    color: rgb(118, 118, 118) 
+}
+
+
+/********************기타******************/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    cursor:none;
+}
+
+
+.fa-times{
+    color: rgb(192, 196, 197);
+    cursor: pointer;
+}
+
+select{
+    height: 56px ;
+    width: 100% ;
+    margin: 0px ;
+    padding: 10px 36px 10px 12px ;
+    background-color: transparent ;
+    color: inherit ;
+    font-family: inherit ;
+    font-size: inherit ;
+    font-weight: inherit ;
+    line-height: inherit ;
+    border-radius: 5px;
+}
