@@ -41,7 +41,11 @@ public class RoomFeeVO {
 		this.fee = fee;
 	}
 	public String getSale() {
-		return sale;
+		if(this.sale == null) {
+			return "x";
+		}else {
+			return sale;
+		}
 	}
 	public void setSale(String sale) {
 		this.sale = sale;

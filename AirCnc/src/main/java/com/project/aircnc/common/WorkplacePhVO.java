@@ -37,7 +37,11 @@ public class WorkplacePhVO {
 		this.wp_ph = wp_ph;
 	}
 	public String getGest_ok() {
-		return gest_ok;
+		if(this.gest_ok == null) {
+			return "x";
+		}else {
+			return gest_ok;
+		}
 	}
 	public void setGest_ok(String gest_ok) {
 		this.gest_ok = gest_ok;

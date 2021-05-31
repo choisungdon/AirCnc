@@ -338,7 +338,7 @@ public class HostController {
 	@RequestMapping(value = "/hostSaveNine", method = RequestMethod.POST)
 	public String saveNine (WorkplacePhVO param, HttpSession hs, Model model) {
 		int result = 0;
-		
+//		System.out.println("test : " +param.getGest_ok());
 		RoomIMGVO param1 = new RoomIMGVO();
 		param1.setI_host(param.getI_host());
 		model.addAttribute("vo",service.selRoomIMG(param1,hs));

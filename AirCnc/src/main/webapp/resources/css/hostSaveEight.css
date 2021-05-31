@@ -1,0 +1,425 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width:100%; 
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+
+/****************************header**********************************/
+header{
+    flex-grow: 0.49;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.log_img > .logo{
+    text-decoration: none;
+    color: black;
+}
+
+header > .log_img > span{
+    padding-left: 19px;
+    padding-right: 19px;
+    font-size: 18px ;
+    font-weight: 400 ;
+    line-height: 1.44444em ;
+    color: rgb(72, 72, 72) ;
+}
+
+header > .his_back{
+    text-decoration: none;
+    color : rgb(0, 132, 137);
+}
+/***************ctnt_step***************/
+.ctnt_step{
+    flex-grow: 0.01;
+    display: flex;
+    flex-direction: row;
+}
+
+.ctnt_step > .step01{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color: rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step02{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137)  ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step03{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137)  ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step04{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step05{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137)  ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step06{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137)  ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step07{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step08{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+.ctnt_step > .step09{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(0, 132, 137) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+
+.ctnt_step > .step10{
+    border-right: 0.3px solid rgb(220, 224, 224) ;
+    height: 10px ;
+    background-color:  rgb(220, 224, 224) ;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px ;
+    flex-grow: 1;
+}
+/******************container*******************/
+.container{
+    flex-grow: 9.5;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.container > .ctnt_host{
+    padding-left: 500px;
+    padding-top: 70px;
+    display: flex;
+    flex-direction: column;
+    
+    flex-grow: 1;
+}
+
+.host_ctnt_main{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-grow: 1;
+}
+
+.host_title{
+    border-bottom: 0px ;
+    padding-top: 32px ;
+    padding-bottom: 24px ;
+}
+
+.title_text{
+    margin: 0px ;
+    overflow-wrap: break-word ;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
+    font-size: 24px ;
+    font-weight: 800 ;
+    line-height: 1.25em ;
+    color: rgb(72, 72, 72) ;
+    padding-top: 2px ;
+    padding-bottom: 2px ;
+}
+
+.title_texts{
+    overflow-wrap: break-word ;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
+    font-size: 16px ;
+    font-weight: 400 ;
+    line-height: 1.375em ;
+    color: rgb(72, 72, 72) ;
+}
+
+.host_titile{
+    padding-top: 32px ;
+    padding-bottom: 24px ;
+}
+
+/* 요금 박스 */
+.fee_ctnt{
+    border: 1px solid rgb(216, 214, 214);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    height: 56px ;
+    width: 70% ;
+}
+
+
+
+.fee_ctnt > #wp_ph{
+    flex-grow: 1;
+    outline: none ;
+    color: var(--font-form-element-color, #484848) ;
+    padding-top: var(--spacing-form-element-vertical, 11px) ;
+    padding-bottom: var(--spacing-form-element-vertical, 11px) ;
+    font-weight: var(--font-light-font-weight, normal) ;
+    background-color: var(--color-clear, transparent) ;
+    padding-left: var(--spacing-form-element-horizontal, 11px) ;
+    padding-right: var(--spacing-form-element-horizontal, 11px);
+    width: 100%;
+    height: auto;
+    border: none;
+    padding: 11px;
+    font-size: inherit ;
+    font-weight: inherit ;
+    line-height: inherit ;
+}
+/* 에러 메시지 */
+.feeError{
+    display: none;
+    padding-top: 8px;
+    color: rgb(193, 53, 21) ;
+    font-size: 12px ;
+    line-height: 16px ;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
+    font-weight: 400 ;
+}
+
+/* 제안 요금 */
+.fee_sugg{
+    outline: none;
+    background-color: unset;
+    border: none;
+    color: #00a699;
+    background: transparent;
+    font-family: inherit;
+    font-size: 100%;
+    cursor: pointer;
+}
+
+.fee_sugg:hover{
+    text-decoration: underline;
+}
+
+/* 주단위 할인률 */
+
+.sale_ctnt{
+    border: 1px solid rgb(216, 214, 214);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    height: 56px ;
+    width: 70% ;
+}
+
+.sale_ctnt > .fee_text{
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    font-size: inherit ;
+    font-weight: inherit ;
+    line-height: inherit ;
+}
+
+.sale_ctnt > #w_sale{
+    outline: none ;
+    color: var(--font-form-element-color, #484848) ;
+    padding-top: var(--spacing-form-element-vertical, 11px) ;
+    padding-bottom: var(--spacing-form-element-vertical, 11px) ;
+    font-weight: var(--font-light-font-weight, normal) ;
+    background-color: var(--color-clear, transparent) ;
+    padding-left: var(--spacing-form-element-horizontal, 11px) ;
+    padding-right: var(--spacing-form-element-horizontal, 11px);
+    width: 8%;
+    height: auto;
+    border: none;
+    padding: 11px;
+    font-size: inherit ;
+    font-weight: inherit ;
+    line-height: inherit ;
+}
+
+.sale_ctnt > #m_sale{
+    outline: none ;
+    color: var(--font-form-element-color, #484848) ;
+    padding-top: var(--spacing-form-element-vertical, 11px) ;
+    padding-bottom: var(--spacing-form-element-vertical, 11px) ;
+    font-weight: var(--font-light-font-weight, normal) ;
+    background-color: var(--color-clear, transparent) ;
+    padding-left: var(--spacing-form-element-horizontal, 11px) ;
+    padding-right: var(--spacing-form-element-horizontal, 11px);
+    width: 8%;
+    height: auto;
+    border: none;
+    padding: 11px;
+    font-size: inherit ;
+    font-weight: inherit ;
+    line-height: inherit ;
+}
+
+/* 할인 여부 체크박스 */
+
+
+/*********체크박스 css*****************************/
+.checkBoxMain{
+    display: flex;
+    flex-direction: row;
+    cursor: pointer;
+    padding-top: 20px;
+    padding-bottom: 9px;
+}
+
+input[type="checkbox"] {
+    visibility: hidden;
+}
+
+label {
+    margin-left: 16px;
+}
+
+.checkBoxRemark2{
+    color: rgb(113, 113, 113) ;
+    margin-top: 4px ;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
+    font-size: 14px ;
+    line-height: 18px ;
+}
+
+
+
+.title01,.title02,.title03,.title06,.title07{
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    font-size: 16px ;
+    font-weight: 600 ;
+    line-height: 1.375em ;
+    color: rgb(72, 72, 72) ;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.title04,.title05{
+    color: #767676;
+    font-size: 20px;
+    padding-top: 9px;
+    padding-bottom: 8px;
+}
+
+
+
+
+.nepre_tag{
+    position: sticky;
+    z-index: 109 ;
+    left: 0px ;
+    bottom: 0px ;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    max-height: 50px;
+    padding-top: 20px;
+    
+    margin-right: 20px;
+    border-top:  solid 1px rgb(216, 214, 214) ;
+    background-color: white;
+    z-index: 1000;
+    clear:both;
+    margin-top: 15px;
+}
+
+.nepre_tag > .previous{
+    color: #008489;
+    cursor: pointer;
+}
+
+.nepre_tag > .next{
+    border-radius:  4px ;
+    font-size:  16px;
+    padding-top:  10px;
+    padding-bottom:10px;
+    font-weight:  800;
+    border-width: 2px;
+    padding-left:  22px;
+    padding-right:  22px;
+    background-color:  #008489;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+
+
+.container > .ctnt_exp{
+    background-color: rgb(250, 250, 250) ;
+    flex-grow: 1;
+    padding-right: 258px;
+    padding-top: 70px;
+}
+
+.ctnt_exp > .exp_main{
+    margin: 60px 30px 0px ;
+    border: 1px solid rgb(220, 224, 224) ;
+    border-radius: 4px ;
+    background-color: rgb(255, 255, 255) ;
+    max-width: 254px;
+}
+
+.exp_main > .exp_ctnt{
+    position: relative ;
+    padding: 26px ;
+}
+
+
+._1p3joamp { 
+    margin-top: 16px;
+    font-size: 16px ;
+    font-weight: 600 ;
+    line-height: 1.375em ;
+    color: rgb(72, 72, 72) ;
+}
+
+.help-panel__text > .exp{
+    margin-top: 16px;
+    font-size: 16px ;
+    font-weight: 400 ;
+    line-height: 1.375em ;
+    color: rgb(118, 118, 118) 
+}
+
+
+/********************기타******************/
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    cursor:none;
+}
+
