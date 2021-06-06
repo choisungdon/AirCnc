@@ -1,5 +1,7 @@
 package com.project.aircnc.user;
 
+import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -71,6 +75,24 @@ public class UserService {
 		}
 		
 		return result;
+	}
+		
+	// 카카카오 로그인 
+	public int  kakaoLogin(String code,HttpSession hs) {
+		int data = 0;
+			System.out.println("code : " + code); // 인증코드 
+			
+			// ----------------- 사용자 토큰 받기 -----------------[start]
+			HttpHeaders headers = new HttpHeaders();
+			
+			Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기 
+			//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
+			MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
+			headers.setAccept(Arrays.asList(mediaType));
+			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);	
+			
+			
+		return data;
 	}
 	
 	

@@ -1,8 +1,11 @@
 package com.project.aircnc.user;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.aircnc.common.HostReviewVO;
+import com.project.aircnc.common.KakaoConstVO;
 import com.project.aircnc.common.ProfitReviewVO;
 import com.project.aircnc.common.TUserVO;
 
@@ -34,7 +38,7 @@ public class UserController {
 		return map;
 	}
 	
-    
+	
     @PostMapping("/join")
 	public @ResponseBody Map<String, Object> join (@RequestBody TUserVO param,
 			Model model, HttpSession hs) 
@@ -43,6 +47,64 @@ public class UserController {
 		map.put("result", service.join(param));
 		return map;
 	}
+    
+    // 카카오 로그인 인증 코드 받기(요청) 
+ 	@RequestMapping(value = "/loginKAKAO", method = RequestMethod.GET)
+ 	public String loginKAKAO() {
+ 		String uri = String.format(
+ 				"redirect:https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=%s&redirect_uri=%s&scope=%s", // 카카오 서버에 요청후 인증 코드와 함께 (개발자가 설정한)redirect Url()로 다시 요청
+ 				KakaoConstVO.KAKAO_CLIENT_ID, KakaoConstVO.KAKAO_AUTH_REDIRECT_URI,KakaoConstVO.KAKAO_REQUIRED_SCOPES);
+ 		/*
+ 		  KAKAO_CLIENT_ID 			: API application key값 
+ 		  KAKAO_AUTH_REDIRECT_URI	: 인증코드 받기 (응답) url(http://aircnc.co.kr:8090/joinKakao)
+ 		  KAKAO_REQUIRED_SCOPES		: 개인정보 동의 종류 (프로필, 카카오계정(이메일), 성별 , 연령대, 생일)
+ 		 */
+ 		return uri; 
+ 	}
+ 	
+ 	// 인증코드 받기 (응답)
+ 	@RequestMapping(value="/joinKAKAO", method=RequestMethod.GET)
+ 	public String joinKAKAO(@RequestParam(value = "code",required=false) String code,
+ 			@RequestParam(value = "error", required=false) String error, HttpSession hs, HttpServletResponse response) {
+ 		
+ 		System.out.println("code : " + code); // 인증코드 
+ 		System.out.println("error : " + error); // 에러 메시지 
+ 		
+ 		if(code == null) { // 인증코드 (토큰) 없으면 로그인 화면으로
+	 		response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out;
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('카카오 로그인 실패 :'+'"+error+"');</script>");
+		        out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "redirect:/aircnc";
+ 		}else { // 인증코드 (토큰) 있으면 회원 정보 추출 및 유정 정보 insert
+ 		
+	 		int result = service.kakaoLogin(code, hs); // 로그인 정보 저장 
+	 		
+	 		if(result == 0) { // 카카오 로그인 정보 추출 및 insert 실패
+	 			response.setContentType("text/html; charset=UTF-8");
+		        PrintWriter out;
+				try {
+					out = response.getWriter();
+					out.println("<script>alert('카카오 로그인 실패');</script>");
+			        out.flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
+	 			return "redirect:/aircnc";
+	 		}else { // 성공
+	 			return "redirect:/aircnc";
+	 		}
+ 		}
+ 		
+ 	}
 	
 	
 	@RequestMapping(value="/user/userSetting", method=RequestMethod.GET)

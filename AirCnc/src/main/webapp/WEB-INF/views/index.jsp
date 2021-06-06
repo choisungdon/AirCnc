@@ -30,12 +30,19 @@
               	 회원 가입
             </div>
             <div class="joinCore" id="showJoin">
-               <div class="joinCtnt">카카오 계정으로 회원가입</div>
-               <div class="line">――――――――――――――― 또는 ―――――――――――――――</div>
+               
                <div class="mailJoin" onclick="mailJoin()">
                   <i class="far fa-envelope"></i> 이메일로 회원 가입
                </div>
-               <div class="line">――――――――――――――――――――――――――――――――――</div>
+               
+               <div class="line">――――――――――――――― 또는 ―――――――――――――――</div>
+               <div class="socialloginList">
+               		<div class="kakaologinCnt" onclick="loginKAKAO()">
+               			<i class="fas fa-comment fa-2x"></i> 
+               			<div class="loginText">카카오 로그인</div>
+               		</div>
+               </div>
+               
                <div class="joinFooter">
                   	이미 에어비앤비 계정이 있나요? <span class="jToL" onclick="loginChildBtn()"> 로그인</span>
                </div>
