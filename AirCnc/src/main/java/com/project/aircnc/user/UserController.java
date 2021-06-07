@@ -67,10 +67,10 @@ public class UserController {
  	public String joinKAKAO(@RequestParam(value = "code",required=false) String code,
  			@RequestParam(value = "error", required=false) String error, HttpSession hs, HttpServletResponse response) {
  		
- 		System.out.println("code : " + code); // 인증코드 
- 		System.out.println("error : " + error); // 에러 메시지 
+// 		System.out.println("code : " + code); // 인증코드 
+// 		System.out.println("error : " + error); // 에러 메시지 
  		
- 		if(code == null) { // 인증코드 (토큰) 없으면 로그인 화면으로
+ 		if(code == null) { // 인가코드 (토큰) 없으면 로그인 화면으로
 	 		response.setContentType("text/html; charset=UTF-8");
 	        PrintWriter out;
 			try {

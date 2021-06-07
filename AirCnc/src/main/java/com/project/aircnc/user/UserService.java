@@ -9,12 +9,24 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.aircnc.common.HostReviewVO;
+import com.project.aircnc.common.KakaoConstVO;
+import com.project.aircnc.common.KakaoTokenVO;
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.ProfitReviewVO;
 import com.project.aircnc.common.RsvVO;
@@ -22,6 +34,7 @@ import com.project.aircnc.common.TUserVO;
 import com.project.aircnc.common.UserLListVO;
 import com.project.aircnc.common.UserLikeVO;
 import com.project.aircnc.common.UserShowVO;
+
 
 @Service
 public class UserService {
@@ -80,7 +93,7 @@ public class UserService {
 	// 카카카오 로그인 
 	public int  kakaoLogin(String code,HttpSession hs) {
 		int data = 0;
-			System.out.println("code : " + code); // 인증코드 
+			//System.out.println("code : " + code); // 인가코드 
 			
 			// ----------------- 사용자 토큰 받기 -----------------[start]
 			HttpHeaders headers = new HttpHeaders();
@@ -88,11 +101,47 @@ public class UserService {
 			Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기 
 			//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
 			MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
-			headers.setAccept(Arrays.asList(mediaType));
-			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);	
+			headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
+//			List<MediaType> lst = Arrays.asList(mediaType);
+//			System.out.println(lst);
+			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);// url 인코딩(암호화)	
+			//내용 유형 헤더에 지정된 대로 본문의 미디어 유형을 설정합니다.
+			MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>(); // parameter 데이터 추가할때 쓰는 변수
+			//parameter
+			map.add("grant_type", "authorization_code");
+			map.add("client_id", KakaoConstVO.KAKAO_CLIENT_ID);
+			map.add("redirect_uri", KakaoConstVO.KAKAO_TOKEN_REDIRECT_URI);
+			map.add("code", code);
 			
+			HttpEntity<LinkedMultiValueMap<String, String>> entity = new HttpEntity(map,headers); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
+			RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<String> respEntity = restTemplate.exchange(KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST, HttpMethod.POST, entity, String.class);
+			//		KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST : 요청 URL 
+			//		HttpMethod.POST : 요청 방식 post		 
+			//		entity : 헤더정보 및 파라미터 정보 
 			
-		return data;
+			String result = respEntity.getBody(); // 응답 데이터 받기(JSON)
+			System.out.println("result : "+result);
+			// json 데이터 일반 java Object로 변환 
+			ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+			
+			//	configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+			//  : 모르는 property에 대해 무시하고 넘어간다. 
+			
+			KakaoTokenVO tokenVO = null;
+			try {
+				// om.readValue : json 데이터 읽어 들임 (class는 KakaoTokenVO)
+				tokenVO = om.readValue(result, KakaoTokenVO.class);
+				//System.out.println("tokenVO : "+ tokenVO.toString()); // 
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		return 1;
 	}
 	
 	
