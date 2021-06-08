@@ -24,9 +24,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.aircnc.common.HostReviewVO;
 import com.project.aircnc.common.KakaoConstVO;
 import com.project.aircnc.common.KakaoTokenVO;
+import com.project.aircnc.common.KakaoUserInfo;
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.ProfitReviewVO;
 import com.project.aircnc.common.RsvVO;
@@ -104,7 +104,9 @@ public class UserService {
 			headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
 //			List<MediaType> lst = Arrays.asList(mediaType);
 //			System.out.println(lst);
-			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);// url 인코딩(암호화)	
+			
+			// url 인코딩(암호화)	
+			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 			//내용 유형 헤더에 지정된 대로 본문의 미디어 유형을 설정합니다.
 			MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>(); // parameter 데이터 추가할때 쓰는 변수
 			//parameter
@@ -140,6 +142,39 @@ public class UserService {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//-----------------------사용자 정보 가져오기 위한 통신 세팅------------------------
+			
+			HttpHeaders headers2	= new HttpHeaders();	
+			MediaType	mediaType2	= new MediaType(MediaType.APPLICATION_JSON,utf8);
+			headers2.setAccept(Arrays.asList(mediaType2));
+			headers2.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+			headers2.set("Authorization", "Bearer " +tokenVO.getAccess_token());
+			
+			HttpEntity<LinkedMultiValueMap<String, String>> entity2 = new HttpEntity("",headers2); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
+			
+			ResponseEntity<String> respEntity2 = restTemplate.exchange(KakaoConstVO.KAKAO_API_HOST+"/v2/user/me", HttpMethod.POST, entity2, String.class);
+			String result2 = respEntity2.getBody();
+			//System.out.println("result2 : " + result2);
+			
+			KakaoUserInfo kui = null;
+			
+			try {
+				kui = om.readValue(result2, KakaoUserInfo.class);
+				
+				System.out.println("id : "+kui.getId());
+				System.out.println("connected_at: "+kui.getConnected_at());
+				System.out.println("닉네임 : "+kui.getProperties().getNickname() );
+				System.out.println("profile_image : "+kui.getProperties().getProfile_image() );
+				System.out.println("thumbnail_image : "+kui.getProperties().getThumbnail_image());
+				
+			} catch (JsonMappingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JsonProcessingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			
 		return 1;
 	}

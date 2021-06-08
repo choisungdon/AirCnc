@@ -37,9 +37,9 @@
                
                <div class="line">――――――――――――――― 또는 ―――――――――――――――</div>
                <div class="socialloginList">
-               		<div class="kakaologinCnt" onclick="loginKAKAO()">
+               		<div class="kakaologinCnt" onclick="joinKAKAO()">
                			<i class="fas fa-comment fa-2x"></i> 
-               			<div class="loginText">카카오 로그인</div>
+               			<div class="joinText">카카오 회원가입</div>
                		</div>
                </div>
                
@@ -100,7 +100,11 @@
 					로그인
 				</div>
 				<div class="joinCore">
-					<div class="loginCtnt">카카오 로그인</div>
+					<div class="kakaologinCnt" onclick="loginKAKAO()">
+               			<i class="fas fa-comment fa-2x"></i> 
+               			<div class="loginText">카카오 로그인</div>
+               		</div>
+               		
 					<div class="line">―――――――――――――――― 또는 ―――――――――――――――</div>
 					<div>
 						<div class="joinCtnt">

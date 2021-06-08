@@ -225,6 +225,11 @@ function loginKAKAO(){
 	location.href="/loginKAKAO";
 }
 
+//카카오 회원가입 
+function joinKAKAO(){
+	location.href="/joinKAKAO";
+}
+
 
 // e_mail 체크 
 function chkEmail(str) {
