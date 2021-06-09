@@ -60,6 +60,7 @@ public class UserController {
  		  KAKAO_REQUIRED_SCOPES		: 개인정보 동의 종류 (프로필, 카카오계정(이메일), 성별 , 연령대, 생일)
  		 */
  		return uri; 
+ 		
  	}
  	
  	// 인증코드 받기 (응답)
