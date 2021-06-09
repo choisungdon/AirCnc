@@ -49,6 +49,7 @@ public class UserService {
 		
 		param.setC_pw(hashPw); // 암호화 비밀번호 저장 
 		param.setSalt(salt); // salt 저장 
+		param.setLogintype("nomal"); // 일반 회원가입
 		
 		switch (checkEmail(param)) { // Email 중복 확인
 		case 1: // 
@@ -91,14 +92,14 @@ public class UserService {
 	}
 		
 	// 카카카오 로그인 
-	public int  kakaoLogin(String code,HttpSession hs) {
+	public int  kakaoJoin(String code,HttpSession hs) {
 		int data = 0;
 			//System.out.println("code : " + code); // 인가코드 
 			
 			// ----------------- 사용자 토큰 받기 -----------------[start]
 			HttpHeaders headers = new HttpHeaders();
 			
-			Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기 
+			Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기(인코딩 유형)
 			//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
 			MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
 			headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
@@ -112,7 +113,7 @@ public class UserService {
 			//parameter
 			map.add("grant_type", "authorization_code");
 			map.add("client_id", KakaoConstVO.KAKAO_CLIENT_ID);
-			map.add("redirect_uri", KakaoConstVO.KAKAO_TOKEN_REDIRECT_URI);
+			map.add("redirect_uri", KakaoConstVO.KAKAO_JOIN_REDIRECT_URI);
 			map.add("code", code);
 			
 			HttpEntity<LinkedMultiValueMap<String, String>> entity = new HttpEntity(map,headers); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
@@ -175,8 +176,31 @@ public class UserService {
 				e.printStackTrace();
 			}
 			
+			 TUserVO param = new TUserVO();
+			 param.setE_mail(String.valueOf(kui.getAccount().getEmail())); // 카카오 회원 번호 저장
+			 param.setLogintype("kakao");
+			 switch (checkEmail(param)) { // Email 중복 확인 1: 중복  0: 중복 없음
+				case 1: // 
+					data = 0;
+					return data; 
+
+				default:
+					int joinResult  = mapper.join(param); // 1 -> 회원 가입 성공  0 - >  // 회원가입 실패 db 오류 
+					
+					if(joinResult == 1) {
+						param = mapper.login(param); // 회원 정보 가져오기 
+						param.setC_pw(null); // 비번 지우기
+						param.setSalt(null); // 암호화 코드 지우기 
+						hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
+						setProUrl(hs); // profileImg 경로 수정
+						data = 1; // 회원 가입 및 로그인 성공 
+					}else {
+						data = 0; 
+					}
+					
+					return  data;
+				}
 			
-		return 1;
 	}
 	
 	

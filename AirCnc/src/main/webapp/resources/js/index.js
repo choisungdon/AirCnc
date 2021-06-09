@@ -222,12 +222,12 @@ function join(){
 // 카카오 로그인 
 
 function loginKAKAO(){
-	location.href="/loginKAKAO";
+	location.href="/loginKAKAO01";
 }
 
 //카카오 회원가입 
 function joinKAKAO(){
-	location.href="/joinKAKAO";
+	location.href="/loginKAKAO02";
 }
 
 

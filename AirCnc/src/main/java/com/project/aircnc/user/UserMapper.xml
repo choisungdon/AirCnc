@@ -12,9 +12,9 @@
 	
 	<insert id="join" parameterType="TUserVO">
 		INSERT INTO t_user
-		(e_mail, nm, c_pw, salt, bir_day)
+		(e_mail, nm, c_pw, salt, bir_day, LOGINTYPE)
 		VALUES
-		(#{e_mail}, #{nm}, #{c_pw}, #{salt}, #{bir_day})
+		(#{e_mail}, #{nm, jdbcType = VARCHAR}, #{c_pw,jdbcType = VARCHAR}, #{salt,jdbcType = VARCHAR}, #{bir_day,jdbcType = VARCHAR},#{logintype,jdbcType = VARCHAR})
 	</insert>
 	
 	

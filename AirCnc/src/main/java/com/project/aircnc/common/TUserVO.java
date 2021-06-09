@@ -17,6 +17,7 @@ public class TUserVO {
 	private String ph;
 	private String r_dt;
 	private String m_dt;
+	private String logintype; // kakao, nomal, naver
 	private String key; // 개인 정보 수정할때 (수정 keyWord)
 	
 	
@@ -105,7 +106,12 @@ public class TUserVO {
 		this.m_dt = m_dt;
 	}
 	
-	
+	public String getLogintype() {
+		return logintype;
+	}
+	public void setLogintype(String logintype) {
+		this.logintype = logintype;
+	}
 	@Override
 	public String toString() {
 		return "i_user : "+this.i_user+"/ nm : "+nm+"/ bir_day : "+bir_day+" /ph : "+ph;
