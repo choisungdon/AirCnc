@@ -92,8 +92,8 @@ public class UserService {
 	}
 		
 	// 카카카오 로그인 
-	public int  kakaoJoin(String code,HttpSession hs) {
-		int data = 0;
+	public String  kakaoJoin(String code,HttpSession hs) {
+		String state = "";
 			//System.out.println("code : " + code); // 인가코드 
 			
 			// ----------------- 사용자 토큰 받기 -----------------[start]
@@ -155,7 +155,7 @@ public class UserService {
 			
 			ResponseEntity<String> respEntity2 = restTemplate.exchange(KakaoConstVO.KAKAO_API_HOST+"/v2/user/me", HttpMethod.POST, entity2, String.class);
 			String result2 = respEntity2.getBody();
-			//System.out.println("result2 : " + result2);
+			System.out.println("result2 : " + result2);
 			
 			KakaoUserInfo kui = null;
 			
@@ -167,6 +167,7 @@ public class UserService {
 				System.out.println("닉네임 : "+kui.getProperties().getNickname() );
 				System.out.println("profile_image : "+kui.getProperties().getProfile_image() );
 				System.out.println("thumbnail_image : "+kui.getProperties().getThumbnail_image());
+				System.out.println("email: "+kui.getKakao_account().getEmail());
 				
 			} catch (JsonMappingException e) {
 				// TODO Auto-generated catch block
@@ -177,14 +178,15 @@ public class UserService {
 			}
 			
 			 TUserVO param = new TUserVO();
-			 param.setE_mail(String.valueOf(kui.getAccount().getEmail())); // 카카오 회원 번호 저장
+			 param.setE_mail(kui.getKakao_account().getEmail()); // 카카오 회원 번호 저장
 			 param.setLogintype("kakao");
-			 switch (checkEmail(param)) { // Email 중복 확인 1: 중복  0: 중복 없음
+			 switch (checkEmail(param)) { // Email 중복 확인 //  1: 중복  0: 중복 없음
 				case 1: // 
-					data = 0;
-					return data; 
+					state = "이미 가입된 회원입니다.";
+					return state; 
 
 				default:
+					
 					int joinResult  = mapper.join(param); // 1 -> 회원 가입 성공  0 - >  // 회원가입 실패 db 오류 
 					
 					if(joinResult == 1) {
@@ -193,12 +195,12 @@ public class UserService {
 						param.setSalt(null); // 암호화 코드 지우기 
 						hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
 						setProUrl(hs); // profileImg 경로 수정
-						data = 1; // 회원 가입 및 로그인 성공 
+						state = "success"; // 회원 가입 및 로그인 성공 
 					}else {
-						data = 0; 
+						state = "DB 오류"; 
 					}
-					
-					return  data;
+//					
+					return  state;
 				}
 			
 	}

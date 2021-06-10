@@ -111,11 +111,11 @@ public class UserController {
  	@RequestMapping(value = "/joinKAKAO", method = RequestMethod.GET)
  	public String joinKAKAO01() {
  		String uri = String.format(
- 				"redirect:https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=%s&redirect_uri=%s&scope=%s", // 카카오 서버에 요청후 인증 코드와 함께 (개발자가 설정한)redirect Url()로 다시 요청
+ 				"redirect:https://kauth.kakao.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code&scope=%s", // 카카오 서버에 요청후 인증 코드와 함께 (개발자가 설정한)redirect Url()로 다시 요청
  				KakaoConstVO.KAKAO_CLIENT_ID, KakaoConstVO.KAKAO_JOIN_REDIRECT_URI,KakaoConstVO.KAKAO_REQUIRED_SCOPES);
  		/*
  		  KAKAO_CLIENT_ID 			: API application key값 
- 		  KAKAO_AUTH_REDIRECT_URI	: 인증코드 받기 (응답) url(http://aircnc.co.kr:8090/joinKakao)
+ 		  KAKAO_AUTH_REDIRECT_URI	: 인증코드 받기 (응답) url(http://aircnc.co.kr:8090/joinKAKAO01)
  		  KAKAO_REQUIRED_SCOPES		: 개인정보 동의 종류 (프로필, 카카오계정(이메일), 성별 , 연령대, 생일)
  		 */
  		return uri; 
@@ -129,38 +129,39 @@ public class UserController {
 // 		System.out.println("code : " + code); // 인증코드 
 // 		System.out.println("error : " + error); // 에러 메시지 
  		
+ 		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+ 		
  		if(code == null) { // 인가코드 (토큰) 없으면 로그인 화면으로
-	 		response.setContentType("text/html; charset=UTF-8");
-	         
+	 		 
 			try {
-				PrintWriter out = response.getWriter();
+				out = response.getWriter();
 				out.println("<script>alert('카카오 로그인 실패 :'+'"+error+"');</script>");
 		        out.flush();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return "redirect:/aircnc";
+			return "index";
  		}else { // 인증코드 (토큰) 있으면 회원 정보 추출 및 유정 정보 insert
  		
-	 		int result = service.kakaoJoin(code, hs); // 로그인 정보 저장 
+	 		String result = service.kakaoJoin(code, hs); // 로그인 정보 저장 
 	 		
-	 		// 0 : 카카오 로그인 정보 추출 및 insert 실패 , 1:  카카오 로그인 정보 추출 및 회원가입 로그인 성공 
-	 		if(result == 0) { 
-	 			response.setContentType("text/html; charset=UTF-8");
-		        PrintWriter out;
+	 		// sucess : 성공 , 예외 : DB 오류,이미 가입된 회원입니다.
+	 		if(!(result.equals("sucess"))) { 
+	 			
 				try {
 					out = response.getWriter();
-					out.println("<script>alert('카카오 로그인 실패'+'"+error+"');</script>");
-			        out.flush();
+					out.println("<script>alert('"+result+"');</script>");
+		 			out.flush();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-					
-	 			return "redirect:/aircnc";
-	 		}else { // 성공
-	 			return "redirect:/aircnc";
+	 			 
+				return "index";
+	 		}else { 
+	 			return "index";
 	 		}
  		}
  		

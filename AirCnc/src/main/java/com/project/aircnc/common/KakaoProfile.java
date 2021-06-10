@@ -4,7 +4,7 @@ public class KakaoProfile {
 	private String nickname; // 닉네임 
 	private String profile_image; // 프로필 이미지 URL
 	private String thumbnail_image; // 프로필 이미지 URL
-	private String is_default_image; // default 이미지 URL
+	private Boolean is_default_image; // default 이미지 URL
 	
 	public String getNickname() {
 		return nickname;
@@ -24,12 +24,13 @@ public class KakaoProfile {
 	public void setThumbnail_image(String thumbnail_image) {
 		this.thumbnail_image = thumbnail_image;
 	}
-	public String getIs_default_image() {
+	public Boolean getIs_default_image() {
 		return is_default_image;
 	}
-	public void setIs_default_image(String is_default_image) {
+	public void setIs_default_image(Boolean is_default_image) {
 		this.is_default_image = is_default_image;
 	}
+	
 	
 	
 }

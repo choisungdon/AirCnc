@@ -4,7 +4,7 @@ public class KakaoUserInfo {
 	private int  id; 					// 카카오 회원번호(DB에 저장됩니다.)
 	private String connected_at;		// 접소 날짜
 	private KakaoProperties properties; // 닉네임 , 프로필 URL
-	private KakaoAccount account; 		// 회원 세부 정보
+	private KakaoAccount kakao_account; 		// 회원 세부 정보
 	
 	public int getId() {
 		return id;
@@ -24,12 +24,13 @@ public class KakaoUserInfo {
 	public void setProperties(KakaoProperties properties) {
 		this.properties = properties;
 	}
-	public KakaoAccount getAccount() {
-		return account;
+	public KakaoAccount getKakao_account() {
+		return kakao_account;
 	}
-	public void setAccount(KakaoAccount account) {
-		this.account = account;
+	public void setKakao_account(KakaoAccount kakao_account) {
+		this.kakao_account = kakao_account;
 	}
+	
 	
 	
 }
