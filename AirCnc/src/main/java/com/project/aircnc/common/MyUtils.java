@@ -56,12 +56,12 @@ public class MyUtils {
 		
 		// 확장자
 		String ext = FilenameUtils.getExtension(file.getOriginalFilename());
-		//System.out.println("ext : " + ext);
+		System.out.println("ext : " + ext);
 		
 		fileNm = String.format("%s.%s", uuid, ext);
 		String saveFileNm = String.format("%s/%s", path, fileNm);
 		
-		//System.out.println("saveFileNm : " + saveFileNm);
+		System.out.println("saveFileNm : " + saveFileNm);
 		File saveFile = new File(saveFileNm);
 		saveFile.mkdirs();
 		

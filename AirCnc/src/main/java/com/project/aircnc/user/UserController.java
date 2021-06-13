@@ -70,9 +70,10 @@ public class UserController {
 //  		System.out.println("code : " + code); // 인증코드 
 //  		System.out.println("error : " + error); // 에러 메시지 
   		
+  		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+  		
   		if(code == null) { // 인가코드 (토큰) 없으면 로그인 화면으로
- 	 		response.setContentType("text/html; charset=UTF-8");
- 	        PrintWriter out;
  			try {
  				out = response.getWriter();
  				out.println("<script>alert('카카오 로그인 실패 :'+'"+error+"');</script>");
@@ -81,26 +82,25 @@ public class UserController {
  				// TODO Auto-generated catch block
  				e.printStackTrace();
  			}
- 			return "redirect:/aircnc";
+ 			return "index";
   		}else { // 인증코드 (토큰) 있으면 회원 정보 추출 및 유정 정보 insert
   		
- 	 		//int result = service.kakaoJoin(code, hs); // 로그인 정보 저장 
-  			int result = 0;
- 	 		if(result == 0) { // 카카오 로그인 정보 추출 및 insert 실패
- 	 			response.setContentType("text/html; charset=UTF-8");
- 		        PrintWriter out;
+ 	 		String result = service.kakaoLogin(code, hs); // 로그인 정보 저장 
+ 	 		
+ 	 		 // success : 성공 /(일반 회원 일때 )일반 회원입니다. 일반 로그인으로 접속하세요./(이메일이 없을때)카카오 회원가입을 하세요.
+ 	 		if(!(result.equals("success"))) {
  				try {
  					out = response.getWriter();
- 					out.println("<script>alert('카카오 로그인 실패');</script>");
+ 					out.println("<script>alert('"+result+"');</script>");
  			        out.flush();
  				} catch (IOException e) {
  					// TODO Auto-generated catch block
  					e.printStackTrace();
  				}
  					
- 	 			return "redirect:/aircnc";
+ 				return "index";
  	 		}else { // 성공
- 	 			return "redirect:/aircnc";
+ 	 			return "index";
  	 		}
   		}
   		
@@ -148,7 +148,7 @@ public class UserController {
 	 		String result = service.kakaoJoin(code, hs); // 로그인 정보 저장 
 	 		
 	 		// sucess : 성공 , 예외 : DB 오류,이미 가입된 회원입니다.
-	 		if(!(result.equals("sucess"))) { 
+	 		if(!(result.equals("success"))) { 
 	 			
 				try {
 					out = response.getWriter();

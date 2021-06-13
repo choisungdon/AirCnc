@@ -204,7 +204,8 @@ function join(){
 		e_mail: s_e_mail.value,
 	    nm: s_nm.value,
 	    c_pw: s_c_pw.value,
-		bir_day : bir_day.value
+		bir_day : bir_day.value,
+		logintype : "nomal"
 	  })
 	  .then(function (res) { // 결과 값  console.log(res.data.result)
 		if(res.data.result == 0){ // 0 : E_mail 중복
