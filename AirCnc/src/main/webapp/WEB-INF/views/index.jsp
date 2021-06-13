@@ -6,7 +6,7 @@
 <head>
 <link rel="shortcut icon" href="/resources/img/pinklogo.ico">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="target-densitydpi=device-dpi, user-scalable=0, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, width=device-width">
 <link rel="stylesheet" href="/resources/css/index.css">
 <script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
 <!--달력 css & js https://www.daterangepicker.com/ 라이브러리  -->
@@ -104,6 +104,8 @@
                			<i class="fas fa-comment fa-2x"></i> 
                			<div class="loginText">카카오 로그인</div>
                		</div>
+               		
+               		<a href="/loginNAVER"><img height="50" width="100%"  src="/resources/img/btnG_완성형.png"/></a>
                		
 					<div class="line">―――――――――――――――― 또는 ―――――――――――――――</div>
 					<div>

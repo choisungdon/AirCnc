@@ -28,6 +28,7 @@ import com.project.aircnc.common.KakaoConstVO;
 import com.project.aircnc.common.KakaoTokenVO;
 import com.project.aircnc.common.KakaoUserInfo;
 import com.project.aircnc.common.MyUtils;
+import com.project.aircnc.common.NaverConstVO;
 import com.project.aircnc.common.ProfitReviewVO;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.TUserVO;
@@ -319,6 +320,61 @@ public class UserService {
 			
 	}
 	
+	/*******************************naver Login*************************************************/
+	public  String loginNaver(String code , HttpSession hs) {
+		String state = "";
+		
+		// ----------------- 사용자 토큰 받기 -----------------[start]
+		HttpHeaders headers = new HttpHeaders();
+		
+		Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기(인코딩 유형)
+		//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
+		MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
+		headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
+//					List<MediaType> lst = Arrays.asList(mediaType);
+//					System.out.println(lst);
+		
+		// url 인코딩(암호화)	
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		//내용 유형 헤더에 지정된 대로 본문의 미디어 유형을 설정합니다.
+		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>(); // parameter 데이터 추가할때 쓰는 변수
+		//parameter
+		map.add("grant_type", "authorization_code");
+		map.add("client_id", NaverConstVO.NAVER_CLIENT_ID);
+		map.add("redirect_uri", NaverConstVO.NAVER_LOGIN_REDIRECT_URI);
+		map.add("code", code);
+		
+		HttpEntity<LinkedMultiValueMap<String, String>> entity = new HttpEntity(map,headers); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> respEntity = restTemplate.exchange(KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST, HttpMethod.POST, entity, String.class);
+		//		KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST : 요청 URL 
+		//		HttpMethod.POST : 요청 방식 post		 
+		//		entity : 헤더정보 및 파라미터 정보 
+		
+		String result = respEntity.getBody(); // 응답 데이터 받기(JSON)
+		System.out.println("result : "+result);
+		// json 데이터 일반 java Object로 변환 
+		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		
+		//	configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+		//  : 모르는 property에 대해 무시하고 넘어간다. 
+		
+		KakaoTokenVO tokenVO = null;
+		try {
+			// om.readValue : json 데이터 읽어 들임 (class는 KakaoTokenVO)
+			tokenVO = om.readValue(result, KakaoTokenVO.class);
+			//System.out.println("tokenVO : "+ tokenVO.toString()); // 
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+					
+		
+		return state ;
+	}
 	
 	public String upUserPro(MultipartFile userPro,HttpSession hs) {
 		// 로그인 유저정보 

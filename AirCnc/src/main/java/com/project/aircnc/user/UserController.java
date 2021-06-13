@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -19,8 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.project.aircnc.common.HostReviewVO;
 import com.project.aircnc.common.KakaoConstVO;
+import com.project.aircnc.common.NaverConstVO;
 import com.project.aircnc.common.ProfitReviewVO;
 import com.project.aircnc.common.TUserVO;
 
@@ -109,7 +110,7 @@ public class UserController {
   //************************ 카카오 회원가입 ************************/
  	 // 카카오 회원가입 인증 코드 받기(요청) 
  	@RequestMapping(value = "/joinKAKAO", method = RequestMethod.GET)
- 	public String joinKAKAO01() {
+ 	public String joinKAKAO() {
  		String uri = String.format(
  				"redirect:https://kauth.kakao.com/oauth/authorize?client_id=%s&redirect_uri=%s&response_type=code&scope=%s", // 카카오 서버에 요청후 인증 코드와 함께 (개발자가 설정한)redirect Url()로 다시 요청
  				KakaoConstVO.KAKAO_CLIENT_ID, KakaoConstVO.KAKAO_JOIN_REDIRECT_URI,KakaoConstVO.KAKAO_REQUIRED_SCOPES);
@@ -123,7 +124,7 @@ public class UserController {
  	
  	// 인증코드 받기 (응답)
  	@RequestMapping(value="/joinKAKAO01", method=RequestMethod.GET)
- 	public String joinKAKAO(@RequestParam(value = "code",required=false) String code,
+ 	public String joinKAKAO01(@RequestParam(value = "code",required=false) String code,
  			@RequestParam(value = "error", required=false) String error, HttpSession hs, HttpServletResponse response) {
  		
 // 		System.out.println("code : " + code); // 인증코드 
@@ -166,6 +167,53 @@ public class UserController {
  		}
  		
  	}
+ 	
+ 	
+ 	//************************ naver 회원가입 ************************/
+	 // naver 회원가입 인증 코드 받기(요청) 
+	@RequestMapping(value = "/loginNAVER", method = RequestMethod.GET)
+	public String loginNaver() {
+		String uri = String.format(
+				"redirect:https://nid.naver.com/oauth2.0/authorize?client_id=%s&response_type=code&redirect_uri=%s", // 카카오 서버에 요청후 인증 코드와 함께 (개발자가 설정한)redirect Url()로 다시 요청
+				NaverConstVO.NAVER_CLIENT_ID, NaverConstVO.NAVER_LOGIN_REDIRECT_URI);
+		/*
+		  NAVER_CLIENT_ID 			: API application key값 
+		  NAVER_LOGIN_REDIRECT_URI	: 인증코드 받기 (응답) url(http://www.aircnc.co.kr:8090/loginNAVER01)
+		  
+		 */
+		return uri; 
+	}
+	
+	// 인증코드 받기 (응답)
+	@RequestMapping(value="/loginNAVER01", method=RequestMethod.GET)
+	public String loginNaver01(@RequestParam(value = "code",required=false) String code,
+			@RequestParam(value = "state", required=false) String state, @RequestParam(value = "error_description", required=false) String error_description, HttpSession hs, HttpServletResponse response,HttpServletRequest request) {
+		
+		System.out.println("code : " + code); // 인증코드 
+		System.out.println("state : " + state); // 상태 값 
+		System.out.println("error_description : " + error_description); // 에러 메시지  
+		System.out.println("storedSate : "+request.getSession().getAttribute("state"));
+		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		
+		if(code == null) {
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('NAVER 로그인 실패 :'+'"+state+"');</script>");
+		        out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}else {
+			//service.loginNaver(code,hs);
+		}
+		
+	
+		return "index"; 
+	}
 	
 	
 	@RequestMapping(value="/user/userSetting", method=RequestMethod.GET)

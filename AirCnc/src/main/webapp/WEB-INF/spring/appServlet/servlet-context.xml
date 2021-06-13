@@ -107,6 +107,26 @@
 			<beans:bean class="com.project.aircnc.common.CheckInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>
+	<!--outh2 login(naver Login) -->
+	<beans:bean id="naverClientID" class="java.lang.String">
+        <beans:constructor-arg value="XvwP4mC0YVgGuaaEw7HI" />
+	</beans:bean>
+	<beans:bean id="naverClientSecret" class="java.lang.String">
+	        <beans:constructor-arg value="WH9IW1m2i3" />
+	</beans:bean>
+	<beans:bean id="naverRedirectUrl" class="java.lang.String">
+	        <beans:constructor-arg value="http://www.aircnc.co.kr:8090/loginNAVER01" />
+	</beans:bean>
+	    
+	<beans:bean id="naverSns" class="com.project.aircnc.auth.SnsValue">
+	        <beans:constructor-arg value="naver" />
+	        <beans:constructor-arg ref="naverClientID" />
+	        <beans:constructor-arg ref="naverClientSecret" />
+	        <beans:constructor-arg ref="naverRedirectUrl" />
+	</beans:bean>
+		
+	
+	
    
 </beans:beans>
 
