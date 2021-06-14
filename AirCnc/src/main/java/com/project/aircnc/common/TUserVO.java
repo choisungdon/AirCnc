@@ -21,6 +21,8 @@ public class TUserVO {
 	private String key; // 개인 정보 수정할때 (수정 keyWord)
 	
 	
+	
+	
 	public String getKey() {
 		return key;
 	}
@@ -114,9 +116,13 @@ public class TUserVO {
 	}
 	@Override
 	public String toString() {
-		return "i_user : "+this.i_user+"/ nm : "+nm+"/ bir_day : "+bir_day+" /ph : "+ph;
+		return "TUserVO [i_user=" + i_user + ", i_host=" + i_host + ", e_mail=" + e_mail + ", nm=" + nm + ", c_pw="
+				+ c_pw + ", r_pw=" + r_pw + ", salt=" + salt + ", bir_day=" + bir_day + ", pro_img=" + pro_img
+				+ ", my_profile=" + my_profile + ", ph=" + ph + ", r_dt=" + r_dt + ", m_dt=" + m_dt + ", logintype="
+				+ logintype + ", key=" + key + "]";
 	}
 	
-
-
+	
+	
+	
 }

@@ -12,7 +12,7 @@ public class NaverAPI20 extends DefaultApi20 implements SnsUrls{
 		private static final NaverAPI20 INSTANCE = new NaverAPI20();
 	}
 	// InstanceHolder(getInstance 에서만 부를수 있는 class) 
-	public NaverAPI20  getInstance() { 
+	public static NaverAPI20  getInstance() { 
 		return new InstanceHolder().INSTANCE; // NaverAPI20 객체 리턴 
 	}
 

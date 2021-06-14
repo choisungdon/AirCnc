@@ -4,6 +4,7 @@ package com.project.aircnc;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,12 +14,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.aircnc.auth.SNSLogin;
+import com.project.aircnc.auth.SnsValue;
+
 @Controller
 public class IndexController {
 	
+	@Inject
+	private SnsValue naverSns;
 	
 	@RequestMapping(value = "/", method=RequestMethod.GET)
-	public String index (@RequestParam(value="interceptor", defaultValue="true") Boolean interceptor, HttpServletResponse response) {
+	public String index (@RequestParam(value="interceptor", defaultValue="true") Boolean interceptor, HttpServletResponse response
+			,Model model, HttpSession hs) {
+		// naver login url reseponse
+		SNSLogin snsLogin = new SNSLogin(naverSns);
+		model.addAttribute("naver_url", snsLogin.getNaverAuthURL());
+		
 		System.out.println("누군가 접속했습니다.");
 		if(interceptor) { // 정상 접속
 			return "index";
@@ -33,7 +44,7 @@ public class IndexController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-           
+			
 			return "index";
 		}
 		

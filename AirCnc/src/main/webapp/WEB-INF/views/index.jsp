@@ -37,10 +37,11 @@
                
                <div class="line">――――――――――――――― 또는 ―――――――――――――――</div>
                <div class="socialloginList">
-               		<div class="kakaologinCnt" onclick="joinKAKAO()">
+               		<div class="kakaologinCnt" onclick="loginKAKAO()">
                			<i class="fas fa-comment fa-2x"></i> 
-               			<div class="joinText">카카오 회원가입</div>
+               			<div class="joinText">카카오 로그인</div>
                		</div>
+               		<a href="${naver_url}"><img height="50" width="100%"  src="/resources/img/btnG_완성형.png"/></a>
                </div>
                
                <div class="joinFooter">
@@ -105,7 +106,7 @@
                			<div class="loginText">카카오 로그인</div>
                		</div>
                		
-               		<a href="/loginNAVER"><img height="50" width="100%"  src="/resources/img/btnG_완성형.png"/></a>
+               		<a href="${naver_url}"><img height="50" width="100%"  src="/resources/img/btnG_완성형.png"/></a>
                		
 					<div class="line">―――――――――――――――― 또는 ―――――――――――――――</div>
 					<div>

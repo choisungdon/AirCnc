@@ -28,7 +28,6 @@ import com.project.aircnc.common.KakaoConstVO;
 import com.project.aircnc.common.KakaoTokenVO;
 import com.project.aircnc.common.KakaoUserInfo;
 import com.project.aircnc.common.MyUtils;
-import com.project.aircnc.common.NaverConstVO;
 import com.project.aircnc.common.ProfitReviewVO;
 import com.project.aircnc.common.RsvVO;
 import com.project.aircnc.common.TUserVO;
@@ -98,10 +97,14 @@ public class UserService {
 	}
 	/**************************카카카오 Login*****************************************/
 	public String kakaoLogin(String code, HttpSession hs) {
-		String state = "success"; // 상태값("success")
+		String state = "";
+		//System.out.println("code : " + code); // 인가코드 
+		
 		// ----------------- 사용자 토큰 받기 -----------------[start]
 		HttpHeaders headers = new HttpHeaders();
+		
 		Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기(인코딩 유형)
+		//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
 		MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
 		headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
 //		List<MediaType> lst = Arrays.asList(mediaType);
@@ -125,12 +128,12 @@ public class UserService {
 		//		entity : 헤더정보 및 파라미터 정보 
 		
 		String result = respEntity.getBody(); // 응답 데이터 받기(JSON)
-		System.out.println("result : "+result); // 응답 토큰  
-		
+		System.out.println("result : "+result);
+		// json 데이터 일반 java Object로 변환 
 		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		
 		//	configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-		//  : 모르는 property(맴버 필드)에 대해 무시하고 넘어간다. 
+		//  : 모르는 property에 대해 무시하고 넘어간다. 
 		
 		KakaoTokenVO tokenVO = null;
 		try {
@@ -144,10 +147,6 @@ public class UserService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		System.out.println("tokenVO : "+ tokenVO.toString());
-		
-		
 		//-----------------------사용자 정보 가져오기 위한 통신 세팅------------------------
 		
 		HttpHeaders headers2	= new HttpHeaders();	
@@ -182,196 +181,81 @@ public class UserService {
 			e.printStackTrace();
 		}
 		
-		TUserVO param = new TUserVO();
-		param.setE_mail(kui.getKakao_account().getEmail()); // 카카오 회원 email 저장
-		 
-		TUserVO vo;
-		vo = mapper.login(param);
-		
-		// state ->   success : 성공 /(일반 회원 일때 )일반 회원입니다. 일반 로그인으로 접속하세요./(이메일이 없을때)카카오 회원가입을 하세요.
-		if (vo.getE_mail() != null) {
-			vo.setC_pw(null);
-			vo.setSalt(null);
-			if(!(vo.getLogintype().equals("kakao"))) {
-				state = "일반 회원입니다. 일반 로그인으로 접속하세요.";
-				return state;
-			}
-			hs.setAttribute("loginUser",vo); // 로그인 유저 정보 저장 
-			setProUrl(hs); // 프로필 이미지 경로 삽입 
-		} else {
-			state= "카카오 회원가입을 하세요.";
-		}
-		
-		return state;
-	}
-		
-	
-	/**************************카카카오 회원가입****************************/   
-	public String  kakaoJoin(String code,HttpSession hs) {
-		String state = "";
-			//System.out.println("code : " + code); // 인가코드 
-			
-			// ----------------- 사용자 토큰 받기 -----------------[start]
-			HttpHeaders headers = new HttpHeaders();
-			
-			Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기(인코딩 유형)
-			//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
-			MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
-			headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
-//			List<MediaType> lst = Arrays.asList(mediaType);
-//			System.out.println(lst);
-			
-			// url 인코딩(암호화)	
-			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-			//내용 유형 헤더에 지정된 대로 본문의 미디어 유형을 설정합니다.
-			MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>(); // parameter 데이터 추가할때 쓰는 변수
-			//parameter
-			map.add("grant_type", "authorization_code");
-			map.add("client_id", KakaoConstVO.KAKAO_CLIENT_ID);
-			map.add("redirect_uri", KakaoConstVO.KAKAO_JOIN_REDIRECT_URI);
-			map.add("code", code);
-			
-			HttpEntity<LinkedMultiValueMap<String, String>> entity = new HttpEntity(map,headers); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
-			RestTemplate restTemplate = new RestTemplate();
-			ResponseEntity<String> respEntity = restTemplate.exchange(KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST, HttpMethod.POST, entity, String.class);
-			//		KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST : 요청 URL 
-			//		HttpMethod.POST : 요청 방식 post		 
-			//		entity : 헤더정보 및 파라미터 정보 
-			
-			String result = respEntity.getBody(); // 응답 데이터 받기(JSON)
-			System.out.println("result : "+result);
-			// json 데이터 일반 java Object로 변환 
-			ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-			
-			//	configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-			//  : 모르는 property에 대해 무시하고 넘어간다. 
-			
-			KakaoTokenVO tokenVO = null;
-			try {
-				// om.readValue : json 데이터 읽어 들임 (class는 KakaoTokenVO)
-				tokenVO = om.readValue(result, KakaoTokenVO.class);
-				//System.out.println("tokenVO : "+ tokenVO.toString()); // 
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//-----------------------사용자 정보 가져오기 위한 통신 세팅------------------------
-			
-			HttpHeaders headers2	= new HttpHeaders();	
-			MediaType	mediaType2	= new MediaType(MediaType.APPLICATION_JSON,utf8);
-			headers2.setAccept(Arrays.asList(mediaType2));
-			headers2.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-			headers2.set("Authorization", "Bearer " +tokenVO.getAccess_token());
-			
-			HttpEntity<LinkedMultiValueMap<String, String>> entity2 = new HttpEntity("",headers2); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
-			
-			ResponseEntity<String> respEntity2 = restTemplate.exchange(KakaoConstVO.KAKAO_API_HOST+"/v2/user/me", HttpMethod.POST, entity2, String.class);
-			String result2 = respEntity2.getBody();
-			System.out.println("result2 : " + result2);
-			
-			KakaoUserInfo kui = null;
-			
-			try {
-				kui = om.readValue(result2, KakaoUserInfo.class);
-				
-				System.out.println("id : "+kui.getId());
-				System.out.println("connected_at: "+kui.getConnected_at());
-				System.out.println("닉네임 : "+kui.getProperties().getNickname() );
-				System.out.println("profile_image : "+kui.getProperties().getProfile_image() );
-				System.out.println("thumbnail_image : "+kui.getProperties().getThumbnail_image());
-				System.out.println("email: "+kui.getKakao_account().getEmail());
-				
-			} catch (JsonMappingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (JsonProcessingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			 TUserVO param = new TUserVO();
-			 param.setE_mail(kui.getKakao_account().getEmail()); // 카카오 회원 email 저장
-			 param.setLogintype("kakao");
-			 switch (checkEmail(param)) { // Email 중복 확인 //  1: 중복  0: 중복 없음
-				case 1: // 
-					state = "이미 가입된 회원입니다.";
-					return state; 
-
-				default:
-					
-					int joinResult  = mapper.join(param); // 1 -> 회원 가입 성공  0 - >  // 회원가입 실패 db 오류 
-					
-					if(joinResult == 1) {
-						param = mapper.login(param); // 회원 정보 가져오기 
-						param.setC_pw(null); // 비번 지우기
-						param.setSalt(null); // 암호화 코드 지우기 
-						hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
-						setProUrl(hs); // profileImg 경로 수정
-						state = "success"; // 회원 가입 및 로그인 성공 
-					}else {
-						state = "DB 오류"; 
-					}
-//					
-					return  state;
+		 TUserVO param = new TUserVO();
+		 param.setE_mail(kui.getKakao_account().getEmail()); // 카카오 회원 email 저장
+		 param.setLogintype("kakao");
+		 switch (checkEmail(param)) { // Email 중복 확인 //  1: 중복  0: 중복 없음
+			case 1: // 
+				param = mapper.login(param); // 회원 정보 가져오기 
+				if(param.getLogintype().equals("nomal")) {
+					state = "일반 회원은 일반 로그인으로 접속하세요.";
+				}else if(param.getLogintype().equals("naver")){
+					state = "네이버 회원은 네이버 로그인으로 접속하세요.";
+				}else {
+					param.setC_pw(null); // 비번 지우기
+					param.setSalt(null); // 암호화 코드 지우기 
+					hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
+					setProUrl(hs); // profileImg 경로 수정
+					state = "success"; //  로그인 성공 
 				}
-			
+				break;
+
+			default:
+				
+				int joinResult  = mapper.join(param); // 1 -> 회원 가입 성공  0 - >  // 회원가입 실패 db 오류 
+				
+				if(joinResult == 1) {
+					param = mapper.login(param); // 회원 정보 가져오기 
+					param.setC_pw(null); // 비번 지우기
+					param.setSalt(null); // 암호화 코드 지우기 
+					hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
+					setProUrl(hs); // profileImg 경로 수정
+					state = "success"; // 회원 가입 및 로그인 성공 
+				}else {
+					state = "DB 오류"; 
+				}
+//				
+				break;
+			}
+		 return  state;
 	}
-	
+		
+
 	/*******************************naver Login*************************************************/
-	public  String loginNaver(String code , HttpSession hs) {
+	public  String loginNaver(TUserVO param , HttpSession hs) {
 		String state = "";
-		
-		// ----------------- 사용자 토큰 받기 -----------------[start]
-		HttpHeaders headers = new HttpHeaders();
-		
-		Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기(인코딩 유형)
-		//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
-		MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
-		headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
-//					List<MediaType> lst = Arrays.asList(mediaType);
-//					System.out.println(lst);
-		
-		// url 인코딩(암호화)	
-		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-		//내용 유형 헤더에 지정된 대로 본문의 미디어 유형을 설정합니다.
-		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>(); // parameter 데이터 추가할때 쓰는 변수
-		//parameter
-		map.add("grant_type", "authorization_code");
-		map.add("client_id", NaverConstVO.NAVER_CLIENT_ID);
-		map.add("redirect_uri", NaverConstVO.NAVER_LOGIN_REDIRECT_URI);
-		map.add("code", code);
-		
-		HttpEntity<LinkedMultiValueMap<String, String>> entity = new HttpEntity(map,headers); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
-		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<String> respEntity = restTemplate.exchange(KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST, HttpMethod.POST, entity, String.class);
-		//		KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST : 요청 URL 
-		//		HttpMethod.POST : 요청 방식 post		 
-		//		entity : 헤더정보 및 파라미터 정보 
-		
-		String result = respEntity.getBody(); // 응답 데이터 받기(JSON)
-		System.out.println("result : "+result);
-		// json 데이터 일반 java Object로 변환 
-		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		
-		//	configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-		//  : 모르는 property에 대해 무시하고 넘어간다. 
-		
-		KakaoTokenVO tokenVO = null;
-		try {
-			// om.readValue : json 데이터 읽어 들임 (class는 KakaoTokenVO)
-			tokenVO = om.readValue(result, KakaoTokenVO.class);
-			//System.out.println("tokenVO : "+ tokenVO.toString()); // 
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-					
+//		System.out.println("mapper.checkEmail(param) : "+mapper.checkEmail(param));
+		 switch (mapper.checkEmail(param)) { // Email,ID 중복 확인 //  1: 중복  0: 중복 없음
+			case 1: // 
+				param = mapper.login(param); // 회원 정보 가져오기
+				if(param.getLogintype().equals("nomal")) {
+					state = "일반 회원은 일반 로그인으로 접속하세요.";
+				}else if(param.getLogintype().equals("kakao")){
+					state = "카카오 회원은 카카오 로그인으로 접속하세요.";
+				}else {
+					param.setC_pw(null); // 비번 지우기
+					param.setSalt(null); // 암호화 코드 지우기 
+					hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
+					setProUrl(hs); // profileImg 경로 수정
+					state = "success"; //  로그인 성공 
+				}
+				break;
+
+			default:
+				int joinResult  = mapper.join(param); // 1 -> 회원 가입 성공  0 - >  // 회원가입 실패 db 오류 
+				
+				if(joinResult == 1) {
+					param = mapper.login(param); // 회원 정보 가져오기 
+					param.setC_pw(null); // 비번 지우기
+					param.setSalt(null); // 암호화 코드 지우기 
+					hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
+					setProUrl(hs); // profileImg 경로 수정
+					state = "success"; // 회원 가입 및 로그인 성공 
+				}else {
+					state = "DB 오류"; 
+				}
+				break;
+		 }
 		
 		return state ;
 	}

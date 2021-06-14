@@ -1,16 +1,28 @@
 package com.project.aircnc.auth;
 
+
+import com.github.scribejava.core.builder.api.DefaultApi20;
+
 public class SnsValue implements SnsUrls{
 		private String service;
 		private String clientId;
 		private String clientSecret;
 		private String redirectUrl;
+		private DefaultApi20 api20Instance;
+		private String profileURL;
+		
 		
 		public SnsValue(String service, String clientId, String clientSecret, String redirectUrl) {
 			this.service		= service;
 			this.clientId		= clientId;
 			this.clientSecret	= clientSecret;
 			this.redirectUrl 	= redirectUrl;
+			
+			if(this.service.equalsIgnoreCase("naver")) {
+				this.api20Instance = NaverAPI20.getInstance();
+				this.profileURL = NAVER_PROFILE_URL;
+			}
+			
 		}
 
 		public String getService() {
@@ -43,6 +55,25 @@ public class SnsValue implements SnsUrls{
 
 		public void setRedirectUrl(String redirectUrl) {
 			this.redirectUrl = redirectUrl;
+		}
+		
+		
+
+		public DefaultApi20 getApi20Instance() {
+			return api20Instance;
+		}
+
+		public void setApi20Instance(DefaultApi20 api20Instance) {
+			this.api20Instance = api20Instance;
+		}
+		
+
+		public String getProfileURL() {
+			return profileURL;
+		}
+
+		public void setProfileURL(String profileURL) {
+			this.profileURL = profileURL;
 		}
 
 		@Override
