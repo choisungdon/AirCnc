@@ -124,9 +124,36 @@
 	        <beans:constructor-arg ref="naverClientSecret" />
 	        <beans:constructor-arg ref="naverRedirectUrl" />
 	</beans:bean>
+	
+	<!--outh2 login(google Login) -->
+	<beans:bean id="googleClientID" class="java.lang.String">
+        <beans:constructor-arg value="894281442555-krmc4u1oete46vvm12tksjjm31er00k6.apps.googleusercontent.com" />
+	</beans:bean>
+	<beans:bean id="googleClientSecret" class="java.lang.String">
+	        <beans:constructor-arg value="6QsiVVM9c8CcUnBPCWHAaLmw" />
+	</beans:bean>
+	<beans:bean id="googleRedirectUrl" class="java.lang.String">
+	        <beans:constructor-arg value="http://www.aircnc.co.kr:8090/googleLogin" />
+	</beans:bean>
+	    
+	<beans:bean id="googleSns" class="com.project.aircnc.auth.SnsValue">
+	        <beans:constructor-arg value="google" />
+	        <beans:constructor-arg ref="googleClientID" />
+	        <beans:constructor-arg ref="googleClientSecret" />
+	        <beans:constructor-arg ref="googleRedirectUrl" />
+	</beans:bean>
+	
+	<beans:bean id="googleConnectionFactory" class="org.springframework.social.google.connect.GoogleConnectionFactory">
+		<beans:constructor-arg ref="googleClientID" />
+		<beans:constructor-arg ref="googleClientSecret" />
+	</beans:bean>
+	    
+	<beans:bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+	        <beans:property name="scope" value="https://www.googleapis.com/auth/userinfo.email" />
+	        <!-- <beans:property name="scope" value="https://www.googleapis.com/auth/plus.login" />  -->
+	        <beans:property name="redirectUri" ref="googleRedirectUrl" />
+	</beans:bean>	
 		
-	
-	
-   
+		
 </beans:beans>
 

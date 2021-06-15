@@ -1,6 +1,7 @@
 package com.project.aircnc.auth;
 
 
+import com.github.scribejava.apis.GoogleApi20;
 import com.github.scribejava.core.builder.api.DefaultApi20;
 
 public class SnsValue implements SnsUrls{
@@ -21,6 +22,9 @@ public class SnsValue implements SnsUrls{
 			if(this.service.equalsIgnoreCase("naver")) {
 				this.api20Instance = NaverAPI20.getInstance();
 				this.profileURL = NAVER_PROFILE_URL;
+			}else if(this.service.equalsIgnoreCase("google")) {
+				this.api20Instance = GoogleApi20.instance();
+				this.profileURL = GOOGLE_PROFILE_URL;
 			}
 			
 		}

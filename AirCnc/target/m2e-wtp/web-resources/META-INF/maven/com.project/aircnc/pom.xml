@@ -213,7 +213,7 @@
 		    <version>4.2.4.RELEASE</version>
 		</dependency>
 		<!--
-			(google/naver login)
+			(구글/네이버 login)
 			DefaultApi20
 			OAuthRequest
 			Response

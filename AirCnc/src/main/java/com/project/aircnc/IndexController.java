@@ -8,6 +8,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +27,24 @@ public class IndexController {
 	@Inject
 	private SnsValue naverSns;
 	
+	@Inject
+	private GoogleConnectionFactory googleConFac;
+	@Inject
+	private OAuth2Parameters googleOAuth2Params;
+	
 	@RequestMapping(value = "/", method=RequestMethod.GET)
 	public String index (@RequestParam(value="interceptor", defaultValue="true") Boolean interceptor, HttpServletResponse response
 			,Model model, HttpSession hs) {
 		// naver login url reseponse
 		SNSLogin snsLogin = new SNSLogin(naverSns);
 		model.addAttribute("naver_url", snsLogin.getNaverAuthURL());
+		
+		/* 구글code 발행을 위한 URL 생성 */
+		OAuth2Operations oauthOperations = googleConFac.getOAuthOperations();
+		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Params);
+
+		model.addAttribute("google_url", url);
+
 		
 		System.out.println("누군가 접속했습니다.");
 		if(interceptor) { // 정상 접속

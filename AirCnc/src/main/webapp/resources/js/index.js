@@ -220,12 +220,6 @@ function join(){
 	  });
 }
 
-// 카카오 로그인 
-
-function loginKAKAO(){
-	location.href="/loginKAKAO";
-}
-
 
 // e_mail 체크 
 function chkEmail(str) {

@@ -3,6 +3,7 @@ package com.project.aircnc.auth;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.scribejava.apis.GoogleApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
@@ -14,8 +15,10 @@ import com.project.aircnc.common.TUserVO;
 public class SNSLogin {
 	private OAuth20Service oathService;
 	private String profileURL; // 프로필 요청 URL
+	private String service; // 서비스 이름 (naver,google)
 	
 	public  SNSLogin(SnsValue sns) {
+		// naver login , google login  구분 합니다. (OAuth20Service)
 		this.oathService = new ServiceBuilder(sns.getClientId())
 				.apiSecret(sns.getClientSecret())
 				.callback(sns.getRedirectUrl())
@@ -23,6 +26,7 @@ public class SNSLogin {
 				.build(sns.getApi20Instance());
 				
 				this.profileURL = sns.getProfileURL();
+				this.service	= sns.getService();
 	}
 
 
@@ -45,7 +49,15 @@ public class SNSLogin {
 		// execute : 응답 (프로필 정보)
 		Response response = oathService.execute(request);
 		// json (string) 리턴 
-		return userParseJson(response.getBody());
+		if(this.service.equalsIgnoreCase("naver")) {
+			return userParseJson(response.getBody());
+		}else if(this.service.equalsIgnoreCase("google")) {
+			System.out.println("google profile: "+response.getBody());
+			return null;
+		}else {
+			return null;
+		}
+		
 	}
 	
 	 // 유저 프로필 json 파싱 (naver)

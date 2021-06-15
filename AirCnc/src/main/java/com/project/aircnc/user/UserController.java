@@ -34,6 +34,8 @@ public class UserController {
 	private UserService service;
 	@Inject
 	private SnsValue naverSns;
+	@Inject
+	private SnsValue googleSns;
 	
 	@PostMapping("/login")
 	public @ResponseBody Map<String, Object> login (@RequestBody TUserVO param,
@@ -151,6 +153,24 @@ public class UserController {
 		}
 		return "index"; 
 	}
+	//************************ google 회원가입 ************************/
+	// 인증코드 받기 (응답)
+		@RequestMapping(value="/googleLogin", method= {RequestMethod.GET,RequestMethod.POST})
+		public String googleLogin(@RequestParam(value = "code",required=false) String code,
+				@RequestParam(value = "state", required=false) String state, @RequestParam(value = "error_description", required=false) String error_description, 
+				HttpSession hs, HttpServletResponse response,HttpServletRequest request) throws Exception {
+			
+			System.out.println("code : " + code); // 인증코드 
+			System.out.println("state : " + state); // 상태 값  
+			
+			TUserVO param = new TUserVO(); // 유저 정보 
+			SNSLogin snsLogin = new SNSLogin(googleSns);
+			
+			// 유저 프로필 요청 
+			 snsLogin.getUserProfile(code);
+			
+			return "index"; 
+		}
 	
 	
 	@RequestMapping(value="/user/userSetting", method=RequestMethod.GET)

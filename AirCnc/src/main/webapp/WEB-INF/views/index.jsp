@@ -7,6 +7,7 @@
 <link rel="shortcut icon" href="/resources/img/pinklogo.ico">
 <meta charset="UTF-8">
 <meta name="viewport" content="target-densitydpi=device-dpi, user-scalable=0, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, width=device-width">
+<meta name="google-site-verification" content="qlRmii-hdsRvvH2XVYJbLAyNBXuYBKhh74Qw38nMqjY" />
 <link rel="stylesheet" href="/resources/css/index.css">
 <script src="https://kit.fontawesome.com/ea36f2192f.js" crossorigin="anonymous"></script>
 <!--달력 css & js https://www.daterangepicker.com/ 라이브러리  -->
@@ -37,11 +38,9 @@
                
                <div class="line">――――――――――――――― 또는 ―――――――――――――――</div>
                <div class="socialloginList">
-               		<div class="kakaologinCnt" onclick="loginKAKAO()">
-               			<i class="fas fa-comment fa-2x"></i> 
-               			<div class="joinText">카카오 로그인</div>
-               		</div>
-               		<a href="${naver_url}"><img height="50" width="100%"  src="/resources/img/btnG_완성형.png"/></a>
+               		<a href="/loginKAKAO"><img		src="/resources/img/kakao_login_medium_wide.png"></a>
+               		<a href="${naver_url}"><img		src="/resources/img/btnG_완성형.png"/></a>
+               		<%-- <a href="${google_url}"><img	src="/resources/img/btn_google_signin_light_normal_web@2x.png"/></a> --%>
                </div>
                
                <div class="joinFooter">
@@ -101,13 +100,11 @@
 					로그인
 				</div>
 				<div class="joinCore">
-					<div class="kakaologinCnt" onclick="loginKAKAO()">
-               			<i class="fas fa-comment fa-2x"></i> 
-               			<div class="loginText">카카오 로그인</div>
-               		</div>
-               		
-               		<a href="${naver_url}"><img height="50" width="100%"  src="/resources/img/btnG_완성형.png"/></a>
-               		
+					<div class="socialloginList">
+						<a href="/loginKAKAO"><img		src="/resources/img/kakao_login_medium_wide.png"></a>
+               			<a href="${naver_url}"><img		src="/resources/img/btnG_완성형.png"/></a>
+					</div>
+					
 					<div class="line">―――――――――――――――― 또는 ―――――――――――――――</div>
 					<div>
 						<div class="joinCtnt">
