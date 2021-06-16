@@ -28,22 +28,20 @@ public class IndexController {
 	private SnsValue naverSns;
 	
 	@Inject
-	private GoogleConnectionFactory googleConFac;
-	@Inject
-	private OAuth2Parameters googleOAuth2Params;
+	private SnsValue googleSns;
+
 	
 	@RequestMapping(value = "/", method=RequestMethod.GET)
 	public String index (@RequestParam(value="interceptor", defaultValue="true") Boolean interceptor, HttpServletResponse response
 			,Model model, HttpSession hs) {
 		// naver login url reseponse
 		SNSLogin snsLogin = new SNSLogin(naverSns);
-		model.addAttribute("naver_url", snsLogin.getNaverAuthURL());
+		model.addAttribute("naver_url", snsLogin.getAuthURL());
 		
 		/* 구글code 발행을 위한 URL 생성 */
-		OAuth2Operations oauthOperations = googleConFac.getOAuthOperations();
-		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Params);
-
-		model.addAttribute("google_url", url);
+		
+		snsLogin = new SNSLogin(googleSns);
+		model.addAttribute("google_url", snsLogin.getAuthURL());
 
 		
 		System.out.println("누군가 접속했습니다.");

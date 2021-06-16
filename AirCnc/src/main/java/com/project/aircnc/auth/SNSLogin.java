@@ -29,8 +29,8 @@ public class SNSLogin {
 				this.service	= sns.getService();
 	}
 
-
-	public String getNaverAuthURL( ) {
+	// 인증 코드 발급 url
+	public String getAuthURL( ) {
 		
 		return this.oathService.getAuthorizationUrl();
 	}
