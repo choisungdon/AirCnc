@@ -11,6 +11,7 @@ public class SnsValue implements SnsUrls{
 		private String redirectUrl;
 		private DefaultApi20 api20Instance;
 		private String profileURL;
+		private String apiKey;
 		
 		
 		public SnsValue(String service, String clientId, String clientSecret, String redirectUrl) {
@@ -22,12 +23,25 @@ public class SnsValue implements SnsUrls{
 			if(this.service.equalsIgnoreCase("naver")) {
 				this.api20Instance = NaverAPI20.getInstance();
 				this.profileURL = NAVER_PROFILE_URL;
+				this.apiKey		= "";
 			}else if(this.service.equalsIgnoreCase("google")) {
 				this.api20Instance = GoogleApi20.instance();
 				this.profileURL = GOOGLE_PROFILE_URL;
+				this.apiKey	= GOOGLE_API_KEY;
 			}
 			
 		}
+		
+		
+		public String getApiKey() {
+			return apiKey;
+		}
+
+
+		public void setApiKey(String apiKey) {
+			this.apiKey = apiKey;
+		}
+
 
 		public String getService() {
 			return service;
