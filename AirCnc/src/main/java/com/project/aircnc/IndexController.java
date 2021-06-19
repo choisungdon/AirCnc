@@ -42,7 +42,13 @@ public class IndexController {
 		
 		snsLogin = new SNSLogin(googleSns);
 		model.addAttribute("google_url", snsLogin.getAuthURL());
-
+		
+//		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+//		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+//
+//		model.addAttribute("google_url", url);
+		
+		
 		
 		System.out.println("누군가 접속했습니다.");
 		if(interceptor) { // 정상 접속

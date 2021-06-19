@@ -3,7 +3,6 @@ package com.project.aircnc.auth;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.scribejava.apis.GoogleApi20;
 import com.github.scribejava.core.builder.ServiceBuilder;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.github.scribejava.core.model.OAuthRequest;
@@ -29,11 +28,26 @@ public class SNSLogin {
 				this.profileURL = sns.getProfileURL();
 				this.service	= sns.getService();
 				this.apiKey		= sns.getApiKey();
+				
 	}
 
 	// 인증 코드 발급 url
 	public String getAuthURL( ) {
 		return this.oathService.getAuthorizationUrl();
+	}
+	
+	public GoogleUserVO getGooglePro(String code) throws Exception{
+		GoogleUserVO googleuUser = new GoogleUserVO();
+		// 인가 코드 가지고 토큰 요청 
+		OAuth2AccessToken accessToken = oathService.getAccessToken(code);
+		String apiQueryStr = String.format("&key=%s", this.apiKey);
+		OAuthRequest request = new OAuthRequest(Verb.GET, this.profileURL+apiQueryStr);
+		
+		GoogleRestTemplate grt = new GoogleRestTemplate(accessToken,request);
+		
+		grt.getBody();
+		
+		return googleuUser;
 	}
 	
 	// 받은 code로 유저 프로필 요청
@@ -42,29 +56,15 @@ public class SNSLogin {
 		OAuth2AccessToken accessToken = oathService.getAccessToken(code);
 		// 요청 방식 : GET  삽입 
 		// URL :  요청 URL 삽입 
-		// api key 삽입
-		String apiQueryStr = String.format("&key=%s", this.apiKey);
-		OAuthRequest request = null;
-		if(this.service.equalsIgnoreCase("google")) {
-			 request = new OAuthRequest(Verb.GET, this.profileURL+apiQueryStr);
-		}else {
-			 request = new OAuthRequest(Verb.GET, this.profileURL);
-		}
+		OAuthRequest request = new OAuthRequest(Verb.GET, this.profileURL);
 		
-		//System.out.println("profile 완성형 url : "+request.getUrl());
 		// 토큰 정보 및 요청 URL 삽입 
 		oathService.signRequest(accessToken, request);
 		// execute : 응답 (프로필 정보)
 		Response response = oathService.execute(request);
+		
 		// json (string) 리턴 
-		if(this.service.equalsIgnoreCase("naver")) {
-			return userParseJson(response.getBody());
-		}else if(this.service.equalsIgnoreCase("google")) {
-			System.out.println("google profile: "+response.getBody());
-			return null;
-		}else {
-			return null;
-		}
+		return userParseJson(response.getBody());
 		
 	}
 	

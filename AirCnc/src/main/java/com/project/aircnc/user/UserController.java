@@ -167,7 +167,7 @@ public class UserController {
 			SNSLogin snsLogin = new SNSLogin(googleSns);
 			
 			// 유저 프로필 요청 
-			 snsLogin.getUserProfile(code);
+			 snsLogin.getGooglePro(code);
 			
 			return "index"; 
 		}
