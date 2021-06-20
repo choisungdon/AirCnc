@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.project.aircnc.auth.GoogleRestTemplate;
 import com.project.aircnc.auth.NaverUserVO;
 import com.project.aircnc.auth.SNSLogin;
 import com.project.aircnc.auth.SnsValue;
@@ -158,16 +159,33 @@ public class UserController {
 		@RequestMapping(value="/googleLogin", method= {RequestMethod.GET,RequestMethod.POST})
 		public String googleLogin(@RequestParam(value = "code",required=false) String code,
 				@RequestParam(value = "state", required=false) String state, @RequestParam(value = "error_description", required=false) String error_description, 
+				@RequestParam(value = "error", required=false) String error, 
 				HttpSession hs, HttpServletResponse response,HttpServletRequest request) throws Exception {
 			
 			System.out.println("code : " + code); // 인증코드 
 			System.out.println("state : " + state); // 상태 값  
+			System.out.println("error : " + error); // 상태 값  
 			
-			TUserVO param = new TUserVO(); // 유저 정보 
-			SNSLogin snsLogin = new SNSLogin(googleSns);
+			if(code==null) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>alert('로그인 오류');</script>");
+	 			out.flush();
+			}else {
+				GoogleRestTemplate grt = new GoogleRestTemplate(googleSns);
+				
+				String result = service.loginNaver(grt.getGoogleProfile(code), hs);
+				// 로그인 성공 여부 확인  success: 성공 / 예외 : 실패 
+				if(!result.equals("success")) {
+					response.setContentType("text/html; charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>alert('"+result+"');</script>");
+		 			out.flush();
+				}
+			}
 			
-			// 유저 프로필 요청 
-			 snsLogin.getGooglePro(code);
+			
+			
 			
 			return "index"; 
 		}

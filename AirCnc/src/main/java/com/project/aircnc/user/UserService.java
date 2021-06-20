@@ -191,6 +191,8 @@ public class UserService {
 					state = "일반 회원은 일반 로그인으로 접속하세요.";
 				}else if(param.getLogintype().equals("naver")){
 					state = "네이버 회원은 네이버 로그인으로 접속하세요.";
+				}else if(param.getLogintype().equals("google")){
+					state = "구글 회원은 구글 로그인으로 접속하세요.";
 				}else {
 					param.setC_pw(null); // 비번 지우기
 					param.setSalt(null); // 암호화 코드 지우기 
@@ -232,6 +234,8 @@ public class UserService {
 					state = "일반 회원은 일반 로그인으로 접속하세요.";
 				}else if(param.getLogintype().equals("kakao")){
 					state = "카카오 회원은 카카오 로그인으로 접속하세요.";
+				}else if(param.getLogintype().equals("google")){
+					state = "구글 회원은 구글 로그인으로 접속하세요.";
 				}else {
 					param.setC_pw(null); // 비번 지우기
 					param.setSalt(null); // 암호화 코드 지우기 
@@ -260,6 +264,46 @@ public class UserService {
 		return state ;
 	}
 	
+	/*******************************google Login*************************************************/
+	public  String loginGoogle(TUserVO param , HttpSession hs) {
+		String state = "";
+//		System.out.println("mapper.checkEmail(param) : "+mapper.checkEmail(param));
+		 switch (mapper.checkEmail(param)) { // Email,ID 중복 확인 //  1: 중복  0: 중복 없음
+			case 1: // 
+				param = mapper.login(param); // 회원 정보 가져오기
+				if(param.getLogintype().equals("nomal")) {
+					state = "일반 회원은 일반 로그인으로 접속하세요.";
+				}else if(param.getLogintype().equals("kakao")){
+					state = "카카오 회원은 카카오 로그인으로 접속하세요.";
+				}else if(param.getLogintype().equals("naver")){
+					state = "네이버  회원은 네이버 로그인으로 접속하세요.";
+				}else {
+					param.setC_pw(null); // 비번 지우기
+					param.setSalt(null); // 암호화 코드 지우기 
+					hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
+					setProUrl(hs); // profileImg 경로 수정
+					state = "success"; //  로그인 성공 
+				}
+				break;
+
+			default:
+				int joinResult  = mapper.join(param); // 1 -> 회원 가입 성공  0 - >  // 회원가입 실패 db 오류 
+				
+				if(joinResult == 1) {
+					param = mapper.login(param); // 회원 정보 가져오기 
+					param.setC_pw(null); // 비번 지우기
+					param.setSalt(null); // 암호화 코드 지우기 
+					hs.setAttribute("loginUser",param); // 로그인 유저 정보 저장
+					setProUrl(hs); // profileImg 경로 수정
+					state = "success"; // 회원 가입 및 로그인 성공 
+				}else {
+					state = "DB 오류"; 
+				}
+				break;
+		 }
+		
+		return state ;
+	}
 	public String upUserPro(MultipartFile userPro,HttpSession hs) {
 		// 로그인 유저정보 
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");

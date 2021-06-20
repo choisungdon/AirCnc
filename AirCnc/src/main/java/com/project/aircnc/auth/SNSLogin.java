@@ -36,19 +36,7 @@ public class SNSLogin {
 		return this.oathService.getAuthorizationUrl();
 	}
 	
-	public GoogleUserVO getGooglePro(String code) throws Exception{
-		GoogleUserVO googleuUser = new GoogleUserVO();
-		// 인가 코드 가지고 토큰 요청 
-		OAuth2AccessToken accessToken = oathService.getAccessToken(code);
-		String apiQueryStr = String.format("&key=%s", this.apiKey);
-		OAuthRequest request = new OAuthRequest(Verb.GET, this.profileURL+apiQueryStr);
-		
-		GoogleRestTemplate grt = new GoogleRestTemplate(accessToken,request);
-		
-		grt.getBody();
-		
-		return googleuUser;
-	}
+	
 	
 	// 받은 code로 유저 프로필 요청
 	public NaverUserVO getUserProfile(String code) throws Exception {

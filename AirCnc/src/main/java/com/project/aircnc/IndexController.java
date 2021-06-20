@@ -8,16 +8,13 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.oauth2.GrantType;
-import org.springframework.social.oauth2.OAuth2Operations;
-import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.aircnc.auth.GoogleRestTemplate;
 import com.project.aircnc.auth.SNSLogin;
 import com.project.aircnc.auth.SnsValue;
 
@@ -40,8 +37,8 @@ public class IndexController {
 		
 		/* 구글code 발행을 위한 URL 생성 */
 		
-		snsLogin = new SNSLogin(googleSns);
-		model.addAttribute("google_url", snsLogin.getAuthURL());
+		GoogleRestTemplate google = new GoogleRestTemplate(googleSns);
+		model.addAttribute("google_url", google.getOauthURL());
 		
 //		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
 //		String url = oauthOperations.buildAuthorizeUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
