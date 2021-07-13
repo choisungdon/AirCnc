@@ -103,6 +103,7 @@
 					<div class="socialloginList">
 						<a href="/loginKAKAO"><img		src="/resources/img/kakao_login_medium_wide.png"></a>
                			<a href="${naver_url}"><img		src="/resources/img/btnG_완성형.png"/></a>
+               			<a href="${google_url}"><img	src="/resources/img/btn_google_signin_light_normal_web@2x.png"/></a>
 					</div>
 					
 					<div class="line">―――――――――――――――― 또는 ―――――――――――――――</div>

@@ -222,5 +222,14 @@ public class ReservationService {
 		return 1; // 변경 내용 있음 
 	}
 	
+	// 카카오 페이 준비 
+	public String redKakaoPay(ReservationVO param,HttpSession hs) {
+		String result = "";
+		
+		return result;
+	}
+
+	
+	
 	
 }

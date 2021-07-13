@@ -1,4 +1,71 @@
+function selMop(text_items,t){
+    /*
+        text_items          :   결제 수단 선택한 태그 
+        mop                 :   카드 결제 인지, 카카오 페이 인지 확인
+        i                   :   이모티콘
+        selector_text_drop  :   결제 수단 선택 박스 
+		t					:	선택 박스 option
+    */
+    mop = document.getElementById('mop');  
+    var selector_text_drop = document.querySelector('.selector_text_drop');
+    text_items.innerHTML = ''; 
 
+    if(t.innerHTML == '신용카드 또는 체크카드'){
+        var i = document.createElement("i"); // 
+        i.className = 'far fa-credit-card fa-lg';
+        text_items.append(i);
+        text_items.innerHTML += ' 신용카드 또는 체크카드';
+        mop.value = 0;
+        selector_text_drop.style.display = 'none';
+        //console.log('신용카드')
+    }else{ 
+        var i = document.createElement("i");
+        i.className = 'far fa-comment fa-lg';
+        text_items.append(i);
+        text_items.innerHTML += ' pay';
+        mop.value = 1;
+        selector_text_drop.style.display = 'none';
+		
+		
+		var i_host 		= document.getElementById('i_host').value; // 숙소 번호 
+		var qty			= document.getElementById('qty').value; // 인원
+		var chin		= document.getElementById('chin').value; // 입실 날짜
+		var chout		= document.getElementById('chout').value; // 퇴실 날짜 
+		var total_fee 	= document.getElementById('total_fee').value; // 총금액 
+		var ms_title	= document.getElementById('ms_title').value; // 톡방 이름
+		var cmt			= document.getElementById('cmt').value;// 톡 내용
+		
+		
+        
+		axios.post('/reservation/redKakaoPay', {
+			i_host		: i_host,
+		 	qty			: qty,
+		 	chin		: chin,
+			chout		: chout,
+		 	total_fee 	: total_fee,
+		 	ms_title	: ms_title,
+		 	cmt			: cmt
+		    
+		  })
+		  .then(function (res) {
+		    console.log(res.data.result);
+		  })
+		  .catch(function (error) {
+		    console.log(error);
+		  });
+        //console.log('카카오 페이 ')
+    }
+}
+// 결제 수단 선택 박스 
+function drop_mop(){
+    var selector_text_drop = document.querySelector('.selector_text_drop');
+
+    if(selector_text_drop.style.display != 'flex'){
+        selector_text_drop.style.display= 'flex';
+    }else{
+        selector_text_drop.style.display = 'none';
+    }
+}
 // 추가 규칙 보기 숨기기
 function dropText(){
     var care_button = document.querySelector('.care_button');
@@ -154,7 +221,7 @@ function goComfirm(){
     var cardnum             = document.querySelector('.cardnum');
     var card_info_main      = document.querySelector('.card_info_main');
     var addr_info_main      = document.querySelector('.addr_info_main');
-
+	var mop 				= document.getElementById('mop').value; // 결제 수단 
     var nmArr       =  nm.childNodes;
     var cardnumArr  =  cardnum.childNodes;
     var cardInfoArr =  card_info_main.childNodes;
@@ -174,7 +241,9 @@ function goComfirm(){
         erro2.innerHTML = '우편번호를 확인하세요.';
     }else if(addrInfoArr[3].value == ''){ // 국가 오류 
         erro2.innerHTML = '국가를 확인하세요.';
-    }
+    }else if(mop != 0){
+		erro2.innerHTML = '결재 수단을 바꾸세요.';
+	}
     
     return deleteErro();
 
@@ -199,7 +268,7 @@ function deleteErro(){
     var cardnum             = document.querySelector('.cardnum'); // 카드 번호 태그
     var card_info_main      = document.querySelector('.card_info_main'); //만료일/cvv 태그
     var addr_info_main      = document.querySelector('.addr_info_main'); // 우편 번호 태그
-
+	var mop 				= document.getElementById('mop').value; // 결제 수단 
     var nmArr       =  nm.childNodes;
     var cardnumArr  =  cardnum.childNodes;
     var cardInfoArr =  card_info_main.childNodes;
@@ -228,6 +297,13 @@ function deleteErro(){
         erro2.innerHTML = '';  
         retval = 1;
     }
+
+	if(mop == 0){
+		erro2.innerHTML = '';
+		retval = 1;
+	}else{
+		return 0;
+	}
 
     return retval;
     

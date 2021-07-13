@@ -234,7 +234,7 @@
                         </div>
 
                         <div class="userMsgText">
-                        	<input type="hidden" name="ms_title" value="${data.room_title}(${loginUser.nm})"> 
+                        	<input type="hidden" id="ms_title" name="ms_title" value="${data.room_title}(${loginUser.nm})"> 
                             <div>
                                 <textarea name="cmt" id="cmt" placeholder="${data.nm}님, 안녕하세요! 숙소에서 보낼 멋진 6박이 기다려집니다!"></textarea>
                             </div>
@@ -267,9 +267,21 @@
                                 <i class="fab fa-cc-mastercard fa-lg"></i>
                             </span>
                         </div>
-                        <div class="selector_text">
-                            <span><i class="far fa-credit-card fa-lg"></i></span>
-                            <span>신용카드 또는 체크카드</span>
+                         <div class="selector_text" onclick="drop_mop()">
+                            <span class="text_items" ><i class="far fa-credit-card fa-lg"></i> 신용카드 또는 체크카드</span>
+                            <i class="fas fa-chevron-down"></i>
+                            <!-- 
+                                value : 0 -> 신용카드 결제
+                                value : 1 ->  카카오페이 
+                            -->
+                            <input type="hidden" id="mop" value="0">
+                        </div>
+
+                        <div class="selector_text_drop" >
+                            <div class="mop_selector">
+                                <div class="mop_item" onclick="selMop(document.querySelector('.text_items'),this)">신용카드 또는 체크카드</div>
+                                <div class="mop_item" onclick="selMop(document.querySelector('.text_items'),this)">카카오 페이</div>
+                            </div>
                         </div>
                 </div>
 
@@ -281,7 +293,7 @@
                                     <span>
                                         <div class="nm_title">이름</div>
                                         <div class="nm">
-                                            <input type="text" name="card_user_nm" value="${loginUser.nm}" placeholder="이름(홍길동)">
+                                            <input type="text" id= "card_user_nm" name="card_user_nm" value="${loginUser.nm}" placeholder="이름(홍길동)">
                                         </div>
                                     </span>
                                 </div>

@@ -104,4 +104,35 @@ public class ReservationController {
 		return map;
 	}
 	
+	// 카카오 페이 결제 준비  
+	@RequestMapping(value="/redKakaoPay", method=RequestMethod.POST)
+	public @ResponseBody Map<String, Object> redKakaoPay (@RequestBody ReservationVO param, Model model, HttpSession hs){
+		
+		//System.out.println("test : "+param.toString());
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("result", service.redKakaoPay(param,hs));
+		
+		return map;
+	}
+	
+	// 카카오 페이 결제 성공 
+	@RequestMapping(value="/kakaoApproval", method=RequestMethod.GET)
+	public void kakaoApprova (ReservationVO param, Model model, HttpSession hs){
+		
+		
+	}
+	// 카카오 페이 결제 취소
+	@RequestMapping(value="/kakaoCancel", method=RequestMethod.GET)
+	public void kakaoCancel (ReservationVO param, Model model, HttpSession hs){
+		
+		
+	}
+	// 카카오 페이 결제 실패 
+	@RequestMapping(value="/kakaoFail", method=RequestMethod.GET)
+	public void kakaoFail (ReservationVO param, Model model, HttpSession hs){
+		
+		
+	}
+	
 }
