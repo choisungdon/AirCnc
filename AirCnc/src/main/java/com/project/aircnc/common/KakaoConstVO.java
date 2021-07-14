@@ -10,5 +10,6 @@ public class KakaoConstVO {
 	public static final String KAKAO_APPROVAL_URL		= "http://www.aircnc.co.kr:8090/reservation/kakaoApproval"; // 카카오 페이 성공 Redirect URL
 	public static final String KAKAO_CANCEL_URL			= "http://www.aircnc.co.kr:8090/reservation/kakaoCancel";	// 카카오 페이 취소 Redirect URL
 	public static final String KAKAO_FAIL_URL			= "http://www.aircnc.co.kr:8090/reservation/kakaoFail";		// 카카오 페이 실패 Redirect URL
+	public static final String KAKAO_PAYMENT_READY		= "https://kapi.kakao.com/v1/payment/ready";
 			
 }

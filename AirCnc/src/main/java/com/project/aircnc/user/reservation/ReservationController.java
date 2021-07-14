@@ -14,6 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.aircnc.common.KakaoPayMentReady;
+import com.project.aircnc.common.KakaoUserInfo;
 import com.project.aircnc.common.ReservationVO;
 import com.project.aircnc.common.RsvChangeVO;
 import com.project.aircnc.common.SearchVO;
@@ -111,9 +117,13 @@ public class ReservationController {
 		//System.out.println("test : "+param.toString());
 		Map<String, Object> map = new HashMap<String, Object>();
 		
+		//String kkPayMentURL = String.format("redirect:%s", service.redKakaoPay(param,hs));
+		
 		map.put("result", service.redKakaoPay(param,hs));
 		
+		
 		return map;
+		//return kkPayMentURL;
 	}
 	
 	// 카카오 페이 결제 성공 

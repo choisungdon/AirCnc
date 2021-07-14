@@ -1,15 +1,32 @@
 package com.project.aircnc.user.reservation;
 
+import java.nio.charset.Charset;
 import java.text.ParseException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.aircnc.common.AircncMsg;
 import com.project.aircnc.common.AircncMsglist;
+import com.project.aircnc.common.KakaoConstVO;
+import com.project.aircnc.common.KakaoPayMentReady;
+import com.project.aircnc.common.KakaoUserInfo;
 import com.project.aircnc.common.MsgRoomVO;
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.ReservationVO;
@@ -223,10 +240,62 @@ public class ReservationService {
 	}
 	
 	// 카카오 페이 준비 
-	public String redKakaoPay(ReservationVO param,HttpSession hs) {
-		String result = "";
+	public KakaoPayMentReady redKakaoPay(ReservationVO param,HttpSession hs) {
 		
-		return result;
+		// ----------------- 사용자 토큰 받기 -----------------[start]
+		HttpHeaders headers = new HttpHeaders();
+		
+		Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기(인코딩 유형)
+		//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
+		MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
+		headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
+//				List<MediaType> lst = Arrays.asList(mediaType);
+//				System.out.println(lst);
+		
+		// url 인코딩(암호화)	
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		headers.set("Authorization", "KakaoAK " +KakaoConstVO.KAKAO_APP_ADMIN_KEY);
+		//내용 유형 헤더에 지정된 대로 본문의 미디어 유형을 설정합니다.
+		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>(); // parameter 데이터 추가할때 쓰는 변수
+		//parameter
+		map.add("cid", "TC0ONETIME");  // cid는 가맹점 승인을 받아야 쓸수 있습니다. 
+		map.add("partner_order_id", "partner_order_id");
+		map.add("partner_user_id", "partner_user_id");
+		map.add("item_name", Integer.toString(param.getI_host())); // 제품이름
+		map.add("quantity", Integer.toString(param.getQty()));// 상품 수량
+		map.add("total_amount", Integer.toString(param.getTotal_fee())); // 결재 금액
+		map.add("tax_free_amount", "0"); // 비과새
+		map.add("approval_url", KakaoConstVO.KAKAO_APPROVAL_URL); // 성공 url
+		map.add("fail_url", KakaoConstVO.KAKAO_CANCEL_URL); // 취소 url
+		map.add("cancel_url", KakaoConstVO.KAKAO_FAIL_URL); // 실패 url
+		
+				
+		HttpEntity<LinkedMultiValueMap<String, String>> entity = new HttpEntity(map,headers); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> respEntity = restTemplate.exchange(KakaoConstVO.KAKAO_PAYMENT_READY, HttpMethod.POST, entity, String.class);
+		//		KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST : 요청 URL 
+		//		HttpMethod.POST : 요청 방식 post		 
+		//		entity : 헤더정보 및 파라미터 정보 
+		
+		String result = respEntity.getBody(); // 응답 데이터 받기(JSON)
+		//System.out.println("result : "+result);
+		
+		ObjectMapper om = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		KakaoPayMentReady kpmr = null;
+		try {
+			kpmr = om.readValue(result, KakaoPayMentReady.class);
+			
+			System.out.println("result :"+kpmr.toString());
+			
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return kpmr;
 	}
 
 	

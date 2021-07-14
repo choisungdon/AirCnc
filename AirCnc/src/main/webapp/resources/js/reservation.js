@@ -49,6 +49,8 @@ function selMop(text_items,t){
 		  })
 		  .then(function (res) {
 		    console.log(res.data.result);
+ 			var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+			window.open(res.data.result.next_redirect_pc_url, '카카오 페이', options);
 		  })
 		  .catch(function (error) {
 		    console.log(error);
