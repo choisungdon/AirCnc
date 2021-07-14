@@ -121,28 +121,18 @@ public class ReservationController {
 		
 		map.put("result", service.redKakaoPay(param,hs));
 		
-		
 		return map;
 		//return kkPayMentURL;
 	}
 	
 	// 카카오 페이 결제 성공 
 	@RequestMapping(value="/kakaoApproval", method=RequestMethod.GET)
-	public void kakaoApprova (ReservationVO param, Model model, HttpSession hs){
+	public String kakaoApprove (@RequestParam("pg_token") String pg_token , Model model, HttpSession hs){
 		
-		
-	}
-	// 카카오 페이 결제 취소
-	@RequestMapping(value="/kakaoCancel", method=RequestMethod.GET)
-	public void kakaoCancel (ReservationVO param, Model model, HttpSession hs){
-		
+		model.addAttribute("data",service.kakaoApprove(pg_token,hs));
+		return "/message/message";
 		
 	}
-	// 카카오 페이 결제 실패 
-	@RequestMapping(value="/kakaoFail", method=RequestMethod.GET)
-	public void kakaoFail (ReservationVO param, Model model, HttpSession hs){
-		
-		
-	}
+	
 	
 }

@@ -2,6 +2,7 @@ package com.project.aircnc.user.reservation;
 
 import java.nio.charset.Charset;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,16 +18,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.aircnc.common.AircncMsg;
 import com.project.aircnc.common.AircncMsglist;
+import com.project.aircnc.common.KakaoApproveVO;
 import com.project.aircnc.common.KakaoConstVO;
 import com.project.aircnc.common.KakaoPayMentReady;
-import com.project.aircnc.common.KakaoUserInfo;
 import com.project.aircnc.common.MsgRoomVO;
 import com.project.aircnc.common.MyUtils;
 import com.project.aircnc.common.ReservationVO;
@@ -88,6 +88,8 @@ public class ReservationService {
 		msListVO.setI_reser(param.getI_reser()); // 예약 번호 pk
 		msListVO.setI_host(param.getI_host()); // 예약 숙소 pk
 		msListVO.setMs_title(param.getMs_title());// 톡방 제목 
+		
+		System.out.println(msListVO.toString());
 		
 		//System.out.println("i_user : "+msListVO.getI_user());
 		result = mapper.inserMsglist(msListVO); // insert  
@@ -242,7 +244,7 @@ public class ReservationService {
 	// 카카오 페이 준비 
 	public KakaoPayMentReady redKakaoPay(ReservationVO param,HttpSession hs) {
 		
-		// ----------------- 사용자 토큰 받기 -----------------[start]
+		// ----------------- 페이 고유 tid 받기 -----------------[start]
 		HttpHeaders headers = new HttpHeaders();
 		
 		Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기(인코딩 유형)
@@ -285,7 +287,7 @@ public class ReservationService {
 		try {
 			kpmr = om.readValue(result, KakaoPayMentReady.class);
 			
-			System.out.println("result :"+kpmr.toString());
+			//System.out.println("result :"+kpmr.toString());
 			
 		} catch (JsonMappingException e) {
 			// TODO Auto-generated catch block
@@ -294,8 +296,73 @@ public class ReservationService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		KakaoApproveVO kaVO = new KakaoApproveVO();
+		kaVO.setRv(param); // 예약 숙소 정보
+		kaVO.setKpmr(kpmr); // 결제 고유 번호 (tid & redirect urls) 
+		
+		hs.setAttribute("KakaoApproveVO",kaVO); // 세션에 저장 
 				
 		return kpmr;
+	}
+	
+	// 카카오 페이 결제 성공 
+	public  List<MsgRoomVO> kakaoApprove(String pg_token,HttpSession hs) {
+		/*
+		 hs : sesstion
+		 result : 결과 값
+		 pg_token : 결재 토큰 
+		 kaVO // 예약 숙소 정보 
+		 */
+		String result = "";
+		KakaoApproveVO kaVO = (KakaoApproveVO) hs.getAttribute("KakaoApproveVO");
+		kaVO.setPg_token(pg_token); 
+		//----------------------------------------------------------
+		HttpHeaders headers = new HttpHeaders();
+		
+		Charset utf8 = Charset.forName("UTF-8"); // meta 정보 주기(인코딩 유형)
+		//요청을 JSON TYPE의 데이터만 담고있는 요청을 처리하겠다는 의미가 된다.
+		MediaType mediaType = new MediaType(MediaType.APPLICATION_JSON, utf8);		
+		headers.setAccept(Arrays.asList(mediaType)); // 미디어 유형 지정
+//				List<MediaType> lst = Arrays.asList(mediaType);
+//				System.out.println(lst);
+		
+		// url 인코딩(암호화)	
+		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+		headers.set("Authorization", "KakaoAK "+KakaoConstVO.KAKAO_APP_ADMIN_KEY);
+		//내용 유형 헤더에 지정된 대로 본문의 미디어 유형을 설정합니다.
+		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>(); // parameter 데이터 추가할때 쓰는 변수
+		//parameter
+		map.add("cid", "TC0ONETIME"); 
+		map.add("tid", kaVO.getKpmr().getTid()); 
+		map.add("partner_order_id", "partner_order_id"); 
+		map.add("partner_user_id", "partner_user_id"); 
+		map.add("pg_token", kaVO.getPg_token()); 
+		
+		HttpEntity<LinkedMultiValueMap<String, String>> entity = new HttpEntity(map,headers); // Entity 계체	 ->> map: 파라미터(보내줄 데이터) headers: 헤더 설정 정보
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> respEntity = restTemplate.exchange(KakaoConstVO.KAKAO_PAYMENT_APPROVE, HttpMethod.POST, entity, String.class);
+		//		KakaoConstVO.KAKAO_ACCESS_TOKEN_HOST : 요청 URL 
+		//		HttpMethod.POST : 요청 방식 post		 
+		//		entity : 헤더정보 및 파라미터 정보 
+		
+		result = respEntity.getBody();
+		
+		System.out.println("test result : "+result);
+		
+		List<MsgRoomVO> list = new ArrayList<MsgRoomVO>();
+		ReservationVO vo = kaVO.getRv();
+		vo.setCard_num("9436465158495031");
+		vo.setCard_user_nm("카카오");
+		vo.setCountry("korea");
+		vo.setCvv("123");
+		vo.setYm("05/15");
+		
+		//System.out.println("vo : "+vo.toString());
+		
+		list = inserRSV(vo, hs);
+		
+		return list;
 	}
 
 	

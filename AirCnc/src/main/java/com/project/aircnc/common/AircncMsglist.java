@@ -55,6 +55,16 @@ public class AircncMsglist {
 	public void setM_dt(String m_dt) {
 		this.m_dt = m_dt;
 	}
+	@Override
+	public String toString() {
+		return "AircncMsglist [i_mlist=" + i_mlist + ", i_user=" + i_user + ", i_reser=" + i_reser + ", i_host="
+				+ i_host + ", ms_title=" + ms_title + ", r_dt=" + r_dt + ", m_dt=" + m_dt + ", getI_user()="
+				+ getI_user() + ", getI_mlist()=" + getI_mlist() + ", getI_reser()=" + getI_reser() + ", getI_host()="
+				+ getI_host() + ", getMs_title()=" + getMs_title() + ", getR_dt()=" + getR_dt() + ", getM_dt()="
+				+ getM_dt() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+	
 	
 	
 }
