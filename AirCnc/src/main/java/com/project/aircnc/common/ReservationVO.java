@@ -6,8 +6,8 @@ import org.apache.ibatis.type.Alias;
 public class ReservationVO {
 	private int 	i_reser; // 예약 번호 
 	private int		i_host;
-	private int 	i_user;
-	private int		op_i_user;
+	private int 	i_user; // 현재 로그인한 유저  i_user(pk)
+	private int		op_i_user; // 상대방 i_user(톡방 만들때 씁니다.{pk})
 	private String  chin;
 	private String  chout;
 	private int 	qty; //명수 
@@ -128,13 +128,15 @@ public class ReservationVO {
 	public void setCmt(String cmt) {
 		this.cmt = cmt;
 	}
-	
-	public String toString(){
-		return "i_host : "+this.getI_host()+" chin : "+this.getChin()+" chout :"+this.getChout()+
-				" qty : "+this.getQty()+" total_fee : "+this.getTotal_fee()+" date : "+this.getDate()+
-				" card_user_nm : "+this.getCard_user_nm()+" card_num : "+this.getCard_num()+" ym : "+this.getYm()+
-				" cvv : "+this.getCvv()+" country : "+this.getCountry()+" zip_code : "+this.getZip_code()
-				+" cmt : "+this.getCmt();
+	@Override
+	public String toString() {
+		return "ReservationVO [i_reser=" + i_reser + ", i_host=" + i_host + ", i_user=" + i_user + ", op_i_user="
+				+ op_i_user + ", chin=" + chin + ", chout=" + chout + ", qty=" + qty + ", total_fee=" + total_fee
+				+ ", date=" + date + ", ms_title=" + ms_title + ", cmt=" + cmt + ", card_user_nm=" + card_user_nm
+				+ ", card_num=" + card_num + ", ym=" + ym + ", cvv=" + cvv + ", country=" + country + ", zip_code="
+				+ zip_code + "]";
 	}
+	
+	
 	
 }

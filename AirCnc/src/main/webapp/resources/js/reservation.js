@@ -34,7 +34,7 @@ function selMop(text_items,t){
 		var total_fee 	= document.getElementById('total_fee').value; // 총금액 
 		var ms_title	= document.getElementById('ms_title').value; // 톡방 이름
 		var cmt			= document.getElementById('cmt').value;// 톡 내용
-		
+		var op_i_user	= document.getElementById('op_i_user').value; // 
 		
         
 		axios.post('/reservation/redKakaoPay', {
@@ -44,7 +44,8 @@ function selMop(text_items,t){
 			chout		: chout,
 		 	total_fee 	: total_fee,
 		 	ms_title	: ms_title,
-		 	cmt			: cmt
+		 	cmt			: cmt,
+			op_i_user	: op_i_user
 		    
 		  })
 		  .then(function (res) {

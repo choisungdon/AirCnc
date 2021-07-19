@@ -1,6 +1,7 @@
 package com.project.aircnc.user.reservation;
 
 import java.nio.charset.Charset;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -70,12 +72,14 @@ public class ReservationService {
 	}
 	
 	// 예약 (메시지 방 생성및 메시지 추가 )
+	@Transactional
 	public List<MsgRoomVO> inserRSV(ReservationVO param,HttpSession hs){
 		// loginUser 정보 
 		TUserVO loginUser = (TUserVO)hs.getAttribute("loginUser");
 		param.setI_user(loginUser.getI_user());
 		
 		int result = 0;
+		// 예약 등록 
 		result = mapper.inserRSV(param);
 		
 		// 해당 숙소 인원 상태 변경(명수) 
@@ -84,12 +88,13 @@ public class ReservationService {
 		
 		// 메시지 방 생성 
 		 // 숙소 주인과 함께 톡방 만들기 
+		System.out.println("insert reservation param : "+param);
 		AircncMsglist msListVO = new AircncMsglist();
 		msListVO.setI_reser(param.getI_reser()); // 예약 번호 pk
 		msListVO.setI_host(param.getI_host()); // 예약 숙소 pk
 		msListVO.setMs_title(param.getMs_title());// 톡방 제목 
 		
-		System.out.println(msListVO.toString());
+		//System.out.println(msListVO.toString());
 		
 		//System.out.println("i_user : "+msListVO.getI_user());
 		result = mapper.inserMsglist(msListVO); // insert  
@@ -209,9 +214,9 @@ public class ReservationService {
 		param.setDate(date);
 		param.setQty(qty);
 		
-		int inout = mapper.existInOut(param); // 해당 날짜 예약 가능 여부
-		int inoutDate = mapper.existInOutDate(param); // 숙박 일 가능여부
-		int Rvation = mapper.existRvation(param); // 인원 가능여부 
+		int inout 		= mapper.existInOut(param); // 해당 날짜 예약 가능 여부
+		int inoutDate 	= mapper.existInOutDate(param); // 숙박 일 가능여부
+		int Rvation 	= mapper.existRvation(param); // 인원 가능여부 
 		
 		if(inout != 1) {
 			return "해당 날짜에 숙박이 불가 합니다.";
@@ -307,7 +312,8 @@ public class ReservationService {
 	}
 	
 	// 카카오 페이 결제 성공 
-	public  List<MsgRoomVO> kakaoApprove(String pg_token,HttpSession hs) {
+	@Transactional
+	public  String  kakaoApprove(String pg_token,HttpSession hs){
 		/*
 		 hs : sesstion
 		 result : 결과 값
@@ -348,8 +354,14 @@ public class ReservationService {
 		
 		result = respEntity.getBody();
 		
-		System.out.println("test result : "+result);
+		int responseValue = respEntity.getStatusCodeValue();
 		
+		if(responseValue == 400) {
+			return "fail";
+		}
+		
+		//System.out.println("test result : "+result);
+		// 성공시 숙소 예약 실행 
 		List<MsgRoomVO> list = new ArrayList<MsgRoomVO>();
 		ReservationVO vo = kaVO.getRv();
 		vo.setCard_num("9436465158495031");
@@ -358,11 +370,11 @@ public class ReservationService {
 		vo.setCvv("123");
 		vo.setYm("05/15");
 		
-		//System.out.println("vo : "+vo.toString());
+		System.out.println("vo : "+vo.toString());
 		
 		list = inserRSV(vo, hs);
 		
-		return list;
+		return "ok";
 	}
 
 	

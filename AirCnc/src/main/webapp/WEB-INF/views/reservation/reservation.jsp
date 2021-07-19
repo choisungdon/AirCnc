@@ -407,12 +407,12 @@
                             </div>
                         </div>
                         <div class="solid" ></div>
-                        <input type="hidden" name="i_host" 		id="i_host" 	value="${sData.i_host}">
-                        <input type="hidden" name="chin"		id="chin" 		value="${sData.chin}">
-                        <input type="hidden" name="chout"		id="chout" 		value="${sData.chout}">
-                        <input type="hidden" name="total_fee"	id="total_fee"	value="${data.fee*sData.date*sData.qty}">
-                        <input type="hidden" name="op_i_user"	value="${data.i_user}">
-                        <input type="hidden" name="date" 		id="date"  		value="${sData.date}">
+                        <input type="hidden" name="i_host" 		id="i_host" 		value="${sData.i_host}">
+                        <input type="hidden" name="chin"		id="chin" 			value="${sData.chin}">
+                        <input type="hidden" name="chout"		id="chout" 			value="${sData.chout}">
+                        <input type="hidden" name="total_fee"	id="total_fee"		value="${data.fee*sData.date*sData.qty}">
+                        <input type="hidden" name="op_i_user"	id = "op_i_user" 	value="${data.i_user}">
+                        <input type="hidden" name="date" 		id="date"  			value="${sData.date}">
                         <input type="hidden" id="fee" 			value="${data.fee}">
                         
                         

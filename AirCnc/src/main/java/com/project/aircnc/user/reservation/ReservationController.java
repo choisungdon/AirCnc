@@ -1,8 +1,12 @@
 package com.project.aircnc.user.reservation;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,10 +131,45 @@ public class ReservationController {
 	
 	// 카카오 페이 결제 성공 
 	@RequestMapping(value="/kakaoApproval", method=RequestMethod.GET)
-	public String kakaoApprove (@RequestParam("pg_token") String pg_token , Model model, HttpSession hs){
+	public void kakaoApprove (@RequestParam("pg_token") String pg_token , Model model, HttpSession hs,HttpServletResponse response){
+		/*
+		 *  result 		:  ok,fail (결제 성공, 실패 여부)
+		 *  response 	:  js 코드 실행용
+		 */
+		String result = service.kakaoApprove(pg_token,hs);
 		
-		model.addAttribute("data",service.kakaoApprove(pg_token,hs));
-		return "/message/message";
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		
+		if(result.equals("ok")) {
+			
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('결제 성공');"
+						+ "opener.parent.location='/message/message';"
+						+"	window.close(); "
+						+ "</script>");
+		        out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}else {
+			try {
+				out = response.getWriter();
+				out.println("<script>alert('결제 실패');"
+						+"	window.close(); "
+						+ "</script>");
+		        out.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
 		
 	}
 	
