@@ -35,6 +35,8 @@ public class IndexController {
 		SNSLogin snsLogin = new SNSLogin(naverSns);
 		model.addAttribute("naver_url", snsLogin.getAuthURL());
 		
+		//System.out.println(snsLogin.getAuthURL());
+		
 		/* 구글code 발행을 위한 URL 생성 */
 		
 		GoogleRestTemplate google = new GoogleRestTemplate(googleSns);

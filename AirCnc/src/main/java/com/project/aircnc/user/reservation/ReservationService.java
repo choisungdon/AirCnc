@@ -377,7 +377,4 @@ public class ReservationService {
 		return "ok";
 	}
 
-	
-	
-	
 }
